@@ -15,15 +15,16 @@ class CoursesTableSeeder extends Seeder
     {
         $courses = [
             ['course_name' => 'Bachelor of Science in Information Technology', 'campus_id' => 9],
-            ['course_name' => 'Bachelor of Secondary Education major in Science,Filipino', 'campus_id' => 9],
+            ['course_name' => 'Bachelor of Science in Mathematics', 'campus_id' => 9],
+            ['course_name' => 'Bachelor of Secondary Education major in Filipino', 'campus_id' => 9],
+            ['course_name' => 'Bachelor of Secondary Education major in Science', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Arts in English Language', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Early Childhood Education', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Science in Architecture', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Science in Civil Engineering', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Science in Computer Engineering', 'campus_id' => 9],
             ['course_name' => 'Bachelor of Science in Mechanical Engineering', 'campus_id' => 9],
-            ['course_name' => 'Bachelor of Science in Electrical Engineering', 'campus_id' => 9],
-            ['course_name' => 'Bachelor of Science in Mathematics', 'campus_id' => 9]
+            ['course_name' => 'Bachelor of Science in Electrical Engineering', 'campus_id' => 9]
         ];
     
         foreach ($courses as $course) {

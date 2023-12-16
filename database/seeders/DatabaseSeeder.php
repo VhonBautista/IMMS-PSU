@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
             CampusesTableSeeder::class,
             CoursesTableSeeder::class,
             CollegesTableSeeder::class,
-            // CourseCollegesTableSeeder::class,
+            CourseCollegesTableSeeder::class,
             DepartmentsTableSeeder::class,
             RolesTableSeeder::class,
             UniversityRolesTableSeeder::class,

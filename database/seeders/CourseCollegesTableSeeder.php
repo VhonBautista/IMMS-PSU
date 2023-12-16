@@ -21,8 +21,10 @@ class CourseCollegesTableSeeder extends Seeder
             ['college_id' => 2, 'course_id' => 5],
             ['college_id' => 2, 'course_id' => 6],
             ['college_id' => 3, 'course_id' => 7],
-            ['college_id' => 4, 'course_id' => 8],
-            ['college_id' => 4, 'course_id' => 9],
+            ['college_id' => 3, 'course_id' => 8],
+            ['college_id' => 3, 'course_id' => 9],
+            ['college_id' => 3, 'course_id' => 10],
+            ['college_id' => 3, 'course_id' => 11],
         ];
     
         foreach ($course_colleges as $course_college) {
