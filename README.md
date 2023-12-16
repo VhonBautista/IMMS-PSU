@@ -15,7 +15,8 @@
    git clone https://github.com/your-username/imms-psu.git
 
 2. **Create a Database:**
-   * Open your preferred database management tool.
+   * Open your xampp.
+   * Open your phpmyadmin.
    * Create a new database named **imms_psu**.
 
 3. **Install PHP Dependencies:**
@@ -28,11 +29,11 @@
 
 5. **Compile Assets:**
    ```bash
-   php artisan migrate
+   npm run dev
 
 6. **Run Migrations:**
    ```bash
-   composer install
+   php artisan migrate
    
 7. **Seed the Database:**
    ```bash
