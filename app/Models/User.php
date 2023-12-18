@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function universityRole()
     {
-        return $this->belongsTo(UniversityRole::class);
+        return $this->belongsTo(UniversityRole::class, 'univ_role_id');
     }
 }

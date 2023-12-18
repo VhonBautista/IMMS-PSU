@@ -5,32 +5,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ __('PSU IMMS') }}</title>
 
-        <!-- Fonts -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        @yield('top-scripts')
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            @if (Auth::user()->role_id == 1)
+                <!-- Admin user -->
+                @include('layouts.sidebar')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+                <div class="flex flex-col min-h-screen sm:ml-72">
+                    <div class="flex-grow p-4">
+                        <div class="pt-2 rounded-lg mt-12">
+                            @if (isset($header))
+                                <header class="py-5 px-4 mb-5 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                                    <div class="max-w-xl">
+                                        {{ $header }}
+                                    </div>
+                                </header>
+                            @endif
+                            {{ $slot }}
+                        </div>
                     </div>
-                </header>
-            @endif
+                    
+                    <footer class="bg-gray-800 text-white text-center">
+                        @include('layouts.footer')
+                    </footer>
+                </div>
+            @else
+                <!-- Normal user -->
+                @include('layouts.navigation')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <div class="flex flex-col min-h-screen">
+                    <div class="flex-grow p-4">
+                        <div class=" sm:px-12 lg:px-8">
+                            {{ $slot }}
+                        </div>
+                    </div>
+                    
+                    <footer class="bg-gray-800 text-white text-center">
+                        @include('layouts.footer')
+                    </footer>
+                </div>
+            @endif
         </div>
+        
+        {{-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> --}}
+        <script src="{{ asset('js/jquery.js')}}"></script>
+        <script src="{{ asset('js/mark_read.js')}}"></script>
+        @yield('scripts')
     </body>
 </html>
