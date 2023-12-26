@@ -141,7 +141,7 @@
                 </button>
                 <ul id="dropdown-university" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ __('Courses') }}</a>
+                        <a href="{{route('admin.course_management')}}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ __('Courses') }}</a>
                     </li>
                     <li>
                         <a href="" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
