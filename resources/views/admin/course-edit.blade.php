@@ -1,42 +1,100 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Course') }}
-        </h2>
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li>
+                    <div class="flex items-center">
+                    <a href="{{ route('admin.dashboard') }}" class="text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Dashboard') }}</a></a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                    <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <a href="{{ route('admin.course_management') }}" class="ml-1 text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Course Management') }}</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                    <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Edit') }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
     </x-slot>
 
-    <div class="bg-white p-4 rounded-lg">
-        <form action="{{ route('admin.course-management.update', $course->id) }}" method="POST">
+    {{-- Alert --}}
+    @if (session('success'))
+        <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-100 border border-2 border-green-500 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium">
+                {{ session('success') }}
+            </div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
+    @endif
+    {{-- Alert End --}}
+
+    <div class="p-8 bg-white rounded-lg mt-6">
+        <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
+            {{ __('Course Information') }}
+        </h1>
+
+        <form action="{{ route('admin.course-management.update') }}" method="POST" class="space-y-6"> 
             @csrf
-            @method('PUT')
+            @method('PATCH')
 
-            <div class="mb-4">
-                <label for="course_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Course Name</label>
-                <input type="text" id="course_name" name="course_name" value="{{ old('course_name', $course->course_name) }}" class="mt-1 p-2 w-full border rounded-md dark:bg-gray-800 dark:border-gray-700">
+            <input type="hidden" name="course_id" value="{{ $course->id }}">
+
+            <div class="w-full lg:w-1/2">
+                <label for="campus_id" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Course Name') }}</label>
+                <input type="text" name="course_name" id="course_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the course') }}" required value="{{ old('course_name', $course->course_name) }}">
+                <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
             </div>
 
-            <div class="mb-4">
-                <label for="campus_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Campus</label>
-                <select id="campus_id" name="campus_id" class="mt-1 p-2 w-full border rounded-md dark:bg-gray-800 dark:border-gray-700">
-                    @foreach($campuses as $campusId => $campusName)
-                        <option value="{{ $campusId }}" {{ $course->campus_id == $campusId ? 'selected' : '' }}>{{ $campusName }}</option>
-                    @endforeach
-                </select>
+            <div>
+                <label for="campus_id" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                <div class="flex items-start w-full lg:w-1/2">
+                    <select name="campus_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        @foreach($campuses as $campus)
+                            <option value="{{ $campus->id }}" @if($campus->id == $course->campus_id) selected @endif>{{ $campus->campus_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
-            <div class="flex justify-between">
-
-                <a href="{{ route('admin.course_management') }}" class="px-3 py-2 text-xs font-small text-center inline-flex items-center text-white bg-gray-500 rounded-lg hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                    <span class="ml-1 uppercase">{{ __('Cancel') }}</span>
-                </a>
-
-                <button type="submit" class="px-3 py-2 text-xs font-small text-center inline-flex items-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                    <span class="ml-1 uppercase">{{ __('Update') }}</span>
-                </button>
-
-                
+            <x-input-error :messages="$errors->get('campus')" class="mt-1" />
+    
+            <div class="flex items-center gap-4">
+                <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>
+                <x-secondary-button class="sm:w-44">
+                    <a href="{{ route('admin.course_management') }}">
+                        {{ __('Cancel') }}
+                    </a>
+                </x-secondary-button>
+    
+                @if (session('status') === 'profile-updated')
+                    <p
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-transition
+                        x-init="setTimeout(() => show = false, 2000)"
+                        class="text-sm text-gray-600 dark:text-gray-400"
+                    >{{ __('Saved.') }}</p>
+                @endif
             </div>
         </form>
     </div>
-    
 </x-app-layout>

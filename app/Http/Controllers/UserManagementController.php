@@ -115,9 +115,13 @@ class UserManagementController extends Controller
             'campus_id' => $request->campus,
         ]);
 
-        return redirect()->route('user.manage', $user->id)->with(
-            'success', 'Account information for this account has been updated successfully.',
-        );
+        if($user) {
+            return redirect()->back()->with(
+                'success', 'Account information for this account has been updated successfully.',
+            );
+        } else {
+            abort(500, 'Oops, something went wrong');
+        }
     }
 
     public function destroy(Request $request)
@@ -133,7 +137,7 @@ class UserManagementController extends Controller
 
         $user->delete();
 
-        return redirect()->route('user_management')->with(
+        return redirect()->route('admin.user_management')->with(
             'success', 'Account deleted successfully.',
         );
     }

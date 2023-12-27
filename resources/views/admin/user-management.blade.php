@@ -162,7 +162,7 @@
     {{-- Alert End --}}
 
     <div class="bg-white p-6 rounded-lg ">
-        <form action="{{ route('user_management') }}" method="GET" id="user-form" class="flex flex-col justify-center md:flex-row md:justify-between">
+        <form action="{{ route('admin.user_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
             <div class="flex w-full flex-wrap">
@@ -186,7 +186,7 @@
             </div>                   
     
             <div class="relative w-full md:w-3/4">
-                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search users" value="{{ request('search') }}">
+                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for users by name or email" value="{{ request('search') }}">
                 <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -274,7 +274,7 @@
     </div>
 
     @section('scripts')
-        <script src="{{ asset('js/user-management.js') }}"></script>
+        <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/show-password.js') }}"></script>
     @endsection
 </x-app-layout>

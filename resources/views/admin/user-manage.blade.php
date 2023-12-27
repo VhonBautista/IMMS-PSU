@@ -12,7 +12,7 @@
                     <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <a href="{{ route('user_management') }}" class="ml-1 text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('User Management') }}</a>
+                    <a href="{{ route('admin.user_management') }}" class="ml-1 text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('User Management') }}</a>
                     </div>
                 </li>
                 <li aria-current="page">
@@ -79,12 +79,15 @@
 
             <input type="hidden" name="user_id" value="{{ $user->id }}">
 
-            <div class="flex items-start">
-                <select name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->id }}" @if($role->id == $user->role_id) selected @endif>{{ $role->role_name }}</option>
-                    @endforeach
-                </select>
+            <div class="w-full lg:w-1/2">
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('System Role') }}</label>
+                <div class="flex items-start">
+                    <select name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}" @if($role->id == $user->role_id) selected @endif>{{ $role->role_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <h1 class="text-md pt-4 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
@@ -92,29 +95,38 @@
             </h1>
             <p class="text-sm text-start text-gray-500 dark:text-gray-300" id="file_input_help" style="margin-top: 12px !important;"><span class="text-sm font-bold">{{ __('Note: ') }}</span>{{ __('Choose the relevant university information for this account.') }}</p>
 
-            <div class="flex items-start">
-                <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                    @foreach($universityRoles as $universityRole)
-                        <option value="{{ $universityRole->id }}" @if($universityRole->id == $user->univ_role_id) selected @endif>{{ $universityRole->university_role }}</option>
-                    @endforeach
-                </select>
+            <div class="w-full lg:w-1/2">
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('University Role') }}</label>
+                <div class="flex items-start">
+                    <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        @foreach($universityRoles as $universityRole)
+                            <option value="{{ $universityRole->id }}" @if($universityRole->id == $user->univ_role_id) selected @endif>{{ $universityRole->university_role }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
             </div>
 
-            <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
-
-            <div class="flex items-start">
-                <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                    @foreach($campuses as $campus)
-                        <option value="{{ $campus->id }}" @if($campus->id == $user->campus_id) selected @endif>{{ $campus->campus_name }}</option>
-                    @endforeach
-                </select>
+            <div class="w-full lg:w-1/2">
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                <div class="flex items-start">
+                    <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        @foreach($campuses as $campus)
+                            <option value="{{ $campus->id }}" @if($campus->id == $user->campus_id) selected @endif>{{ $campus->campus_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-input-error :messages="$errors->get('campus')" class="mt-1" />
             </div>
-
-            <x-input-error :messages="$errors->get('campus')" class="mt-1" />
     
             <div class="flex items-center gap-4">
                 <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>
-    
+                <x-secondary-button class="sm:w-44">
+                    <a href="{{ route('admin.user_management') }}">
+                        {{ __('Cancel') }}
+                    </a>
+                </x-secondary-button>
+                
                 @if (session('status') === 'profile-updated')
                     <p
                         x-data="{ show: true }"
@@ -145,7 +157,7 @@
         <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" :maxWidth="'lg'" focusable>
             <form method="post" action="{{ route('user.destroy') }}" class="p-6">
                 @csrf
-                @method('delete')
+                @method('DELETE')
 
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 
