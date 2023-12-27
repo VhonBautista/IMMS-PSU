@@ -36,7 +36,11 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     })->name('admin.dashboard');
 
     // User Management
-    Route::get('user/', [UserManagementController::class, 'index'])->name('user_management');
+    Route::get('user-management/', [UserManagementController::class, 'index'])->name('user_management');
+    Route::post('user-management/', [UserManagementController::class, 'createAccount'])->name('user.create_account');
+    Route::get('user-management/manage/{id}', [UserManagementController::class, 'manage'])->name('user.manage');
+    Route::patch('user-management/manage/', [UserManagementController::class, 'update'])->name('user.update');
+    Route::delete('user-management/delete/', [UserManagementController::class, 'destroy'])->name('user.destroy');
 });
 
 // ========================== Evaluator Routes ========================== //
