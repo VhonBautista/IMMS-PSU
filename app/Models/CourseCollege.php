@@ -12,6 +12,8 @@ class CourseCollege extends Model
     protected $fillable = [
         'college_id',
         'course_id',
+        'created_at',
+        'updated_at'
     ];
 
     public function college()

@@ -35,7 +35,7 @@ class CampusesManagementController extends Controller
     {
         $campus = Campus::findOrFail($id);
 
-        // Pass the $campus data to the edit view
+     
         return view('admin.edit-campus', compact('campus'));
     }
     public function update(Request $request, $id)
@@ -43,7 +43,7 @@ class CampusesManagementController extends Controller
         $request->validate([
             'campus_name' => 'required|string',
             'location' => 'required|string',
-            // Add validation rules for other fields as needed
+           
         ]);
 
         $campus = Campus::findOrFail($id);
@@ -54,6 +54,6 @@ class CampusesManagementController extends Controller
             'updated_at' => now()
         ]);
 
-        return redirect()->route('admin.campuses-management');
+        return redirect()->route('admin.campuses-management')->with('success','Campus Edited successfully!');
     }
 }
