@@ -12,6 +12,8 @@ class Campus extends Model
     protected $fillable = [
         'campus_name',
         'location',
+        'created_at', 
+        'updated_at'
     ];
 
     public function colleges()
