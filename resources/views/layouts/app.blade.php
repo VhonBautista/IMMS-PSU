@@ -15,8 +15,8 @@
     </head>
     <body class="font-sans antialiased">
         @yield('top-scripts')
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @if (Auth::user()->role_id == 1)
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 test-bg">
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <!-- Admin user -->
                 @include('layouts.sidebar')
 
@@ -25,7 +25,7 @@
                         <div class="pt-2 rounded-lg mt-12">
                             @if (isset($header))
                                 <header class="py-5 px-4 mb-5 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                                    <div class="max-w-xl">
+                                    <div class="">
                                         {{ $header }}
                                     </div>
                                 </header>
@@ -56,9 +56,8 @@
             @endif
         </div>
         
-        {{-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> --}}
         <script src="{{ asset('js/jquery.js')}}"></script>
-        <script src="{{ asset('js/mark_read.js')}}"></script>
+        <script src="{{ asset('js/mark-read.js')}}"></script>
         @yield('scripts')
     </body>
 </html>

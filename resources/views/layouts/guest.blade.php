@@ -16,14 +16,20 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center py-6 bg-gray-100 dark:bg-gray-900">
             <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <a href="" class="flex w-full justify-center items-center">
+                    <img class="w-12 h-12 mr-2" src="{{ asset('assets/system/Pangasinan_State_University_logo.png') }}" alt="logo">
+                    <div>
+                        <h1 class="text-2xl font-bold leading-tight tracking-widest text-gray-900 dark:text-white">
+                            {{ __('PSU I.M.M.S.') }}
+                        </h1>
+                        <h1 class="text-xs font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+                            {{ __('Instructional Material Management System') }}
+                        </h1>
+                    </div>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+            {{ $slot }}
         </div>
     </body>
 </html>

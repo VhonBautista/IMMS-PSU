@@ -1,8 +1,8 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
             {{ __('Profile Information') }}
-        </h2>
+        </h1>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ __("Here are your profile details.") }}

@@ -63,7 +63,7 @@ class courseCollegesController extends Controller
         $colleges = College::all();
         $courses = Course::all();
         
-        return view('admin.edit-course_colleges', compact('coursecollege','colleges','courses'));
+        return view('admin.course-colleges-edit', compact('coursecollege','colleges','courses'));
     }
     public function update(Request $request, $id)
     {
