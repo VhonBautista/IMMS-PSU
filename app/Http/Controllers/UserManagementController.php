@@ -117,7 +117,7 @@ class UserManagementController extends Controller
 
         if($user) {
             return redirect()->back()->with(
-                'success', 'Account information for this account has been updated successfully.',
+                'success', 'Account information has been updated successfully.',
             );
         } else {
             abort(500, 'Oops, something went wrong');

@@ -62,7 +62,7 @@ class CourseManagementController extends Controller
 
         if($course) {
             return redirect()->back()->with(
-                'success', 'Course updated successfully.',
+                'success', 'Course information has been updated successfully.',
             );
         } else {
             abort(500, 'Oops, something went wrong');

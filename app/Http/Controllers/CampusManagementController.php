@@ -16,44 +16,57 @@ class CampusManagementController extends Controller
         if ($searchFilter) {
             $campus->where(function($query) use ($searchFilter) {
                 $query->where('campus_name', 'like', "%{$searchFilter}%")
-                    ->orWhere('location', 'like', "%{$searchFilter}%")
-                    ->orWhere('created_at', 'like', "%{$searchFilter}%")
-                    ->orWhere('updated_at', 'like', "%{$searchFilter}%");
+                    ->orWhere('location', 'like', "%{$searchFilter}%");
             });
         }
+        
         $campuses = $campus->orderBy('campus_name', 'asc')->paginate(10);
-        return view('admin.campuses-management', compact('campuses'));
-    }
-    public function destroy($id)
-    {
-        $campus = Campus::findOrFail($id);
-        $campus->delete();
 
-        return redirect()->route('admin.campuses-management')->with('success', 'Campus deleted successfully!');
+        return view('admin.campus-management', compact('campuses'));
     }
+
     public function edit($id)
     {
         $campus = Campus::findOrFail($id);
 
-        // Pass the $campus data to the edit view
-        return view('admin.edit-campus', compact('campus'));
+        return view('admin.campus-edit', compact('campus'));
     }
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
         $request->validate([
-            'campus_name' => 'required|string',
+            'campus_id' => 'required',
+            'campus_name' => 'required|string|max:255',
             'location' => 'required|string',
-            // Add validation rules for other fields as needed
         ]);
 
-        $campus = Campus::findOrFail($id);
+        $campus = Campus::findOrFail($request->input('campus_id'),);
 
         $campus->update([
             'campus_name' => $request->input('campus_name'),
             'location' => $request->input('location'),
-            'updated_at' => now()
         ]);
 
-        return redirect()->route('admin.campuses-management');
+        if($campus) {
+            return redirect()->back()->with(
+                'success', 'Campus information has been updated successfully.',
+            );
+        } else {
+            abort(500, 'Oops, something went wrong');
+        }
+    }
+    
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'campus_id' => ['required'],
+        ]);
+
+        $campus = Campus::findOrFail($request->campus_id);
+        $campus->delete();
+        
+        return redirect()->route('admin.campus_management')->with(
+            'success', 'Campus deleted successfully.',
+        );
     }
 }

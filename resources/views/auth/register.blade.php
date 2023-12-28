@@ -59,31 +59,35 @@
                 </h1>
                 <p class="text-sm text-start text-gray-500 dark:text-gray-300" id="file_input_help" style="margin-top: 12px !important;"><span class="text-sm font-bold">{{ __('Caution: ') }}</span>{{ __('Accurate university details are crucial for verification by the admin. Failure to provide correct information may result in account suspension.') }}</p>
     
-                <div class="flex items-start">
-                    <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        <option value="" selected>Select University Role</option>
-                        @foreach($universityRoles as $universityRole)
-                            <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
-                        @endforeach
-                    </select>
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('University Role') }}</label>
+                    <div class="flex items-start">
+                        <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                            <option value="" selected>Select University Role</option>
+                            @foreach($universityRoles as $universityRole)
+                                <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
 
-                <div class="flex items-start">
-                    <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        <option value="" selected>Select Campus</option>
-                        @foreach($campuses as $campus)
-                            <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
-                        @endforeach
-                    </select>
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                    <div class="flex items-start">
+                        <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                            <option value="" selected>Select Campus</option>
+                            @foreach($campuses as $campus)
+                                <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <x-input-error :messages="$errors->get('campus')" class="mt-1" />
-                        
-                <hr class="border-t border-gray-300 dark:border-gray-700">
     
-                <div class="flex items-start ms-1" style="margin-top: 12px !important;">
+                <div class="flex items-start pt-3 ms-1" style="margin-top: 12px !important;">
                     <div class="flex items-center h-5">
                         <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required>
                     </div>

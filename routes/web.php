@@ -46,17 +46,16 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Course Management
     Route::get('course-management', [CourseManagementController::class, 'index'])->name('admin.course_management');
-    Route::post('course-management', [CourseManagementController::class, 'store'])->name('admin.course-management.store');
-    Route::get('course-management/edit/{id}', [CourseManagementController::class, 'edit'])->name('admin.course-management.edit');
-    Route::patch('course-management/edit/', [CourseManagementController::class, 'update'])->name('admin.course-management.update');
-    Route::delete('course-management/', [CourseManagementController::class, 'destroy'])->name('admin.course-management.destroy');
+    Route::post('course-management', [CourseManagementController::class, 'store'])->name('admin.course_management.store');
+    Route::get('course-management/edit/{id}', [CourseManagementController::class, 'edit'])->name('admin.course_management.edit');
+    Route::patch('course-management/edit/', [CourseManagementController::class, 'update'])->name('admin.course_management.update');
+    Route::delete('course-management/delete/', [CourseManagementController::class, 'destroy'])->name('admin.course_management.destroy');
 
     // Campus Management
-    Route::get('/admin/campuses-management', [CampusManagementController::class, 'index'])->name('admin.campuses-management');
-    Route::get('campuses/', [CampusManagementController::class, 'index'])->name('campuses_management');
-    Route::get('/campuses/{id}', [CampusManagementController::class, 'destroy'])->name('campus.delete');
-    Route::get('/admin/campuses-management/{id}/edit', [CampusManagementController::class, 'edit'])->name('admin.campuses-management.edit');
-    Route::put('/admin/campuses-management/{id}', [CampusManagementController::class, 'update'])->name('admin.campuses-management.update');
+    Route::get('campus-management/', [CampusManagementController::class, 'index'])->name('admin.campus_management');
+    Route::get('campus-management/edit/{id}', [CampusManagementController::class, 'edit'])->name('admin.campus_management.edit');
+    Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
+    Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
 });
 
 // ========================== Evaluator Routes ========================== //
