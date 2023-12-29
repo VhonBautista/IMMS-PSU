@@ -56,8 +56,8 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Campus Management
     Route::get('campus-management/', [CampusManagementController::class, 'index'])->name('admin.campus_management');
+    Route::post('campus-management/', [CampusManagementController::class, 'store'])->name('admin.campus_management.store');
     Route::get('campus-management/edit/{id}', [CampusManagementController::class, 'edit'])->name('admin.campus_management.edit');
-
     Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
     

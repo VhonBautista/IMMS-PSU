@@ -37,7 +37,7 @@
                 {{ __('Add New Campus') }}
             </h3>
 
-            <form class="space-y-4 md:space-y-6" method="POST" action="">
+            <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('admin.campus_management.store') }}">
                 @csrf
     
                 {{-- TODO: GAYAHIN YUNG LAYOUT --}}
@@ -56,10 +56,23 @@
                 </div>
     
                 <x-input-error :messages="$errors->get('university_role')" class="mt-1" /> --}}
+
+                    <div class="w-full lg:full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus Name') }}</label>
+                        <input type="text" name="campus_name" id="campus_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the campus') }}" required >
+                        <x-input-error :messages="$errors->get('campus_name')" class="mt-1" />
+                    </div>
+        
+                    <div class="w-full lg:full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Location') }}</label>
+                        <textarea rows="2" name="location" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the location of the campus."></textarea>
+                    </div>
+        
+                    <x-input-error :messages="$errors->get('campus')" class="mt-1" />
                     {{-- TODO: WAG KALIMUTAN ERROR MESSAGES --}}
 
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <x-primary-button class="sm:w-44">
+                    <x-primary-button class="sm:w-44" type='submit'>
                         {{ __('Add Campus') }}
                     </x-primary-button>
     
@@ -192,7 +205,7 @@
                 @csrf
                 @method('DELETE')
     
-                <input type="text" name="campus_id" id="campus-id-input" value="">
+                <input type="hidden" name="campus_id" id="campus-id-input" value="">
 
                 <div class="text-center">
                     <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">

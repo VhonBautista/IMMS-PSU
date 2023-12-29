@@ -37,29 +37,30 @@
                 {{ __('Add New Course') }}
             </h3>
 
-            <form class="space-y-4 md:space-y-6" method="POST" action="">
+            <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('admin.course_management.store') }}">
                 @csrf
-    
-                {{-- TODO: GAYAHIN YUNG LAYOUT --}}
-                {{-- <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
-                    {{ __('University Details') }}
-                </h1>
-                <p class="text-sm text-start text-gray-500 dark:text-gray-300" id="file_input_help" style="margin-top: 12px !important;"><span class="text-sm font-bold">{{ __('Note: ') }}</span>{{ __('Choose the relevant university information for this account.') }}</p>
-    
-                <div class="flex items-start">
-                    <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        <option value="" selected>Select University Role</option>
-                        @foreach($universityRoles as $universityRole)
-                            <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
-                        @endforeach
-                    </select>
-                </div>
-    
-                <x-input-error :messages="$errors->get('university_role')" class="mt-1" /> --}}
-                    {{-- TODO: WAG KALIMUTAN ERROR MESSAGES --}}
-
+                    <div class="w-full lg:full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Course Name') }}</label>
+                        <input type="text" name="course_name" id="course_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the course') }}" required>
+                        <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
+                    </div>
+                    
+                    <div class="w-full lg:w-full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                        <div class="flex items-start w-full">
+                            <select name="campus_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                                <option value="" disabled selected>Choose Campus</option>
+                                @foreach($campuses as $campus)
+                                    <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
+                    <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
+                        
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <x-primary-button class="sm:w-44">
+                    <x-primary-button class="sm:w-44" type='submit'>
                         {{ __('Add Course') }}
                     </x-primary-button>
     
