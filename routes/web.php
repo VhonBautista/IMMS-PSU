@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CampusManagementController;
+use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\courseCollegesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
@@ -40,7 +41,6 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     })->name('admin.dashboard');
 
     // User Management
-    Route::get('user/', [UserManagementController::class, 'index'])->name('user_management');
     Route::get('user-management/', [UserManagementController::class, 'index'])->name('admin.user_management');
     Route::post('user-management/', [UserManagementController::class, 'createAccount'])->name('user.create_account');
     Route::get('user-management/manage/{id}', [UserManagementController::class, 'manage'])->name('user.manage');
@@ -68,6 +68,12 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::get('/admin/course_colleges/{id}/edit', [CourseCollegesController::class, 'edit'])->name('course_colleges.edit');
     Route::put('/admin/course_colleges/{id}', [CourseCollegesController::class, 'update'])->name('course_colleges.update');
 
+    //colleges
+    Route::get('/college', [CollegeController::class, 'index'])->name('admin.college');
+    Route::post('/college', [CollegeController::class, 'store'])->name('college.store');
+    Route::delete('college/delete/{id}', [CollegeController::class, 'destroy'])->name('college.destroy');
+    Route::get('college/{id}/edit/', [CollegeController::class, 'edit'])->name('college.edit');
+    Route::patch('college/edit', [CollegeController::class, 'update'])->name('college.update');
 
 });
 

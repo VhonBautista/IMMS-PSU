@@ -5,3 +5,7 @@ function setDeleteCourseFormAction(courseId) {
 function setDeleteCampusFormAction(campusId) {
     document.getElementById('campus-id-input').value = campusId;
 }
+
+function setDeleteCollegeFormAction(collegeId) {
+    document.getElementById('college-id-input').value = collegeId;
+}
