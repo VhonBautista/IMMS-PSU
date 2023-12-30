@@ -20,7 +20,7 @@ class Course extends Model
         return $this->belongsTo(Campus::class);
     }
 
-    public function courses()
+    public function colleges()
     {
         return $this->belongsToMany(Course::class, 'course_colleges');
     }

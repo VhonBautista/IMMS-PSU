@@ -11,8 +11,6 @@ class CourseManagementController extends Controller
 {
     public function index(Request $request)
     {
-        $user = $request->user();
-
         // Filter
         $searchFilter = $request->search;
         $campusFilter = $request->campus;

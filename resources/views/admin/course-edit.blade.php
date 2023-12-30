@@ -80,7 +80,7 @@
             <div class="flex items-center gap-4">
                 <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>
                 <x-secondary-button class="sm:w-44">
-                    <a href="{{ route('admin.course_management') }}">
+                    <a href="{{ url()->previous() }}">
                         {{ __('Cancel') }}
                     </a>
                 </x-secondary-button>

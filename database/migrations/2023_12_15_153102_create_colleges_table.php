@@ -16,6 +16,7 @@ return new class extends Migration
 
             // Fields
             $table->string('college_name');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('campus_id');
             $table->timestamps();
             
