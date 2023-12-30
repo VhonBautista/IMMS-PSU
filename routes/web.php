@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\CampusManagementController;
+use App\Http\Controllers\courseCollegesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     })->name('admin.dashboard');
 
     // User Management
+    Route::get('user/', [UserManagementController::class, 'index'])->name('user_management');
     Route::get('user-management/', [UserManagementController::class, 'index'])->name('admin.user_management');
     Route::post('user-management/', [UserManagementController::class, 'createAccount'])->name('user.create_account');
     Route::get('user-management/manage/{id}', [UserManagementController::class, 'manage'])->name('user.manage');
@@ -53,10 +56,25 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Campus Management
     Route::get('campus-management/', [CampusManagementController::class, 'index'])->name('admin.campus_management');
+    Route::post('campus-management/', [CampusManagementController::class, 'store'])->name('admin.campus_management.store');
     Route::get('campus-management/edit/{id}', [CampusManagementController::class, 'edit'])->name('admin.campus_management.edit');
     Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
+    
+    //course colleges
+    Route::get('/admin/courseColleges', [courseCollegesController::class, 'index'])->name('admin.courseColleges');
+    Route::post('/course_colleges', [CourseCollegesController::class, 'store'])->name('course_colleges.store');
+    Route::delete('/course_colleges/{id}', [CourseCollegesController::class, 'destroy'])->name('course_colleges.delete');
+    Route::get('/admin/course_colleges/{id}/edit', [CourseCollegesController::class, 'edit'])->name('course_colleges.edit');
+    Route::put('/admin/course_colleges/{id}', [CourseCollegesController::class, 'update'])->name('course_colleges.update');
+
+
 });
+
+
+
+
+
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {

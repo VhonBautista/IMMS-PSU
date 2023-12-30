@@ -69,4 +69,18 @@ class CampusManagementController extends Controller
             'success', 'Campus deleted successfully.',
         );
     }
+    public function store(Request $request)
+{
+    $request->validate([
+        'campus_name' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+    ]);
+
+    Campus::create([
+        'campus_name' => $request->input('campus_name'),
+        'location' => $request->input('location'),
+    ]);
+
+    return redirect()->route('admin.campus_management')->with('success', 'Campus added successfully.');
+}
 }

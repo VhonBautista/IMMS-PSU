@@ -10,6 +10,7 @@ class College extends Model
     use HasFactory;
     
     protected $fillable = [
+        'id',
         'college_name',
         'campus_id',
     ];

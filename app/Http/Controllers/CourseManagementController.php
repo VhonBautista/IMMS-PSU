@@ -84,18 +84,18 @@ class CourseManagementController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'new_course_name' => 'required|string|max:255',
-            'new_campus_id' => 'required|exists:campuses,id',
-        ]);
+{
+    $request->validate([
+        'course_name' => 'required|string|max:255',
+        'campus_id' => 'required|exists:campuses,id',
+    ]);
 
-        Course::create([
-            'course_name' => $request->input('new_course_name'),
-            'campus_id' => $request->input('new_campus_id'),
-        ]);
+    Course::create([
+        'course_name' => $request->input('course_name'),
+        'campus_id' => $request->input('campus_id'),
+    ]);
 
-        return redirect()->route('admin.course_management')->with('success', 'Course added successfully.');
-    }
+    return redirect()->route('admin.course_management')->with('success', 'Course added successfully.');
+}
 
 }
