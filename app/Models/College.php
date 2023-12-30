@@ -12,6 +12,7 @@ class College extends Model
     protected $fillable = [
         
         'college_name',
+        'description',
         'campus_id',
         'description'
     ];

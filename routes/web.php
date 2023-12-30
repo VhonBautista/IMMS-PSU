@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\CampusManagementController;
 use App\Http\Controllers\CollegeController;
-use App\Http\Controllers\courseCollegesController;
+use App\Http\Controllers\CourseCollegeManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
@@ -62,19 +62,17 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
     
     //course colleges
-    Route::get('/admin/courseColleges', [courseCollegesController::class, 'index'])->name('admin.courseColleges');
-    Route::post('/course_colleges', [CourseCollegesController::class, 'store'])->name('course_colleges.store');
-    Route::delete('/course_colleges/{id}', [CourseCollegesController::class, 'destroy'])->name('course_colleges.delete');
-    Route::get('/admin/course_colleges/{id}/edit', [CourseCollegesController::class, 'edit'])->name('course_colleges.edit');
-    Route::put('/admin/course_colleges/{id}', [CourseCollegesController::class, 'update'])->name('course_colleges.update');
+    Route::get('course-college-management', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
+    Route::get('get-courses-for-college/{collegeId}', [CourseCollegeManagementController::class, 'getCoursesForCollege']);
+    Route::post('course-college-management', [CourseCollegeManagementController::class, 'store'])->name('admin.course_college_management.store');
+    Route::get('course-college-management/remove/{collegeId}/{courseId}', [CourseCollegeManagementController::class, 'remove'])->name('admin.course_college_management.remove');
 
     //colleges
     Route::get('/college', [CollegeController::class, 'index'])->name('admin.college');
     Route::post('/college', [CollegeController::class, 'store'])->name('college.store');
     Route::delete('college/delete/{id}', [CollegeController::class, 'destroy'])->name('college.destroy');
     Route::get('college/{id}/edit/', [CollegeController::class, 'edit'])->name('college.edit');
-    Route::patch('college/edit', [CollegeController::class, 'update'])->name('college.update');
-
+    Route::patch('college/edit/', [CollegeController::class, 'update'])->name('college.update');
 });
 
 

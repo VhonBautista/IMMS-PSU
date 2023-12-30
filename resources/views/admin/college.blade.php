@@ -236,6 +236,6 @@
     
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
-        <script src="{{ asset('js/delete.js') }}"></script>
+        <script src="{{ asset('js/functions.js') }}"></script>
     @endsection
 </x-app-layout>

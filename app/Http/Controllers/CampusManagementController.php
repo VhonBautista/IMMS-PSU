@@ -9,8 +9,9 @@ class CampusManagementController extends Controller
 {
     public function index(Request $request)
     {
-        $user = $request->user();
+        // Filter
         $searchFilter = $request->search;
+        
         $campus = Campus::query();
 
         if ($searchFilter) {

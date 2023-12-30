@@ -39,25 +39,26 @@
 
             <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('admin.course_management.store') }}">
                 @csrf
-                    <div class="w-full lg:full">
-                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Course Name') }}</label>
-                        <input type="text" name="course_name" id="course_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the course') }}" required>
-                        <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
-                    </div>
-                    
-                    <div class="w-full lg:w-full">
-                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
-                        <div class="flex items-start w-full">
-                            <select name="campus_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                                <option value="" disabled selected>Choose Campus</option>
-                                @foreach($campuses as $campus)
-                                    <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                
+                <div class="w-full lg:full">
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Course Name') }}</label>
+                    <input type="text" name="course_name" id="course_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the course') }}" required>
                     <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
-                    <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
+                </div>
+                
+                <div class="w-full lg:w-full">
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                    <div class="flex items-start w-full">
+                        <select name="campus_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                            <option value="" disabled selected>Choose Campus</option>
+                            @foreach($campuses as $campus)
+                                <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <x-input-error :messages="$errors->get('course_name')" class="mt-1" />
+                <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
                         
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
                     <x-primary-button class="sm:w-44" type='submit'>
@@ -93,13 +94,13 @@
     @endif
     {{-- Alert End --}}
 
-    <div class="bg-white p-6 rounded-lg ">
+    <div class="bg-white p-6 rounded-lg">
         <form action="{{ route('admin.course_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
             <div class="flex w-full flex-wrap">
                 <div class="w-full lg:w-auto px-0 lg:px-1 pb-3 lg:pb-0">
-                    <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required onchange="submitSearch()">
+                    <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" onchange="submitSearch()">
                       <option value="" @if(!request('campus')) selected @endif>Select Campus</option>
                       @foreach($campuses as $campus)
                         <option value="{{ $campus->id }}" @if(request('campus') == $campus->id) selected @endif>{{ $campus->campus_name }}</option>
@@ -109,7 +110,7 @@
             </div>                   
     
             <div class="relative w-full md:w-3/4">
-                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for courses by name" value="{{ request('search') }}">
+                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for courses by course name" value="{{ request('search') }}">
                 <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -165,7 +166,7 @@
                                             </svg>
                                             <span>{{ __('Edit') }}</span>
                                         </a>
-                                        <button type="button" onclick="setDeleteCourseFormAction({{ $course->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-course-modal')" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-500 dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800">
+                                        <button type="button" onclick="setDeleteFormAction('course-id-input', {{ $course->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-course-modal')" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-500 dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800">
                                             <svg class="w-4 h-4 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                                 <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                                             </svg>
@@ -227,6 +228,6 @@
 
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
-        <script src="{{ asset('js/delete.js') }}"></script>
+        <script src="{{ asset('js/functions.js') }}"></script>
     @endsection
 </x-app-layout>
