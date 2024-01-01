@@ -56,15 +56,10 @@ class CourseManagementController extends Controller
         $course->update([
             'course_name' => $request->input('course_name'),
             'campus_id' => $request->input('campus_id'),
+            'updated_at'=> now()
         ]);
 
-        if($course) {
-            return redirect()->back()->with(
-                'success', 'Course information has been updated successfully.',
-            );
-        } else {
-            abort(500, 'Oops, something went wrong');
-        }
+        return redirect()->route('admin.course_management')->with('success', 'Course Updated successfully.');
     }
 
     public function destroy(Request $request)

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampusManagementController;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\CourseCollegeManagementController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
@@ -73,6 +74,13 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::delete('college/delete/{id}', [CollegeController::class, 'destroy'])->name('college.destroy');
     Route::get('college/{id}/edit/', [CollegeController::class, 'edit'])->name('college.edit');
     Route::patch('college/edit/', [CollegeController::class, 'update'])->name('college.update');
+
+    //department
+    Route::get('/department', [DepartmentController::class, 'index'])->name('admin.department');
+    Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
+    Route::delete('department/delete/', [DepartmentController::class, 'destroy'])->name('department.destroy');
+    Route::get('department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
+    Route::patch('department/edit/', [DepartmentController::class, 'update'])->name('department.update');
 });
 
 

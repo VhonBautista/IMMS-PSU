@@ -46,15 +46,10 @@ class CampusManagementController extends Controller
         $campus->update([
             'campus_name' => $request->input('campus_name'),
             'location' => $request->input('location'),
+            'updated_at' => now()
         ]);
 
-        if($campus) {
-            return redirect()->back()->with(
-                'success', 'Campus information has been updated successfully.',
-            );
-        } else {
-            abort(500, 'Oops, something went wrong');
-        }
+        return redirect()->route('admin.campus_management')->with('success', 'Campus Updated successfully.');
     }
     
     public function destroy(Request $request)

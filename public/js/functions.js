@@ -21,3 +21,6 @@ function setCourseCollegeFormAction(titleFieldId, titleValue, hiddenInputFieldId
 function setDeleteCollegeFormAction(collegeId) {
     document.getElementById('college-id-input').value = collegeId;
 }
+
+
+
