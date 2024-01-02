@@ -207,7 +207,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('admin.university_roles_management')}}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             <span class="flex-1 whitespace-nowrap">{{ __('University Roles') }}</span>
                         </a>
                     </li>

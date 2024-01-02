@@ -4,6 +4,7 @@ use App\Http\Controllers\CampusManagementController;
 use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\CourseCollegeManagementController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UniversityRolesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
@@ -81,6 +82,13 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::delete('department/delete/', [DepartmentController::class, 'destroy'])->name('department.destroy');
     Route::get('department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
     Route::patch('department/edit/', [DepartmentController::class, 'update'])->name('department.update');
+
+     // Univeristy Roles
+    Route::get('university-role-management', [UniversityRolesController::class, 'index'])->name('admin.university_roles_management');
+    Route::post('university-role-management', [UniversityRolesController::class, 'store'])->name('admin.university_roles_management.store');
+    Route::get('university-role-management/edit/{id}', [UniversityRolesController::class, 'edit'])->name('admin.university_roles_management.edit');
+    Route::patch('university-role-management/edit/', [UniversityRolesController::class, 'update'])->name('admin.university_roles_management.update');
+    Route::delete('university-role-management/delete/', [UniversityRolesController::class, 'destroy'])->name('admin.university_roles_management.destroy');
 });
 
 
