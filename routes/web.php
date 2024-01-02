@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CampusManagementController;
+use App\Http\Controllers\CollegeController;
 use App\Http\Controllers\CourseCollegeManagementController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
@@ -60,12 +62,31 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
     
-    // Course College Management
+    //course colleges
     Route::get('course-college-management', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
     Route::get('get-courses-for-college/{collegeId}', [CourseCollegeManagementController::class, 'getCoursesForCollege']);
     Route::post('course-college-management', [CourseCollegeManagementController::class, 'store'])->name('admin.course_college_management.store');
     Route::get('course-college-management/remove/{collegeId}/{courseId}', [CourseCollegeManagementController::class, 'remove'])->name('admin.course_college_management.remove');
+
+    //colleges
+    Route::get('/college', [CollegeController::class, 'index'])->name('admin.college');
+    Route::post('/college', [CollegeController::class, 'store'])->name('college.store');
+    Route::delete('college/delete/{id}', [CollegeController::class, 'destroy'])->name('college.destroy');
+    Route::get('college/{id}/edit/', [CollegeController::class, 'edit'])->name('college.edit');
+    Route::patch('college/edit/', [CollegeController::class, 'update'])->name('college.update');
+
+    //department
+    Route::get('/department', [DepartmentController::class, 'index'])->name('admin.department');
+    Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
+    Route::delete('department/delete/', [DepartmentController::class, 'destroy'])->name('department.destroy');
+    Route::get('department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
+    Route::patch('department/edit/', [DepartmentController::class, 'update'])->name('department.update');
 });
+
+
+
+
+
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {

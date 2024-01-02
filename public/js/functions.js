@@ -17,3 +17,10 @@ function setCourseCollegeFormAction(titleFieldId, titleValue, hiddenInputFieldId
             console.error('Error:', error);
         });
 }
+
+function setDeleteCollegeFormAction(collegeId) {
+    document.getElementById('college-id-input').value = collegeId;
+}
+
+
+
