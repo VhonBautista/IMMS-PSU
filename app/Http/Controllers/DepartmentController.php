@@ -16,7 +16,7 @@ class DepartmentController extends Controller
 
     if ($searchFilter) {
         $departments->where(function ($query) use ($searchFilter) {
-            $query->where('college_name', 'like', "%{$searchFilter}%");
+            $query->where('department_name', 'like', "%{$searchFilter}%");
         });
     }
 

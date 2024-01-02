@@ -94,7 +94,11 @@
     @endif
     {{-- Alert End --}}
 
-
+    <div class="bg-white p-6 rounded-lg ">
+        <form action="{{ route('admin.department') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
+            <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="flex w-full flex-wrap">
+            </div>           
     <div class="relative w-full md:w-3/4">
         <input type="search" id="search" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for department by department name" value="{{ request('search') }}">
         <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
