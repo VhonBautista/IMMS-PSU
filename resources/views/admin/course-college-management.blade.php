@@ -100,9 +100,9 @@
                         <h2 id="accordion-collapse-heading-{{ $college->id }}" class="mt-3">
                             <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{ $college->id }}" aria-expanded="true" aria-controls="accordion-collapse-body-{{ $college->id }}">
                                 <span class="text-md font-bold">{{ $college->college_name }}</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                            </svg>
+                                <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                </svg>
                             </button>
                         </h2>
                         <div id="accordion-collapse-body-{{ $college->id }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $college->id }}">
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="bg-white border rounded-lg dark:bg-gray-800 px-6 py-4 text-center">
+                        <div class="bg-white mt-3 border rounded-lg dark:bg-gray-800 px-6 py-4 text-center">
                             <div class="p-4 text-sm text-gray-500">
                                 {{ __('There are no records') }}
                             </div>

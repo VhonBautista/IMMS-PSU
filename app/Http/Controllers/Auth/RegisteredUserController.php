@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campus;
+use App\Models\Log;
 use App\Models\UniversityRole;
 use App\Models\User;
+use App\Notifications\SystemNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -48,8 +51,29 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
+
+        // =============================== Log & Notification ===============================//
+        // Information Details
+        $area = 'none';
+        $title = 'New User Registered';
+        $action = 'registered';
+        $description = $user->firstname . ' ' . $user->lastname . ' just created their account.'; 
+
+        // Reciever of Notification
+        $users = User::where('role_id', 1)->get();
+
+        // Log & Notification
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
+        // =============================== Log & Notification Details End ===============================//
 
         return redirect(RouteServiceProvider::HOME);
     }

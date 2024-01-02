@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UniversityRole::class, 'univ_role_id');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 }

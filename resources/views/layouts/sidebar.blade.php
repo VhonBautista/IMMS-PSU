@@ -25,14 +25,19 @@
                     </div>
                 </a>
             </div>
+            
             <div class="flex items-center">
                 <div class="flex items-center ml-3">
-                    <button id="dropdownNotificationButton" data-dropdown-toggle="dropdownNotification" class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-2" type="button" data-dropdown-offset-distance="20">
-                        {{-- if ($user->unreadNotifications->isNotEmpty()) --}}
+                    <button 
+                    id="dropdownNotificationButton" 
+                    data-dropdown-toggle="dropdownNotification" 
+                    class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-2"
+                    type="button" data-dropdown-offset-distance="20">
+                        @if ($user->unreadNotifications->isNotEmpty())
                         <div class="relative flex">
                             <div class="relative inline-flex w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-2 left-5 dark:border-gray-900"></div>
                         </div>
-                        {{-- endif --}}
+                        @endif
 
                         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20">
                             <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z"/>
@@ -45,21 +50,65 @@
                             {{ __('Notifications') }}
                         </div>
                         <div class="divide-y divide-gray-100 dark:divide-gray-700 max-h-[300px] overflow-y-auto">
-                            {{-- forelse($user->unreadNotifications as $notification)
-                                <a href="{{ url($notification->data['url']) }}" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 mark-as-read" data-id="{{ $notification->id }}">
-                                    <div class="w-full pl-3">
-                                        <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400"><span class="font-semibold text-gray-900 dark:text-white">{{ $notification->data['title'] }}</span> {{ $notification->data['message'] }}</div>
-                                        <span class="{{ $notification->data['color'] }} text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ $notification->data['type'] }}</span>
-                                    </div>
+                            @forelse($user->unreadNotifications as $notification)
+                                <a href="{{ route($notification->data['route']) }}" onclick="event.preventDefault(); markNotificationAsReadAndRedirect(this, '{{ route('mark-as-read', ['id' => $notification->id]) }}')" class="flex justify-center md:justify-start items-center w-full px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"> 
+                                    {{-- Icons --}}
+                                    @switch($notification->data['action'])
+                                        @case('added')
+                                        @case('created')
+                                        @case('registered')
+                                            <svg class="w-7 h-7 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                            @break
+
+                                        @case('deleted')
+                                        @case('rejected')
+                                        @case('removed')
+                                            <svg class="w-7 h-7 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                            @break
+
+                                        @case('approved')
+                                            <svg class="w-7 h-7 text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 10 2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                            @break
+
+                                        @default
+                                            <svg class="w-7 h-7 text-violet-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+                                    @endswitch
+
+                                    {{-- Details --}}
+                                    <div scope="row" class="px-4 py-2 w-full font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">
+                                            {{ $notification->data['title'] }}
+                                            
+                                        </div>
+                                        <div class="font-medium text-xs capitalize text-gray-500 flex justify-between items-center">
+                                            <span class="max-w-[200px] overflow-hidden overflow-ellipsis">
+                                                {{ $notification->data['description'] }}
+                                            </span>
+                                            <span class="text-xs text-gray-500 font-normal lowercase">
+                                                {{ $notification->created_at->diffForHumans(null, false, true, 1) }}
+                                            </span>
+                                        </div>
+                                    </div>                                    
                                 </a>
-                            empty --}}
+                            @empty
                                 <div class="flex justify-center items-center w-full h-full">
                                     <div class="p-4 text-sm">
                                         {{ __('There are no new notifications') }}
                                     </div>
                                 </div>
-                            {{-- endforelse --}}
+                            @endforelse
                         </div>
+                        <a href="{{ route('admin.notification') }}" class="block px-4 py-2 text-center text-sm text-blue-700 rounded-b-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
+                            {{ __('All Notifications') }}
+                        </a>
                     </div>
 
                     <div>
@@ -134,7 +183,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ route('admin.system_log') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="14" fill="none" viewBox="0 0 20 14">
                         <path stroke="currentColor" stroke-width="2" d="M1 5h18M1 9h18m-9-4v8m-8 0h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1Z"/>
                     </svg>
@@ -171,7 +220,7 @@
                 </button>
                 <ul id="dropdown-university" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{route('admin.course_management')}}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ __('Courses') }}</a>
+                        <a href="{{ route('admin.course_management') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ __('Courses') }}</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.course_college_management') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -197,12 +246,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.college') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('admin.college_management') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             <span class="flex-1 whitespace-nowrap">{{ __('Colleges') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.department') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                        <a href="{{ route('admin.department_management') }}" class="flex items-center text-sm w-full p-2 text-gray-800 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                             <span class="flex-1 whitespace-nowrap">{{ __('Departments') }}</span>
                         </a>
                     </li>

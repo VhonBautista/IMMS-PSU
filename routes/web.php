@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\CampusManagementController;
-use App\Http\Controllers\CollegeController;
+use App\Http\Controllers\CollegeManagementController;
 use App\Http\Controllers\CourseCollegeManagementController;
-use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,26 +62,33 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::get('campus-management/edit/{id}', [CampusManagementController::class, 'edit'])->name('admin.campus_management.edit');
     Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
+
+    // College Management
+    Route::get('college-management/', [CollegeManagementController::class, 'index'])->name('admin.college_management');
+    Route::post('college-management/', [CollegeManagementController::class, 'store'])->name('admin.college_management.store');
+    Route::get('college-management/edit/{id}', [CollegeManagementController::class, 'edit'])->name('admin.college_management.edit');
+    Route::patch('college-management/edit/', [CollegeManagementController::class, 'update'])->name('admin.college_management.update');
+    Route::delete('college-management/delete/', [CollegeManagementController::class, 'destroy'])->name('admin.college_management.destroy');
+
+    // Department Management
+    Route::get('department-management/', [DepartmentManagementController::class, 'index'])->name('admin.department_management');
+    Route::post('department-management/', [DepartmentManagementController::class, 'store'])->name('admin.department_management.store');
+    Route::get('department-management/edit/{id}', [DepartmentManagementController::class, 'edit'])->name('admin.department_management.edit');
+    Route::patch('department-management/edit/', [DepartmentManagementController::class, 'update'])->name('admin.department_management.update');
+    Route::delete('department-management/delete/', [DepartmentManagementController::class, 'destroy'])->name('admin.department_management.destroy');
     
-    //course colleges
+    // Course Colleges 
     Route::get('course-college-management', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
     Route::get('get-courses-for-college/{collegeId}', [CourseCollegeManagementController::class, 'getCoursesForCollege']);
     Route::post('course-college-management', [CourseCollegeManagementController::class, 'store'])->name('admin.course_college_management.store');
     Route::get('course-college-management/remove/{collegeId}/{courseId}', [CourseCollegeManagementController::class, 'remove'])->name('admin.course_college_management.remove');
 
-    //colleges
-    Route::get('/college', [CollegeController::class, 'index'])->name('admin.college');
-    Route::post('/college', [CollegeController::class, 'store'])->name('college.store');
-    Route::delete('college/delete/{id}', [CollegeController::class, 'destroy'])->name('college.destroy');
-    Route::get('college/{id}/edit/', [CollegeController::class, 'edit'])->name('college.edit');
-    Route::patch('college/edit/', [CollegeController::class, 'update'])->name('college.update');
+    // Utilities
+    Route::get('system-log/', [LogController::class, 'index'])->name('admin.system_log');
+    Route::get('/notification', [NotificationController::class, 'index'])->name('admin.notification');
+    Route::post('/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+    Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
 
-    //department
-    Route::get('/department', [DepartmentController::class, 'index'])->name('admin.department');
-    Route::post('/department', [DepartmentController::class, 'store'])->name('department.store');
-    Route::delete('department/delete/', [DepartmentController::class, 'destroy'])->name('department.destroy');
-    Route::get('department/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
-    Route::patch('department/edit/', [DepartmentController::class, 'update'])->name('department.update');
 });
 
 
