@@ -72,7 +72,7 @@ class CourseCollegeManagementController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.course_college_management')->with('success', 'Course(s) have been successfully added to ' . $collegeName . '!');;
+        return redirect()->route('admin.course_college_management')->with('success', 'Course(s) have been successfully added to ' . $collegeName . '!');
     }
 
     public function remove($collegeId, $courseId)

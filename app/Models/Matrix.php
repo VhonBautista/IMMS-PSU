@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UniversityRole extends Model
+class Matrix extends Model
 {
     use HasFactory;
     
     protected $fillable = [
-        'university_role',
+        'matrix_name',
         'description',
     ];
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
+    
+    public function subMatrices() {
+        return $this->hasMany(SubMatrix::class, 'matrix_id');
     }
     
     public function evaluatorMatrices() {
-        return $this->hasMany(EvaluatorMatrix::class, 'univ_role_id');
+        return $this->hasMany(EvaluatorMatrix::class, 'matrix_id');
     }
 }

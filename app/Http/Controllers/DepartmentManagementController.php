@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
-use App\models\Campus;
+use App\Models\Campus;
 class DepartmentManagementController extends Controller
 {
     public function index(Request $request)

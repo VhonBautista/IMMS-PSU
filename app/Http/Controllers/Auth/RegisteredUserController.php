@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
 
         // =============================== Log & Notification ===============================//
         // Information Details
-        $area = 'none';
+        $area = 'admin.user_management';
         $title = 'New User Registered';
         $action = 'registered';
         $description = $user->firstname . ' ' . $user->lastname . ' just created their account.'; 

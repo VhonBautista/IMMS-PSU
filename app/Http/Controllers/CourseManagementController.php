@@ -55,7 +55,6 @@ class CourseManagementController extends Controller
         return view('admin.course-edit', compact('course', 'campuses'));
     }
 
-
     public function update(Request $request)
     {
         $request->validate([

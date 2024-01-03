@@ -67,7 +67,7 @@
     @endif
     {{-- Alert End --}}
 
-    <div class="bg-white p-6 rounded-lg ">
+    <div class="bg-white p-6 rounded-lg">
         <form action="{{ route('admin.course_college_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
@@ -99,7 +99,7 @@
                     @forelse( $colleges as $college )
                         <h2 id="accordion-collapse-heading-{{ $college->id }}" class="mt-3">
                             <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{ $college->id }}" aria-expanded="true" aria-controls="accordion-collapse-body-{{ $college->id }}">
-                                <span class="text-md font-bold">{{ $college->college_name }}</span>
+                                <span class="text-lg font-black">{{ $college->college_name }}</span>
                                 <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                 </svg>
@@ -107,11 +107,11 @@
                         </h2>
                         <div id="accordion-collapse-body-{{ $college->id }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $college->id }}">
                             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                                <h1 class="text-sm font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <h1 class="text-md mb-2 font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Description') }}
                                 </h1>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">{{ $college->description }}</p>
-                                <h1 class="text-sm font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">{{ $college->description }}</p>
+                                <h1 class="text-md mb-2 font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Courses') }}
                                 </h1>
                                 <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
@@ -125,12 +125,10 @@
                                             
                                             <div id="tooltip-edit-{{ $college->id . '-' . $course->id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                                 Edit Course
-                                                <div class="tooltip-arrow" data-popper-arrow></div>
                                             </div>
 
                                             <div id="tooltip-remove-{{ $college->id . '-' . $course->id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                                Remove  {{ $course->course_name }}
-                                                <div class="tooltip-arrow" data-popper-arrow></div>
+                                                Remove {{ $course->course_name }}
                                             </div>
                                         </li>
                                     @empty

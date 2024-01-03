@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\MatrixManagementController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -46,12 +47,12 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::get('user-management/', [UserManagementController::class, 'index'])->name('admin.user_management');
     Route::post('user-management/', [UserManagementController::class, 'createAccount'])->name('user.create_account');
     Route::get('user-management/manage/{id}', [UserManagementController::class, 'manage'])->name('user.manage');
-    Route::patch('user-management/manage/', [UserManagementController::class, 'update'])->name('user.update');
+    Route::patch('user-management/manage', [UserManagementController::class, 'update'])->name('user.update');
     Route::delete('user-management/delete/', [UserManagementController::class, 'destroy'])->name('user.destroy');
 
     // Course Management
-    Route::get('course-management', [CourseManagementController::class, 'index'])->name('admin.course_management');
-    Route::post('course-management', [CourseManagementController::class, 'store'])->name('admin.course_management.store');
+    Route::get('course-management/', [CourseManagementController::class, 'index'])->name('admin.course_management');
+    Route::post('course-management/', [CourseManagementController::class, 'store'])->name('admin.course_management.store');
     Route::get('course-management/edit/{id}', [CourseManagementController::class, 'edit'])->name('admin.course_management.edit');
     Route::patch('course-management/edit/', [CourseManagementController::class, 'update'])->name('admin.course_management.update');
     Route::delete('course-management/delete/', [CourseManagementController::class, 'destroy'])->name('admin.course_management.destroy');
@@ -60,7 +61,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::get('campus-management/', [CampusManagementController::class, 'index'])->name('admin.campus_management');
     Route::post('campus-management/', [CampusManagementController::class, 'store'])->name('admin.campus_management.store');
     Route::get('campus-management/edit/{id}', [CampusManagementController::class, 'edit'])->name('admin.campus_management.edit');
-    Route::patch('campus-management/edit', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
+    Route::patch('campus-management/edit/', [CampusManagementController::class, 'update'])->name('admin.campus_management.update');
     Route::delete('campus-management/delete/', [CampusManagementController::class, 'destroy'])->name('admin.campus_management.destroy');
 
     // College Management
@@ -77,11 +78,29 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::patch('department-management/edit/', [DepartmentManagementController::class, 'update'])->name('admin.department_management.update');
     Route::delete('department-management/delete/', [DepartmentManagementController::class, 'destroy'])->name('admin.department_management.destroy');
     
-    // Course Colleges 
-    Route::get('course-college-management', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
+    // Course Colleges Management
+    Route::get('course-college-management/', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
     Route::get('get-courses-for-college/{collegeId}', [CourseCollegeManagementController::class, 'getCoursesForCollege']);
-    Route::post('course-college-management', [CourseCollegeManagementController::class, 'store'])->name('admin.course_college_management.store');
+    Route::post('course-college-management/', [CourseCollegeManagementController::class, 'store'])->name('admin.course_college_management.store');
     Route::get('course-college-management/remove/{collegeId}/{courseId}', [CourseCollegeManagementController::class, 'remove'])->name('admin.course_college_management.remove');
+
+    // Matrix Management
+    Route::get('matrix-management/', [MatrixManagementController::class, 'index'])->name('admin.matrix_management');
+    Route::get('get-university-roles-for-matrix/{matrixId}', [MatrixManagementController::class, 'getUniversityRolesForMatrix']);
+
+    Route::post('matrix-management/', [MatrixManagementController::class, 'store'])->name('admin.matrix_management.store');
+    Route::get('matrix-management/manage/{matrixId}', [MatrixManagementController::class, 'manage'])->name('admin.matrix_management.manage');
+    Route::patch('matrix-management/update/', [MatrixManagementController::class, 'update'])->name('admin.matrix_management.update');
+    Route::delete('matrix-management/delete/', [MatrixManagementController::class, 'destroy'])->name('admin.matrix_management.destroy');
+
+    Route::post('matrix-management/title', [MatrixManagementController::class, 'storeTitle'])->name('admin.matrix_management.title.store');
+    Route::delete('matrix-management/title/delete/', [MatrixManagementController::class, 'destroyTitle'])->name('admin.matrix_management.title.destroy');
+
+    Route::post('matrix-management/item', [MatrixManagementController::class, 'storeItem'])->name('admin.matrix_management.item.store');
+    Route::get('matrix-management/item/remove/{matrixItemId}/{matrixId}', [MatrixManagementController::class, 'removeItem'])->name('admin.matrix_management.item.remove');
+
+    Route::post('matrix-management/evaluator', [MatrixManagementController::class, 'storeEvaluator'])->name('admin.matrix_management.evaluator.store');
+    Route::get('matrix-management/remove/{universityRoleId}/{matrixId}', [MatrixManagementController::class, 'remove'])->name('admin.matrix_management.remove');
 
     // Utilities
     Route::get('system-log/', [LogController::class, 'index'])->name('admin.system_log');
@@ -90,11 +109,6 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
 
 });
-
-
-
-
-
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {
