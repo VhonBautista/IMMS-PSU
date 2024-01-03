@@ -51,7 +51,7 @@
                         </div>
                         <div class="divide-y divide-gray-100 dark:divide-gray-700 max-h-[300px] overflow-y-auto">
                             @forelse($user->unreadNotifications as $notification)
-                                <a href="{{ route($notification->data['route']) }}" onclick="event.preventDefault(); markNotificationAsReadAndRedirect(this, '{{ route('mark-as-read', ['id' => $notification->id]) }}')" class="flex justify-center md:justify-start items-center w-full px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"> 
+                            <a href="{{ $notification->data['route'] !== 'none' ? route($notification->data['route']) : '' }}" onclick="event.preventDefault(); markNotificationAsReadAndRedirect(this, '{{ route('mark-as-read', ['id' => $notification->id]) }}')" class="flex justify-center md:justify-start items-center w-full px-0 md:px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700"> 
                                     {{-- Icons --}}
                                     @switch($notification->data['action'])
                                         @case('added')
