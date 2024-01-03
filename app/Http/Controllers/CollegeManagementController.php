@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Log;
+use App\Models\User;
 use App\Models\Campus;
 use App\Models\College;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use App\Notifications\SystemNotification;
+use Illuminate\Support\Facades\Notification;
 class CollegeManagementController extends Controller
 {
     public function index(Request $request)
@@ -46,6 +49,28 @@ class CollegeManagementController extends Controller
             'description' => $request->input('description'),
         ]);
 
+        
+        $user = $request->user();
+        $area = 'admin.college_management'; 
+        $title = 'New college Added'; 
+        $action = 'added'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' added a new college "' . $request->input('college_name') . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
+       
+
         return redirect()->route('admin.college_management')->with('success', 'College added successfully.');
     }
 
@@ -73,6 +98,25 @@ class CollegeManagementController extends Controller
             'campus_id' => $request->input('campus_id')
         ]);
 
+        $user = $request->user();
+        $area = 'admin.college_management'; 
+        $title = ' college Information Updated '; 
+        $action = 'updated'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' updated the college infromation of "' . $request->input('college_name') . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         return redirect()->route('admin.college_management.edit', $request->input('college_id'))->with('success', 'College updated successfully.');
     }
 
@@ -84,6 +128,25 @@ class CollegeManagementController extends Controller
 
         $college = College::findOrFail($request->input('college_id'));
         $college->delete();
+
+        $user = $request->user();
+        $area = 'admin.college_management'; 
+        $title = ' college deleted'; 
+        $action = 'deleted'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' deleted the college "' . $college->college_name . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
         
         return redirect()->route('admin.college_management')->with(
             'success', 'College deleted successfully.'

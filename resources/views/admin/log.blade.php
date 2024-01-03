@@ -81,7 +81,7 @@
                                 </th>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">
-                                        <a data-tooltip-target="tooltip-view-{{ $log->id }}" href="{{ route($log->area) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a data-tooltip-target="tooltip-view-{{ $log->id }}" href="{{ $log->area !== 'none' ? route($log->area) : $log->area }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ $log->title }}
                                         </a>
 
