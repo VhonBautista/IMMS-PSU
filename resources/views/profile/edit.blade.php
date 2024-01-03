@@ -1,30 +1,45 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li>
+                        <div class="flex items-center">
+                        <a href="{{ route('admin.dashboard') }}" class="text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Dashboard') }}</a></a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                        <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                        <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Profile') }}</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
     </x-slot>
 
     <div class="max-w-7xl mx-auto space-y-6">
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 sm:rounded-lg">
             <div class="max-w-xl">
                 @include('profile.partials.view-profile-information-form')
             </div>
         </div>
 
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 sm:rounded-lg">
             <div class="max-w-xl">
                 @include('profile.partials.update-profile-information-form')
             </div>
         </div>
         
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 sm:rounded-lg">
             <div class="max-w-xl">
                 @include('profile.partials.update-password-form')
             </div>
         </div>
 
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 sm:rounded-lg">
             <div class="max-w-xl">
                 @include('profile.partials.delete-user-form')
             </div>

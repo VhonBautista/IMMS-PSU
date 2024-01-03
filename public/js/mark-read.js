@@ -1,20 +1,41 @@
-function sendMarkRead(id = null) {
-    return $.ajax("{{ route('notification.read') }}", {
-        method: "POST",
-        data: {
-            _token: "{{ csrf_token() }}",
-            id: id
+function markNotificationAsReadAndRedirect(element, markAsReadRoute) {
+    $.ajax({
+        url: markAsReadRoute,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        data: JSON.stringify({}),
+        success: function(data) {
+            if (data.success) {
+                window.location.href = $(element).attr('href');
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
         }
     });
 }
 
-$(function() {
-    $(".mark-as-read").click(function() {
-        let request = sendMarkRead($(this).data('id'));
-
-        request.done(() => {
-            $(this).remove();
-            window.location.href = $(this).attr('href');
-        });
-    })
-});
+function markAllNotificationsAsRead(markAllAsReadRoute) {
+    $.ajax({
+        url: markAllAsReadRoute,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        data: JSON.stringify({}),
+        success: function(data) {
+            if (data.success) {
+                location.reload();
+            }
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
+}

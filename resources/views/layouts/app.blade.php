@@ -58,6 +58,7 @@
         
         <script src="{{ asset('js/jquery.js')}}"></script>
         <script src="{{ asset('js/mark-read.js')}}"></script>
+        <script src="{{ asset('js/session-storage.js')}}"></script>
         @yield('scripts')
     </body>
 </html>

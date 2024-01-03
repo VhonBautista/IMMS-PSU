@@ -237,7 +237,9 @@
                                         @else
                                             bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-300
                                         @endif
-                                    ">{{ $user->role->role_name }}</span>
+                                    ">
+                                        {{ $user->role->role_name }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $user->universityRole->university_role }}

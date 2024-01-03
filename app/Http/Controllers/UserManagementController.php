@@ -14,7 +14,7 @@ class UserManagementController extends Controller
 {
     public function index(Request $request)
     {
-        // Auth User : Always add this
+        // Auth User
         $user = $request->user();
 
         // Filters
