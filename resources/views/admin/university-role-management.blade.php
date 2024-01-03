@@ -13,7 +13,7 @@
                         <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
-                        <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('University Roles') }}</span>
+                        <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('University Role Management') }}</span>
                         </div>
                     </li>
                 </ol>
@@ -24,7 +24,7 @@
                     <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
                 </svg>
                 <span class="hidden lg:block">
-                    {{ __('Add University Roles') }}
+                    {{ __('Add University Role') }}
                 </span>
             </button>
         </div>
@@ -37,8 +37,7 @@
                 {{ __('Add New University Roles') }}
             </h3>
 
-            {{-- <form class="space-y-4 md:space-y-6" method="POST" action=""> --}}
-            <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('admin.university_roles_management.store') }}">
+            <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('admin.university_role_management.store') }}">
                 @csrf
     
                 <div class="w-full lg:full">
@@ -89,7 +88,7 @@
     {{-- Alert End --}}
 
     <div class="bg-white p-6 rounded-lg">
-        <form action="{{ route('admin.university_roles_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
+        <form action="{{ route('admin.university_role_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
             {{-- * Do Not Remove For UI Purposes --}}
@@ -98,7 +97,7 @@
             {{-- * Do Not Remove For UI Purposes End --}}
 
             <div class="relative w-full md:w-3/4">
-                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for university roles or description" value="{{ request('search') }}">
+                <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for university roles by role or description" value="{{ request('search') }}">
                 <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -148,7 +147,7 @@
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex space-x-2">
                                         {{-- <a href="" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> --}}
-                                        <a href="{{ route('admin.university_roles_management.edit', $university->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <a href="{{ route('admin.university_role_management.edit', $university->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                                 <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
                                                 <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
@@ -186,7 +185,7 @@
     {{-- Delete Course Modal --}}
     <x-modal name="delete-university-modal" :maxWidth="'md'" focusable>
         <div class="p-6">
-            <form class="space-y-4 md:space-y-6" id="delete-university-form" method="POST" action="{{ route('admin.university_roles_management.destroy') }}">
+            <form class="space-y-4 md:space-y-6" id="delete-university-form" method="POST" action="{{ route('admin.university_role_management.destroy') }}">
                 @csrf
                 @method('DELETE')
     

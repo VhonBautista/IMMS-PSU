@@ -32,7 +32,7 @@
                                 <a href="#" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Instructional Materials</a>
                             </li>
                             <li class="me-1">
-                                <a href="#" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">My Submissions</a>
+                                <a href="#" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Submissions</a>
                             </li>
                         </ul>
                     </div>

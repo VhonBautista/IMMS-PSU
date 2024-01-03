@@ -12,7 +12,7 @@
                     <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <a href="{{ route('admin.university_roles_management') }}" class="ml-1 text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('University Role') }}</a>
+                    <a href="{{ route('admin.university_role_management') }}" class="ml-1 text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('University Role') }}</a>
                     </div>
                 </li>
                 <li aria-current="page">
@@ -52,7 +52,7 @@
             {{ __('University Role Information') }}
         </h1>
         {{-- <form action="" method="POST" class="space-y-6">  --}}
-        <form action="{{ route('admin.university_roles_management.update') }}" method="POST" class="space-y-6"> 
+        <form action="{{ route('admin.university_role_management.update') }}" method="POST" class="space-y-6"> 
             @csrf
             @method('PATCH')
 
@@ -66,7 +66,7 @@
 
             <div class="w-full lg:w-1/2">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Description') }}</label>
-                <textarea rows="2" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description of univeristy role.">{{ old('location', $university->description) }}</textarea>
+                <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description of univeristy role.">{{ old('location', $university->description) }}</textarea>
             </div>
 
             <x-input-error :messages="$errors->get('university')" class="mt-1" />
@@ -74,7 +74,7 @@
             <div class="flex items-center gap-4">
                 <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>
                 <x-secondary-button class="sm:w-44">
-                    <a href="{{ route('admin.university_roles_management') }}">
+                    <a href="{{ route('admin.university_role_management') }}">
                         {{ __('Cancel') }}
                     </a>
                 </x-secondary-button>
