@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampusManagementController;
 use App\Http\Controllers\CollegeManagementController;
 use App\Http\Controllers\CourseCollegeManagementController;
+use App\Http\Controllers\UniversityRolesController;
 use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
@@ -78,6 +79,13 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::patch('department-management/edit/', [DepartmentManagementController::class, 'update'])->name('admin.department_management.update');
     Route::delete('department-management/delete/', [DepartmentManagementController::class, 'destroy'])->name('admin.department_management.destroy');
     
+    // Univeristy Role Management
+    Route::get('university-role-management', [UniversityRolesController::class, 'index'])->name('admin.university_roles_management');
+    Route::post('university-role-management', [UniversityRolesController::class, 'store'])->name('admin.university_roles_management.store');
+    Route::get('university-role-management/edit/{id}', [UniversityRolesController::class, 'edit'])->name('admin.university_roles_management.edit');
+    Route::patch('university-role-management/edit/', [UniversityRolesController::class, 'update'])->name('admin.university_roles_management.update');
+    Route::delete('university-role-management/delete/', [UniversityRolesController::class, 'destroy'])->name('admin.university_roles_management.destroy');
+
     // Course Colleges Management
     Route::get('course-college-management/', [CourseCollegeManagementController::class, 'index'])->name('admin.course_college_management');
     Route::get('get-courses-for-college/{collegeId}', [CourseCollegeManagementController::class, 'getCoursesForCollege']);
@@ -87,7 +95,6 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     // Matrix Management
     Route::get('matrix-management/', [MatrixManagementController::class, 'index'])->name('admin.matrix_management');
     Route::get('get-university-roles-for-matrix/{matrixId}', [MatrixManagementController::class, 'getUniversityRolesForMatrix']);
-
     Route::post('matrix-management/', [MatrixManagementController::class, 'store'])->name('admin.matrix_management.store');
     Route::get('matrix-management/manage/{matrixId}', [MatrixManagementController::class, 'manage'])->name('admin.matrix_management.manage');
     Route::patch('matrix-management/update/', [MatrixManagementController::class, 'update'])->name('admin.matrix_management.update');
