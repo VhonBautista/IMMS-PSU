@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Log;
+use App\Models\User;
+use App\Notifications\SystemNotification;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Campus;
-
+use Illuminate\Support\Facades\Notification;
 class CourseManagementController extends Controller
 {
     public function index(Request $request)
@@ -44,6 +46,25 @@ class CourseManagementController extends Controller
             'campus_id' => $request->input('campus_id'),
         ]);
 
+        $user = $request->user();
+        $area = 'admin.course_management'; 
+        $title = 'New course Added'; 
+        $action = 'added'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' added a new course "' . $request->input('course_name') . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         return redirect()->route('admin.course_management')->with('success', 'Course added successfully.');
     }
 
@@ -70,6 +91,25 @@ class CourseManagementController extends Controller
             'campus_id' => $request->input('campus_id')
         ]);
 
+        $user = $request->user();
+        $area = 'admin.course_management'; 
+        $title = ' course Information Updated '; 
+        $action = 'updated'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' updated the course infromation of "' . $request->input('course_name') . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         return redirect()->route('admin.course_management.edit', $request->input('course_id'))->with('success', 'Course updated successfully.');
     }
 
@@ -81,6 +121,25 @@ class CourseManagementController extends Controller
 
         $course = Course::findOrFail($request->course_id);
         $course->delete();
+
+        $user = $request->user();
+        $area = 'admin.course_management'; 
+        $title = ' course deleted'; 
+        $action = 'deleted'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' deleted the course "' . $course->course_name . '".';
+        
+        
+        $users = User::where('role_id', 1)->get();
+
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
 
         return redirect()->route('admin.course_management')->with(
             'success', 'Course deleted successfully.',

@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Log;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Department;
-use App\Models\Campus;
+use App\models\Campus;
+use App\Notifications\SystemNotification;
+use Illuminate\Support\Facades\Notification;
+
 class DepartmentManagementController extends Controller
 {
     public function index(Request $request)
@@ -44,6 +48,23 @@ class DepartmentManagementController extends Controller
             'campus_id' => $request->input('campus_id'),
         ]);
 
+        $user = $request->user();
+        $area = 'admin.department_management'; 
+        $title = 'New department Added'; 
+        $action = 'added'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' added a new department "' . $request->input('department_name') . '".';
+        
+        $users = User::where('role_id', 1)->get();
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         return redirect()->route('admin.department_management')->with('success', 'Department added successfully.');
     }
 
@@ -70,6 +91,23 @@ class DepartmentManagementController extends Controller
             'campus_id' => $request->input('campus_id'),
         ]);
 
+        $user = $request->user();
+        $area = 'admin.department_management'; 
+        $title = ' department Information Updated '; 
+        $action = 'updated'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' updated the department infromation of "' . $request->input('department_name') . '".';
+        
+        $users = User::where('role_id', 1)->get();
+        
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         return redirect()->route('admin.department_management.edit', $request->input('department_id'))->with('success', 'Department updated successfully.');
     }
 
@@ -81,6 +119,23 @@ class DepartmentManagementController extends Controller
 
         $department = Department::findOrFail($request->department_id);
         $department->delete();
+
+         $user = $request->user();
+        $area = 'admin.department_management'; 
+        $title = ' department deleted'; 
+        $action = 'deleted'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' deleted the department "' . $department->department_name . '".';
+        
+        $users = User::where('role_id', 1)->get();
+
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
         
         return redirect()->route('admin.department_management')->with(
             'success', 'Department deleted successfully.',
