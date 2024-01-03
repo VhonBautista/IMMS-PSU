@@ -24,10 +24,8 @@ Route::get('/', function () {
                 return redirect()->route('admin.dashboard');
                 break;
             case 3:
-                // return redirect()->route('evaluator.evaluation');
-                break;
             case 4:
-                // return redirect()->route('home');
+                return redirect()->route('home');
                 break;
             default:
                 abort(404, 'Page not found');
@@ -112,20 +110,20 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {
-    // Route::get('/evaluations', function () {
-    //     return view('evaluator.evaluation');
-    // })->name('evaluator.evaluation');
+    
 });
 
 // ======================== Regular User Routes ======================== //
 Route::middleware('auth', 'role:4')->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    
 });
 
 // ========================== All User Routes ========================== //
 Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

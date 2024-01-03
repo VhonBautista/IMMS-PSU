@@ -32,4 +32,8 @@
             {{ $slot }}
         </div>
     </body>
+        
+    <script src="{{ asset('js/jquery.js')}}"></script>
+    <script src="{{ asset('js/session-storage.js')}}"></script>
+    @yield('scripts')
 </html>

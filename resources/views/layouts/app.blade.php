@@ -16,7 +16,7 @@
     <body class="font-sans antialiased">
         @yield('top-scripts')
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900 test-bg">
-            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
                 <!-- Admin user -->
                 @include('layouts.sidebar')
 

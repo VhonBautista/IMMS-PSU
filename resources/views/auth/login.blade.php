@@ -32,20 +32,6 @@
                     @endif
                 </div>
     
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const passwordInput = document.getElementById('password');
-                        const confirmPasswordInput = document.getElementById('confirm-password');
-                        const showPasswordCheckbox = document.getElementById('show_password');
-                
-                        showPasswordCheckbox.addEventListener('change', function () {
-                            const passwordType = showPasswordCheckbox.checked ? 'text' : 'password';
-                            passwordInput.type = passwordType;
-                            confirmPasswordInput.type = passwordType;
-                        });
-                    });
-                </script>
-    
                 <div class="flex items-center justify-end mt-4">
                     <x-primary-button>
                         {{ __('Log in') }}
@@ -60,4 +46,8 @@
             </form>
         </div>
     </div>
+
+    @section('scripts')
+        <script src="{{ asset('js/show-password.js') }}"></script>
+    @endsection
 </x-guest-layout>
