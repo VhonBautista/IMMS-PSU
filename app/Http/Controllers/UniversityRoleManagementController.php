@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Log;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\SystemNotification;
+use Illuminate\Support\Facades\Notification;
 use App\Models\UniversityRole;
 
 class UniversityRoleManagementController extends Controller
@@ -38,6 +41,28 @@ class UniversityRoleManagementController extends Controller
             'description' => $request->input('description'),
         ]);
 
+      
+        $user = $request->user();
+        $area = 'admin.university_role_management'; 
+        $title = 'New Role Added'; 
+        $action = 'added';
+        $description = $user->firstname . ' ' . $user->lastname . ' added a new Univrsity Role "' . $request->input('university_role') . '".'; // * Change and use a fitting description
+        
+       
+        $users = User::where('role_id', 1)->get();
+
+      
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
+       
+
         return redirect()->route('admin.university_role_management')->with('success', 'University role added successfully.');
     }
 
@@ -63,6 +88,25 @@ class UniversityRoleManagementController extends Controller
             'description' => $request->input('description'),
         ]);
 
+        $user = $request->user();
+        $area = 'admin.university_role_management'; 
+        $title = 'Role Updated'; 
+        $action = 'updated';
+        $description = $user->firstname . ' ' . $user->lastname . ' updated the information of Univrsity Role "' . $request->input('university_role') . '".'; // * Change and use a fitting description
+        
+       
+        $users = User::where('role_id', 1)->get();
+
+      
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
         if($university) {
             return redirect()->route('admin.university_role_management.edit', $request->input('id'))->with('success', 'University role information has been updated successfully.');
         } else {
@@ -79,6 +123,29 @@ class UniversityRoleManagementController extends Controller
         $university = UniversityRole::findOrFail($request->id);
         $university->delete();
         
+          // =============================== Log & Notification ===============================//
+        // Information Details
+        $user = $request->user();
+        $area = 'admin.university_role_management';
+        $title = 'Role Deleted';
+        $action = 'deleted';
+        $description = $user->firstname . ' ' . $user->lastname . ' deleted the Role "' . $university->university_role . '".'; 
+        
+        // Reciever of Notification
+        $users = User::where('role_id', 1)->get();
+
+        // Log & Notification
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
+        // =============================== Log & Notification Details End ===============================//
+
         return redirect()->route('admin.university_role_management')->with('success', 'University role deleted successfully.');
     }
 }
