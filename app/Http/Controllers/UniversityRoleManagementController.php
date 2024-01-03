@@ -38,7 +38,7 @@ class UniversityRoleManagementController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('admin.university_roles_management')->with('success', 'University role added successfully.');
+        return redirect()->route('admin.university_role_management')->with('success', 'University role added successfully.');
     }
 
     public function edit($id)
@@ -79,6 +79,6 @@ class UniversityRoleManagementController extends Controller
         $university = UniversityRole::findOrFail($request->id);
         $university->delete();
         
-        return redirect()->route('admin.university_roles_management')->with('success', 'University role deleted successfully.');
+        return redirect()->route('admin.university_role_management')->with('success', 'University role deleted successfully.');
     }
 }
