@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Log;
 use App\Models\User;
+use App\Models\UniversityRole;
 use Illuminate\Http\Request;
 use App\Notifications\SystemNotification;
 use Illuminate\Support\Facades\Notification;
-use App\Models\UniversityRole;
 
 class UniversityRoleManagementController extends Controller
 {
@@ -48,10 +48,8 @@ class UniversityRoleManagementController extends Controller
         $action = 'added';
         $description = $user->firstname . ' ' . $user->lastname . ' added a new Univrsity Role "' . $request->input('university_role') . '".'; // * Change and use a fitting description
         
-       
         $users = User::where('role_id', 1)->get();
 
-      
         Log::create([
             'area' => $area , 
             'title' => $title,
@@ -60,8 +58,6 @@ class UniversityRoleManagementController extends Controller
             'user_id' => $user->id, // ! Do not change
         ]);
         Notification::send($users, new SystemNotification($title, $action, $description, $area));
-
-       
 
         return redirect()->route('admin.university_role_management')->with('success', 'University role added successfully.');
     }
@@ -94,10 +90,8 @@ class UniversityRoleManagementController extends Controller
         $action = 'updated';
         $description = $user->firstname . ' ' . $user->lastname . ' updated the information of Univrsity Role "' . $request->input('university_role') . '".'; // * Change and use a fitting description
         
-       
         $users = User::where('role_id', 1)->get();
 
-      
         Log::create([
             'area' => $area , 
             'title' => $title,
@@ -123,7 +117,7 @@ class UniversityRoleManagementController extends Controller
         $university = UniversityRole::findOrFail($request->id);
         $university->delete();
         
-          // =============================== Log & Notification ===============================//
+        // =============================== Log & Notification ===============================//
         // Information Details
         $user = $request->user();
         $area = 'admin.university_role_management';

@@ -11,6 +11,7 @@ use App\Models\UniversityRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\SystemNotification;
+
 class MatrixManagementController extends Controller
 {
     public function index(Request $request)
@@ -64,26 +65,28 @@ class MatrixManagementController extends Controller
             'description' => $request->input('description'),
         ]);
 
-          // =============================== Log & Notification ===============================//
+        // =============================== Log & Notification ===============================//
         // Information Details
         $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'New Matrix added';
-        $action = 'added';
-        $description = $user->firstname . ' ' . $user->lastname . '  added a new matrix "' . $request->input('matrix_name') . '".'; 
-        
-        // Reciever of Notification
-        $users = User::where('role_id', 1)->get();
-
-        // Log & Notification
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'New Matrix added';
+            $action = 'added';
+            $description = $user->firstname . ' ' . $user->lastname . '  added a new matrix "' . $request->input('matrix_name') . '".'; 
+            
+            // Reciever of Notification
+            $users = User::where('role_id', 1)->get();
+    
+            // Log & Notification
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         // =============================== Log & Notification Details End ===============================//
 
@@ -109,24 +112,26 @@ class MatrixManagementController extends Controller
                 'univ_role_id' => $univRoleId,
             ]);
         }
-  $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'Evaluator Added';
-        $action = 'added';
-        $description = $user->firstname . ' ' . $user->lastname . 'New Evaluator added in"' . $matrix->matrix_name . '".'; 
-        
-        
-        $users = User::where('role_id', 1)->get();
 
-       
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        $user = $request->user();
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Evaluator Added';
+            $action = 'added';
+            $description = $user->firstname . ' ' . $user->lastname . 'New Evaluator added in"' . $matrix->matrix_name . '".'; 
+                
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
+
         return redirect()->route('admin.matrix_management.manage', $matrixId)->with('detail-success', 'Evaluator(s) added successfully.');
     }
 
@@ -151,24 +156,23 @@ class MatrixManagementController extends Controller
         ]);
 
         $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'Matrix item Added';
-        $action = 'added';
-        $description = $user->firstname . ' ' . $user->lastname . 'New matrix item added.'; 
-        
-        
-        $users = User::where('role_id', 1)->get();
-
-       
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
-
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Matrix item Added';
+            $action = 'added';
+            $description = $user->firstname . ' ' . $user->lastname . 'New matrix item added.'; 
+            
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         return redirect()->route('admin.matrix_management.manage', $matrixId)->with('detail-success', 'Item added successfully.');
     }
@@ -182,7 +186,6 @@ class MatrixManagementController extends Controller
 
         $matrixId = $request->matrix_id;
         $subMatrixName = $request->sub_matrix_name;
-        
 
         SubMatrix::create([
             'title' => $subMatrixName,
@@ -190,23 +193,23 @@ class MatrixManagementController extends Controller
         ]);
 
         $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'Title Added';
-        $action = 'added';
-        $description = $user->firstname . ' ' . $user->lastname . ' has added a title'; 
-        
-        
-        $users = User::where('role_id', 1)->get();
-
-       
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Title Added';
+            $action = 'added';
+            $description = $user->firstname . ' ' . $user->lastname . ' has added a title'; 
+            
+            $users = User::where('role_id', 1)->get();
+           
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         return redirect()->route('admin.matrix_management.manage', $matrixId)->with('detail-success', 'Title added successfully.');
     }
@@ -233,44 +236,83 @@ class MatrixManagementController extends Controller
             'description' => $request->input('description')
         ]);
 
-        
         $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'matrix Updated';
-        $action = 'updated';
-        $description = $user->firstname . ' ' . $user->lastname . ' updated the matrix information of "' . $request->input('matrix_name') . '".'; 
-        
-      
-        $users = User::where('role_id', 1)->get();
-
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Matrix Updated';
+            $action = 'updated';
+            $description = $user->firstname . ' ' . $user->lastname . ' updated the matrix information of "' . $request->input('matrix_name') . '".'; 
+            
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         return redirect()->route('admin.matrix_management.manage', $request->input('matrix_id'))->with('success', 'Matrix updated successfully.');
     }
 
-    public function remove($universityRoleId, $matrixId)
+    public function remove(Request $request, $universityRoleId, $matrixId)
     {
         $evaluatorMatrix = EvaluatorMatrix::where('univ_role_id', $universityRoleId)
                                    ->where('matrix_id', $matrixId)
                                    ->firstOrFail();
+        $evaluator = $evaluatorMatrix->evaluator;
+        $matrix = $evaluatorMatrix->matrix;
+
+        $user = $request->user();
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Evaluator Removed';
+            $action = 'removed';
+            $description = $user->firstname . ' ' . $user->lastname . ' removed ' . $evaluator->university_role . ' from the matrix "' . $matrix->matrix_name . '".'; 
+            
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         $evaluatorMatrix->delete();
-
-        
 
         return redirect()->route('admin.matrix_management.manage', $matrixId)->with('detail-success', 'Evaluator removed successfully.');
     }
 
-    public function removeItem($matrixItemId, $matrixId)
+    public function removeItem(Request $request, $matrixItemId, $matrixId)
     {
         $matrixItem = MatrixItem::findOrFail($matrixItemId);
+        $matrix = $matrixItem->subMatrix->matrix;
+        
+        $user = $request->user();
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Item Removed';
+            $action = 'removed';
+            $description = $user->firstname . ' ' . $user->lastname . ' removed ' . $matrixItem->item . ' from the matrix "' . $matrix->matrix_name . '".'; 
+            
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         $matrixItem->delete();
 
@@ -287,31 +329,32 @@ class MatrixManagementController extends Controller
         ]);
 
         $subMatrix = SubMatrix::findOrFail($request->sub_matrix_id);
+        $matrix = $subMatrix->matrix;
+
+        $user = $request->user();
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Title Removed';
+            $action = 'removed';
+            $description = $user->firstname . ' ' . $user->lastname . ' removed ' . $subMatrix->title . ' from the matrix "' . $matrix->matrix_name . '".'; 
+            
+            $users = User::where('role_id', 1)->get();
+    
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
         $subMatrix->matrixItems->each(function ($matrixItem) {
             $matrixItem->delete();
         });
 
         $subMatrix->delete();
-
-        $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'title Deleted';
-        $action = 'deleted';
-        $description = $user->firstname . ' ' . $user->lastname . ' deleted the title "' . $subMatrix->title . '".'; 
-        
-        // Reciever of Notification
-        $users = User::where('role_id', 1)->get();
-
-        // Log & Notification
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
 
         return redirect()->route('admin.matrix_management.manage', $request->matrix_id)->with(
             'detail-success', 'Sub matrix deleted successfully.',
@@ -337,9 +380,6 @@ class MatrixManagementController extends Controller
 
             $subMatrix->delete();
         });
-
-        $matrix->delete();
-
         
         $user = $request->user();
         $area = 'admin.matrix_management';
@@ -359,6 +399,8 @@ class MatrixManagementController extends Controller
             'user_id' => $user->id, // ! Do not change
         ]);
         Notification::send($users, new SystemNotification($title, $action, $description, $area));
+
+        $matrix->delete();
 
         return redirect()->route('admin.matrix_management')->with(
             'success', 'Matrix deleted successfully.',
