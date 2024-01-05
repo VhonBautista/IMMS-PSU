@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log::class);
     }
+    public function instructionalMaterials()
+    {
+        return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
+    }
 }

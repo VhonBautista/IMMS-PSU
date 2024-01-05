@@ -126,6 +126,8 @@ Route::middleware('auth')->group(function () {
 
     // Submission Management
     Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
+    Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
