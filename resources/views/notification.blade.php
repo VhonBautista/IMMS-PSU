@@ -61,14 +61,14 @@
 
                         {{-- Details --}}
                         <div scope="row" class="px-0 md:px-4 w-full font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="font-black text-sm text-gray-800 dark:text-gray-200 capitalize">
+                            <div class="font-bold text-sm text-gray-800 dark:text-gray-200 capitalize">
                                 {{ $notification->data['title'] }}
                             </div>
-                            <div class="font-black text-xs capitalize text-gray-500 flex justify-between items-center">
+                            <div class="font-bold text-xs capitalize text-gray-500 flex justify-between items-center">
                                 <span class="max-w-[200px] md:max-w-[400px] overflow-hidden overflow-ellipsis">
                                     {{ $notification->data['description'] }}
                                 </span>
-                                <span class="text-xs text-gray-500 font-black lowercase">
+                                <span class="text-xs text-gray-500 font-bold lowercase">
                                     {{ $notification->created_at->diffForHumans() }}
                                 </span>
                             </div>

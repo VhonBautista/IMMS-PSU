@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseManagementController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MatrixManagementController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -117,16 +118,14 @@ Route::middleware('auth', 'role:3')->group(function () {
     
 });
 
-// ======================== Regular User Routes ======================== //
-Route::middleware('auth', 'role:4')->group(function () {
-    
-});
-
 // ========================== All User Routes ========================== //
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
         return view('home');
     })->name('home');
+
+    // Submission Management
+    Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -13,7 +13,7 @@
                         <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
-                        <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Course College Management') }}</span>
+                        <span class="ml-1 font-medium text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Course College Management') }}</span>
                         </div>
                     </li>
                 </ol>
@@ -24,7 +24,7 @@
     {{-- Add Courses Modal --}}
     <x-modal name="add-courses-modal" focusable>
         <div class="p-6">
-            <h3 id="modal-title" class="text-xl font-semibold text-gray-900 dark:text-white"></h3>
+            <h3 id="modal-title" class="text-xl font-medium text-gray-900 dark:text-white"></h3>
 
             <form class="mt-3" method="POST" action="{{ route('admin.course_college_management.store') }}">
                 @csrf
@@ -99,7 +99,7 @@
                     @forelse( $colleges as $college )
                         <h2 id="accordion-collapse-heading-{{ $college->id }}" class="mt-3">
                             <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{ $college->id }}" aria-expanded="true" aria-controls="accordion-collapse-body-{{ $college->id }}">
-                                <span class="text-lg font-black">{{ $college->college_name }}</span>
+                                <span class="text-md font-bold">{{ $college->college_name }}</span>
                                 <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                 </svg>
@@ -107,11 +107,11 @@
                         </h2>
                         <div id="accordion-collapse-body-{{ $college->id }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $college->id }}">
                             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                                <h1 class="text-md mb-2 font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <h1 class="text-md mb-2 font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Description') }}
                                 </h1>
                                 <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">{{ $college->description }}</p>
-                                <h1 class="text-md mb-2 font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <h1 class="text-md mb-2 font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Courses') }}
                                 </h1>
                                 <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">

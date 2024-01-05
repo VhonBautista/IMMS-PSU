@@ -382,24 +382,26 @@ class MatrixManagementController extends Controller
         });
         
         $user = $request->user();
-        $area = 'admin.matrix_management';
-        $title = 'Matrix Deleted';
-        $action = 'deleted';
-        $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".'; 
+        if ($user->id != 1){
+            $area = 'admin.matrix_management';
+            $title = 'Matrix Deleted';
+            $action = 'deleted';
+            $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".'; 
+            
+            // Reciever of Notification
+            $users = User::where('role_id', 1)->get();
+
+            // Log & Notification
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
         
-        // Reciever of Notification
-        $users = User::where('role_id', 1)->get();
-
-        // Log & Notification
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
-
         $matrix->delete();
 
         return redirect()->route('admin.matrix_management')->with(

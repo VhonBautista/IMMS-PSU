@@ -44,7 +44,14 @@
 
                 <div class="flex flex-col min-h-screen">
                     <div class="flex-grow p-4">
-                        <div class=" sm:px-12 lg:px-8">
+                        <div class="pt-2 rounded-lg">
+                            @if (isset($header))
+                                <header class="py-5 px-4 mb-5 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                                    <div class="">
+                                        {{ $header }}
+                                    </div>
+                                </header>
+                            @endif
                             {{ $slot }}
                         </div>
                     </div>

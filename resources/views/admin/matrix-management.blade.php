@@ -13,7 +13,7 @@
                         <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
-                        <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Matrix Management') }}</span>
+                        <span class="ml-1 font-medium text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Matrix Management') }}</span>
                         </div>
                     </li>
                 </ol>
@@ -33,7 +33,7 @@
     {{-- Add Matrix Modal --}}
     <x-modal name="add-matrix-modal" focusable>
         <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <h3 class="text-xl font-medium text-gray-900 dark:text-white">
                 {{ __('Add New Matrix') }}
             </h3>
 
@@ -118,7 +118,7 @@
                     @forelse( $matrices as $matrix )
                         <h2 id="accordion-collapse-heading-{{ $matrix->id }}" class="mt-3">
                             <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{ $matrix->id }}" aria-expanded="true" aria-controls="accordion-collapse-body-{{ $matrix->id }}">
-                                <span class="text-md font-black">{{ $matrix->matrix_name }}</span>
+                                <span class="text-md font-bold">{{ $matrix->matrix_name }}</span>
                                 <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                 </svg>
@@ -126,7 +126,7 @@
                         </h2>
                         <div id="accordion-collapse-body-{{ $matrix->id }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $matrix->id }}">
                             <div class="p-5 border border-gray-200 dark:border-gray-700">
-                                <h1 class="text-md font-semibold w-full flex justify-between items-center leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <h1 class="text-md font-medium w-full flex justify-between items-center leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Description') }}
 
                                     <div>
@@ -149,12 +149,12 @@
                                 </h1>
                                 <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">{{ $matrix->description }}</p>
 
-                                <h1 class="text-md mb-2 font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
+                                <h1 class="text-md mb-2 font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
                                     {{ __('Matrix Details') }}
                                 </h1>
                                 <div class="flex flex-wrap gap-5">
                                     <div class="border border-1 p-3 md:p-6 bg-white rounded-lg flex-1">
-                                        <h1 class="text-lg flex w-full items-center justify-between text-center md:text-start font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
+                                        <h1 class="text-lg flex w-full items-center justify-between text-center md:text-start font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
                                             {{ $matrix->matrix_name }}
                                         </h1>
                                         <div class="px-2 pt-3 text-gray-500 dark:text-gray-400">
@@ -162,7 +162,7 @@
                                                 @forelse( $matrix->subMatrices->sortBy('title') as $subMatrix )
                                                     <h2 id="accordion-flush-heading-{{ $matrix->id . '-' . $subMatrix->id}}">
                                                         <button type="button" class="flex px-2 items-center justify-between w-full py-2 font-medium rtl:text-right text-gray-800 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-{{ $matrix->id . '-' . $subMatrix->id}}" aria-expanded="true" aria-controls="accordion-flush-body-{{ $matrix->id . '-' . $subMatrix->id}}">
-                                                            <span class="text-sm font-bold">{{ $subMatrix->title }}</span>
+                                                            <span class="text-sm font-medium">{{ $subMatrix->title }}</span>
                                                             <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                                             </svg>
@@ -175,7 +175,7 @@
                                                                     <li>
                                                                         <div class="flex w-full justify-between items-center text-sm mb-1">
                                                                             <div class="flex items-center gap-1">
-                                                                                <span class="text-gray-600 font-medium dark:text-gray-500">{{ $matrixItem->item }}</span>
+                                                                                <span class="text-gray-600 font-normal dark:text-gray-500">{{ $matrixItem->item }}</span>
                             
                                                                                 <svg class="w-3 h-3 text-gray-800 dark:text-white" data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -183,7 +183,7 @@
                                                                             </div>
                                                                         </div>
                                                                         
-                                                                        <div id="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" role="tooltip" class="absolute z-10 max-w-[300px] invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                                        <div id="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" role="tooltip" class="absolute z-10 max-w-[300px] invisible inline-block px-3 py-2 text-sm font-normal text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                                                             {{ $matrixItem->text }}
                                                                         </div>
                                                                     </li>
@@ -205,14 +205,14 @@
                                     </div>
                                     
                                     <div class="border border-1 p-3 md:p-6 bg-white rounded-lg flex-1">
-                                        <h1 class="text-lg flex w-full items-center justify-between text-center md:text-start font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
+                                        <h1 class="text-lg flex w-full items-center justify-between text-center md:text-start font-medium leading-tight tracking-tight text-gray-900 dark:text-white">
                                             {{ __('Matrix Evaluators') }}
                                         </h1>
                                         <div class="px-2 pt-5 text-gray-800 dark:text-gray-400">
                                             @forelse( $matrix->evaluatorMatrices as $evaluatorMatrix )
                                                 <div class="flex w-full gap-6 justify-between items-center text-sm mb-4">
                                                     <div class="flex flex-col">
-                                                        <span class="text-sm font-bold">
+                                                        <span class="text-sm font-medium">
                                                             {{ $evaluatorMatrix->evaluator->university_role }}
                                                         </span>
                                                         <span class="text-sm font-normal text-gray-600 dark:text-gray-500">
@@ -256,7 +256,7 @@
                     <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
                         {{ __('Delete Matrix') }}
                     </h3>
                     <h3 class="mb-5 text-md font-medium text-gray-500 dark:text-gray-400">{{ __('Are you sure you want to delete this matrix? This action is irreversible and will also delete all contents.') }}</h3>

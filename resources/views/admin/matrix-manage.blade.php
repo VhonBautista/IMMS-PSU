@@ -145,7 +145,7 @@
     {{-- Alert End --}}
 
     <div class="p-8 bg-white rounded-lg mt-6">
-        <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
+        <h1 class="text-md font-semibold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
             {{ __('Matrix Information') }}
         </h1>
 
@@ -199,7 +199,7 @@
     {{-- Alert End --}}
 
     <div class="p-8 bg-white rounded-lg mt-6">
-        <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
+        <h1 class="text-md font-semibold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
             {{ __('Matrix Details') }}
         </h1>
 
@@ -220,7 +220,7 @@
                 <div class="px-2 pt-3 text-gray-500 dark:text-gray-400">
                     @forelse( $matrix->subMatrices->sortBy('title') as $subMatrix )
                         <div class="flex justify-between items-center w-full">
-                            <span class="text-sm font-black text-gray-800 capitalize">{{ $subMatrix->title }}</span>
+                            <span class="text-sm font-medium text-gray-800 capitalize">{{ $subMatrix->title }}</span>
 
                             <button type="button" onclick="setDoubleFormAction('delete-sub-matrix-id-input', {{ $subMatrix->id }}, 'delete-matrix-id-input', {{ $matrix->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-sub-matrix-modal')" class="px-3 py-1 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800">
                                 <svg class="w-3 h-3 text-white lg:me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -293,7 +293,7 @@
                     @forelse( $matrix->evaluatorMatrices as $evaluatorMatrix )
                         <div class="flex w-full gap-6 justify-between items-center text-sm mb-4">
                             <div class="flex flex-col">
-                                <span class="text-sm font-bold">
+                                <span class="text-sm font-medium">
                                     {{ $evaluatorMatrix->evaluator->university_role }}
                                 </span>
                                 <span class="text-sm font-normal text-gray-600 dark:text-gray-500">
