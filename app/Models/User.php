@@ -58,7 +58,8 @@ class User extends Authenticatable
         return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
     }
     
-    public function evaluatorMatrices() {
-        return $this->hasMany(EvaluatorMatrix::class, 'evaluator_id');
+    public function evaluatorMatrix()
+    {
+        return $this->hasOne(EvaluatorMatrix::class, 'evaluator_id');
     }
 }

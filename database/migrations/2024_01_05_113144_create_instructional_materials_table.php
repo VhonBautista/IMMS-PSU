@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('campus_id');
             $table->unsignedBigInteger('submitter_id');
-            $table->enum('type', ['course_book', 'textbook', 'modules', 'laboratory manual', 'prototype', 'others']);
+            $table->enum('type', ['course_book', 'textbook', 'modules', 'laboratory_manual', 'prototype', 'others']);
             $table->enum('status', ['pending', 'evaluating', 'resubmission', 'approved'])->default('pending');
             $table->timestamps();
             

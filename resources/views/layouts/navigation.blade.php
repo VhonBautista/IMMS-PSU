@@ -16,13 +16,12 @@
                             <h1 class="text-lg md:text-md font-bold leading-tight tracking-widest text-gray-900 dark:text-white">
                                 {{ __('PSU I.M.M.S.') }}
                             </h1>
-                            <h1 class="text-xs font-bold leading-tight tracking-tight sm:tracking-wide text-gray-900 dark:text-white">
+                            <h1 class="text-xs font-bold tracking-tighter sm:tracking-wide text-gray-900 dark:text-white">
                                 {{ __('Instructional Material Management System') }}
                             </h1>
                         </div>
                     </a>
                 </div>
-
             </div>
             
             <div class="flex items-center">

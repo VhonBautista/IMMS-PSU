@@ -40,4 +40,9 @@ class InstructionalMaterial extends Model
     {
         return $this->belongsTo(User::class, 'submitter_id');
     }
+    
+    public function evaluationStages()
+    {
+        return $this->hasMany(EvaluationStage::class, 'material_id');
+    }
 }

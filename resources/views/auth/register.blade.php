@@ -63,7 +63,7 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('University Role') }}</label>
                     <div class="flex items-start">
                         <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                            <option value="" selected>Select University Role</option>
+                            <option value="" selected>{{ __('Select University Role') }}</option>
                             @foreach($universityRoles as $universityRole)
                                 <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
                             @endforeach
@@ -77,7 +77,7 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
                     <div class="flex items-start">
                         <select name="campus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                            <option value="" selected>Select Campus</option>
+                            <option value="" selected>{{ __('Select Campus') }}</option>
                             @foreach($campuses as $campus)
                                 <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
                             @endforeach

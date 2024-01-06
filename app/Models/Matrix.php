@@ -14,11 +14,18 @@ class Matrix extends Model
         'description',
     ];
     
-    public function subMatrices() {
+    public function subMatrices()
+    {
         return $this->hasMany(SubMatrix::class, 'matrix_id');
     }
     
-    public function evaluatorMatrices() {
+    public function evaluatorMatrices()
+    {
         return $this->hasMany(EvaluatorMatrix::class, 'matrix_id');
+    }
+    
+    public function evaluationStages()
+    {
+        return $this->hasMany(EvaluationStage::class, 'matrix_id');
     }
 }
