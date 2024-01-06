@@ -42,14 +42,11 @@
         </div>
         <div class="px-0 sm:px-6 flex gap-6 flex-wrap">
             <div>
-                <h3 class="text-md text-center mb-2 sm:text-start font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
+                <h3 class="text-md text-center mb-1 sm:text-start font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
                     {{ __('Instructional Material Details') }}
                 </h3>
                 <div class="px-2">
-                    <p class="text-sm mb-6 font-normal text-gray-600 leading-6 tracking-wider">
-                        {{ __('The instructional material, entitled "') }}<strong>{{ $instructionalMaterial->title }}</strong>{{ __('," stands as a meticulously crafted learning resource tailored for the ') }}<strong>{{ $instructionalMaterial->course->course_name }}</strong>{{ __(' program within the ') }}<strong>{{ $instructionalMaterial->department->department_name }}</strong>{{ __('. Its submission on ') }}<strong>{{ date('F d, Y', strtotime($instructionalMaterial->created_at)) }}</strong>{{ __(', by the esteemed uploader, "') }}<strong>{{ $instructionalMaterial->user->firstname . ' ' . $instructionalMaterial->user->lastname }}</strong>{{ __('," marks a significant contribution to the academic landscape. The development of this instructional material was spearheaded by a team of accomplished individuals, whose collective expertise and dedication are reflected in its content and structure. The collaboration of these professionals, comprising the talented minds listed in the random order of names, underscores the commitment to creating a comprehensive and impactful educational resource for the benefit of students pursuing excellence in the field.') }}
-                    </p>
-                    <div class="text-sm mb-2 font-normal text-gray-600 capitalize flex items-center justify-between">
+                    <div class="text-sm mb-4 font-normal text-gray-600 capitalize flex items-end justify-between">
                         <div>
                             <strong>{{ __('Proponents: ') }}</strong>{{ $instructionalMaterial->proponents }} |  <strong>{{ __('Material Type: ') }}</strong>{{ $instructionalMaterial->type }}
                         </div>
@@ -59,6 +56,9 @@
                             </span>
                         </div>
                     </div>
+                    <p class="text-sm mb-2 font-normal text-gray-600 leading-6 tracking-wider">
+                        {{ __('The instructional material, entitled "') }}<strong>{{ $instructionalMaterial->title }}</strong>{{ __('," stands as a meticulously crafted learning resource tailored for the ') }}<strong>{{ $instructionalMaterial->course->course_name }}</strong>{{ __(' program within the ') }}<strong>{{ $instructionalMaterial->department->department_name }}</strong>{{ __('. Its submission on ') }}<strong>{{ date('F d, Y', strtotime($instructionalMaterial->created_at)) }}</strong>{{ __(', by the esteemed uploader, "') }}<strong>{{ $instructionalMaterial->user->firstname . ' ' . $instructionalMaterial->user->lastname }}</strong>{{ __('," marks a significant contribution to the academic landscape. The development of this instructional material was spearheaded by a team of accomplished individuals, whose collective expertise and dedication are reflected in its content and structure. The collaboration of these professionals, comprising the talented minds listed in the random order of names, underscores the commitment to creating a comprehensive and impactful educational resource for the benefit of students pursuing excellence in the field.') }}
+                    </p>
                 </div>
             </div>
             <div class="hidden w-full sm:block">
