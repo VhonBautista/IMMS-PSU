@@ -70,9 +70,9 @@
                         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Target Course') }}</label>
                         <select name="course_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
                             <option selected disabled>{{ __('Select Target Course') }}</option>
-                            @foreach($courses as $course)
+                            {{-- @foreach($courses as $course)
                                 <option value="{{ $course->id }}">{{  $course->campus->campus_name . ' - ' . $course->course_name }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                     <x-input-error :messages="$errors->get('course_id')" class="mt-1" />
@@ -81,9 +81,9 @@
                         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Department') }}</label>
                         <select name="department_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
                             <option selected disabled>{{ __('Select Department') }}</option>
-                            @foreach($departments as $department)
+                            {{-- @foreach($departments as $department)
                                 <option value="{{ $department->id }}">{{  $department->campus->campus_name . ' - ' . $department->department_name }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                     <x-input-error :messages="$errors->get('department_id')" class="mt-1" />
@@ -421,10 +421,50 @@
             </div>
         </div>
     </div>
+
+
     
+    <script>
+        document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
+            var campusId = this.value;
+    
+           
+            fetch('/get-courses/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var courseDropdown = document.querySelector('select[name="course_id"]');
+                    courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
+                    
+                    data.courses.forEach(course => {
+                        courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching courses:', error));
+    
+
+            fetch('/get-departments/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var departmentDropdown = document.querySelector('select[name="department_id"]');
+                    departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
+                    
+                    data.departments.forEach(department => {
+                        departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching departments:', error));
+        });
+    </script>
+    
+
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     @endsection
+
+
+  
 </x-app-layout>

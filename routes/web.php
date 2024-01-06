@@ -127,6 +127,9 @@ Route::middleware('auth')->group(function () {
     // Submission Management
     Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
     Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
+    //filter campus
+    Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses']);
+    Route::get('/get-departments/{campusId}', [SubmissionController::class, 'getDepartments']);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

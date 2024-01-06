@@ -17,6 +17,7 @@ class SubmissionController extends Controller
 {
     public function index(Request $request)
     {
+       
         // Filter
         $searchFilter = $request->search;
         $typeFilter = $request->type;
@@ -107,4 +108,16 @@ class SubmissionController extends Controller
 
         return redirect()->back()->with('success', 'Instructional Material added successfully!');
     }
+    public function getCourses($campusId)
+    {
+        $courses = Course::where('campus_id', $campusId)->get();
+        return response()->json(['courses' => $courses]);
+    }
+
+    public function getDepartments($campusId)
+    {
+        $departments = Department::where('campus_id', $campusId)->get();
+        return response()->json(['departments' => $departments]);
+    }
+
 }
