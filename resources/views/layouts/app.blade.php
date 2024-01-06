@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">        
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -45,14 +45,16 @@
                 <div class="flex flex-col min-h-screen">
                     <div class="flex-grow p-4">
                         <div class="pt-2 rounded-lg">
-                            @if (isset($header))
-                                <header class="py-5 px-4 mb-5 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                                    <div class="">
-                                        {{ $header }}
-                                    </div>
-                                </header>
-                            @endif
-                            {{ $slot }}
+                            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                                @if (isset($header))
+                                    <header class="py-5 px-4 mb-5 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                                        <div class="">
+                                            {{ $header }}
+                                        </div>
+                                    </header>
+                                @endif
+                                {{ $slot }}
+                            </div>
                         </div>
                     </div>
                     

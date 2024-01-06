@@ -13,6 +13,7 @@ use App\Models\UniversityRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\SystemNotification;
+use Illuminate\Database\QueryException;
 
 class MatrixManagementController extends Controller
 {
@@ -36,7 +37,7 @@ class MatrixManagementController extends Controller
 
     public function getUniversityRolesForMatrix()
     {
-        $evaluators = User::whereDoesntHave('evaluatorMatrices')
+        $evaluators = User::whereDoesntHave('evaluatorMatrix')
         ->where('role_id', 3)
         ->orderBy('lastname', 'asc')
         ->get();
@@ -368,45 +369,52 @@ class MatrixManagementController extends Controller
             'matrix_id' => ['required'],
         ]);
 
-        $matrix = Matrix::findOrFail($request->matrix_id);
-        
-        $matrix->evaluatorMatrices->each(function ($evaluatorMatrix) {
-            $evaluatorMatrix->delete();
-        });
-
-        $matrix->subMatrices->each(function ($subMatrix) {
-            $subMatrix->matrixItems->each(function ($matrixItem) {
-                $matrixItem->delete();
+        try {
+            $matrix = Matrix::findOrFail($request->matrix_id);
+            
+            // Deleting evaluator matrices
+            $matrix->evaluatorMatrices->each(function ($evaluatorMatrix) {
+                $evaluatorMatrix->delete();
             });
 
-            $subMatrix->delete();
-        });
-        
-        $user = $request->user();
-        if ($user->id != 1){
-            $area = 'admin.matrix_management';
-            $title = 'Matrix Deleted';
-            $action = 'deleted';
-            $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".'; 
-            
-            // Reciever of Notification
-            $users = User::where('role_id', 1)->get();
+            // Deleting sub matrices and their items
+            $matrix->subMatrices->each(function ($subMatrix) {
+                $subMatrix->matrixItems->each(function ($matrixItem) {
+                    $matrixItem->delete();
+                });
 
-            // Log & Notification
-            Log::create([
-                'area' => $area , 
-                'title' => $title,
-                'action' => $action,
-                'description' => $description,
-                'user_id' => $user->id, // ! Do not change
-            ]);
-            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+                $subMatrix->delete();
+            });
+
+            $user = $request->user();
+            if ($user->id != 1){
+                $area = 'admin.matrix_management';
+                $title = 'Matrix Deleted';
+                $action = 'deleted';
+                $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".'; 
+                
+                // Reciever of Notification
+                $users = User::where('role_id', 1)->get();
+
+                // Log & Notification
+                Log::create([
+                    'area' => $area , 
+                    'title' => $title,
+                    'action' => $action,
+                    'description' => $description,
+                    'user_id' => $user->id, // ! Do not change
+                ]);
+                Notification::send($users, new SystemNotification($title, $action, $description, $area));
+            }
+
+            // Deleting the main matrix
+            $matrix->delete();
+
+            return redirect()->route('admin.matrix_management')->with(
+                'success', 'Matrix deleted successfully.',
+            );
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Cannot delete matrix. Other instructional materials are still associated with this matrix.');
         }
-        
-        $matrix->delete();
-
-        return redirect()->route('admin.matrix_management')->with(
-            'success', 'Matrix deleted successfully.',
-        );
     }
 }

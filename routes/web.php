@@ -126,6 +126,7 @@ Route::middleware('auth')->group(function () {
 
     // Submission Management
     Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
+    Route::get('submission-management/{materialId}', [SubmissionController::class, 'view'])->name('submission_management.view');
     Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
     //filter campus
     Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses']);

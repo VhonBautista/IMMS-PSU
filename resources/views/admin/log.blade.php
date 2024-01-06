@@ -30,13 +30,14 @@
                     <select name="action" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" onchange="submitSearch()">
                         <option value="" @if(!request('action')) selected @endif>Select Action</option>
                         <option value="added" @if(request('action') == 'added' ) selected @endif>Added</option>
-                        <option value="approved" @if(request('action') == 'approved' ) selected @endif>Approved</option>
-                        <option value="rejected" @if(request('action') == 'rejected' ) selected @endif>Rejected</option>
-                        <option value="created" @if(request('action') == 'created' ) selected @endif>Created</option>
-                        <option value="updated" @if(request('action') == 'updated' ) selected @endif>Updated</option>
-                        <option value="deleted" @if(request('action') == 'deleted' ) selected @endif>Deleted</option>
-                        <option value="removed" @if(request('action') == 'removed' ) selected @endif>Removed</option>
-                        <option value="registered" @if(request('action') == 'registered' ) selected @endif>Registered</option>
+                        <option value="approved" @if(request('action') == 'approved' ) selected @endif>{{ __('Approved') }}</option>
+                        <option value="rejected" @if(request('action') == 'rejected' ) selected @endif>{{ __('Rejected') }}</option>
+                        <option value="created" @if(request('action') == 'created' ) selected @endif>{{ __('Created') }}</option>
+                        <option value="updated" @if(request('action') == 'updated' ) selected @endif>{{ __('Updated') }}</option>
+                        <option value="deleted" @if(request('action') == 'deleted' ) selected @endif>{{ __('Deleted') }}</option>
+                        <option value="removed" @if(request('action') == 'removed' ) selected @endif>{{ __('Removed') }}</option>
+                        <option value="registered" @if(request('action') == 'registered' ) selected @endif>{{ __('Registered') }}</option>
+                        <option value="submitted" @if(request('action') == 'submitted' ) selected @endif>{{ __('Submitted') }}</option>
                     </select>
                 </div>
             </div>
@@ -96,7 +97,7 @@
                                 </td>
                                 <td class="px-6 py-4 capitalize">
                                     <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded 
-                                        @if ($log->action == 'added' || $log->action == 'created' || $log->action == 'registered')
+                                        @if ($log->action == 'added' || $log->action == 'submitted' || $log->action == 'created' || $log->action == 'registered')
                                             bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300
                                         @elseif ($log->action == 'deleted' || $log->action == 'rejected' || $log->action == 'removed')
                                             bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-300
