@@ -24,4 +24,9 @@ class Course extends Model
     {
         return $this->belongsToMany(Course::class, 'course_colleges');
     }
+    
+    public function instructionalMaterials()
+    {
+        return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
+    }
 }

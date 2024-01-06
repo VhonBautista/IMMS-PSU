@@ -28,4 +28,9 @@ class Campus extends Model
     {
         return $this->hasMany(Department::class);
     }
+    
+    public function instructionalMaterials()
+    {
+        return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
+    }
 }

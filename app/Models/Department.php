@@ -18,4 +18,9 @@ class Department extends Model
     {
         return $this->belongsTo(Campus::class);
     }
+    
+    public function instructionalMaterials()
+    {
+        return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
+    }
 }
