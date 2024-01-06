@@ -10,7 +10,7 @@
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
-                        <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-0 lg:mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
                         <span class="ml-1 font-medium text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Matrix Management') }}</span>
@@ -76,7 +76,7 @@
             <div class="ml-3 text-sm font-medium">
                 {{ session('success') }}
             </div>
-            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+            <button type="button" class="ml-auto -mx-0 lg:mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -104,7 +104,7 @@
             </div>
         </form>
 
-        <div class="max-w-7xl mx-auto space-y-6">
+        <div class="max-w-7xl mx-0 lg:mx-auto space-y-6">
             <div class="relative overflow-x-auto">
                 <div id="accordion-collapse" data-accordion="open">
                     @forelse( $matrices as $matrix )
@@ -122,14 +122,16 @@
                                     {{ __('Description') }}
 
                                     <div>
-                                        <a href="{{ route('admin.matrix_management.manage', [$matrix->id]) }}" class="px-3 py-2 mx-1 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <svg class="w-3 h-3 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <a href="{{ route('admin.matrix_management.manage', [$matrix->id]) }}" class="px-3 py-2 mx-0 lg:mx-1 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-3 h-3 text-white lg:me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
                                             </svg>
-                                            <span>{{ __('Manage Matrix') }}</span>
+                                            <span class="hidden lg:block">
+                                                {{ __('Manage Matrix') }}
+                                            </span>
                                         </a>
         
-                                        <button type="button" onclick="setDeleteTitleFormAction('delete-matrix-id-input', {{ $matrix->id }}, 'delete-matrix-id-input', {{ $matrix->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-matrix-modal')" class="mx-1 px-3 py-2 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                        <button type="button" onclick="setDeleteTitleFormAction('delete-matrix-id-input', {{ $matrix->id }}, 'delete-matrix-id-input', {{ $matrix->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-matrix-modal')" class="mx-0 lg:mx-1 px-3 py-2 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                             <svg class="w-3 h-3 text-white lg:me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                                 <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                                               </svg>
@@ -180,7 +182,7 @@
                                                                         </div>
                                                                     </li>
                                                                 @empty
-                                                                    <div class="px-6 py-4 flex flex-col text-sm font-medium items-center text-center w-full text-gray-500 dark:text-gray-400">
+                                                                    <div class="px-6 py-4 flex flex-col text-sm font-normal items-center text-center w-full text-gray-500 dark:text-gray-400">
                                                                         {{ __('No content available') }}
                                                                     </div>
                                                                 @endforelse
@@ -188,7 +190,7 @@
                                                         </div>
                                                     </div>
                                                 @empty
-                                                    <div class="px-6 py-4 flex flex-col text-sm font-medium items-center text-center w-full text-gray-500 dark:text-gray-400">
+                                                    <div class="px-6 py-4 flex flex-col text-sm font-normal items-center text-center w-full text-gray-500 dark:text-gray-400">
                                                         {{ __('No content available') }}
                                                     </div>
                                                 @endforelse
@@ -210,7 +212,7 @@
                                                     </div>
                                                 </div>
                                             @empty
-                                                <div class="px-6 py-4 flex flex-col text-sm font-medium items-center text-center w-full text-gray-500 dark:text-gray-400">
+                                                <div class="px-6 py-4 flex flex-col text-sm font-normal items-center text-center w-full text-gray-500 dark:text-gray-400">
                                                     {{ __('No available university evaluators') }}
                                                 </div>
                                             @endforelse
@@ -242,7 +244,7 @@
                 <input type="hidden" name="matrix_id" id="delete-matrix-id-input" value="">
 
                 <div class="text-center">
-                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <svg class="mx-0 lg:mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                     <h3 class="text-xl font-medium text-gray-900 dark:text-white">

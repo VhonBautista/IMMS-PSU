@@ -1,4 +1,24 @@
 <x-app-layout>
+    @if ($user->role_id  == 4)
+        @section('links')
+            <li class="me-1">
+                <a href="{{ route('home') }}" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">{{ __('Instructional Materials') }}</a>
+            </li>
+            <li class="me-1">
+                <a href="{{ route('submission_management') }}" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">{{ __('Submissions') }}</a>
+            </li>
+        @endsection   
+
+        @section('burger_links')
+            <x-responsive-nav-link :href="route('home')">
+                {{ __('Instructional Materials') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('submission_management')">
+                {{ __('Submissions') }}
+            </x-responsive-nav-link>
+        @endsection   
+    @endif
+
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <nav class="flex" aria-label="Breadcrumb">

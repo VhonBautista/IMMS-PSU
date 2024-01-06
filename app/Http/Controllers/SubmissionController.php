@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Log;
 use App\Notifications\SystemNotification;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Carbon;
 use App\Models\Department;
 use App\Models\Course;
 use App\Models\Campus;
@@ -45,14 +44,27 @@ class SubmissionController extends Controller
             $instructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
         }
       
-        $instructionalMaterials = $instructionalMaterials->orderBy('title', 'asc')->paginate(10);
+        $pendingMaterials = clone $instructionalMaterials->where('status', 'pending')->orderBy('title', 'asc')->paginate(10);
+        $resubmissionMaterials = clone $instructionalMaterials->where('status', 'resubmission')->orderBy('title', 'asc')->paginate(10);
+        $approvedMaterials = clone $instructionalMaterials->where('status', 'approved')->orderBy('title', 'asc')->paginate(10);
 
-        return view('user.submission-management', compact('instructionalMaterials','departments','courses','campuses','user'));
+        return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses', 'user'));
+    }
+
+    public function view($materialId)
+    {
+        $instructionalMaterial = InstructionalMaterial::findOrFail($materialId);
+
+        // todo: get * evaluation history and pass to compact
+
+        return view('material-view', compact('instructionalMaterial'));
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
+
+        // todo: matrix id will come from matrix where stage is == first
         $matrixId = 1;
 
         $request->validate([
@@ -69,7 +81,8 @@ class SubmissionController extends Controller
         $originalFileName = $request->file('pdf_path')->getClientOriginalName();
         $uniqueFileName = time() . '_' . $originalFileName;
         $pdfPath = $request->file('pdf_path')->storeAs('pdfs', $uniqueFileName, 'public');
-
+        $pdfPath = 'storage/' . $pdfPath;
+        
         $instructionalMaterial = InstructionalMaterial::create([
             'title' => $request->title,
             'pdf_path' => $pdfPath,
@@ -88,13 +101,14 @@ class SubmissionController extends Controller
 
         $area = 'evaluation_management'; 
         $title = 'New Instructional Material Added'; 
-        $action = 'added'; 
+        $action = 'submitted'; 
         $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material titled "' . $request->input('title') . '".'; 
         
         $users = User::where('role_id', 3)
             ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
                 $query->where('matrix_id', $matrixId);
-            });
+            })
+            ->get();
 
         Log::create([
             'area' => $area , 
@@ -103,8 +117,10 @@ class SubmissionController extends Controller
             'description' => $description,
             'user_id' => $user->id, // ! Do not change
         ]);
-        Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        if ($users) {
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
 
-        return redirect()->back()->with('success', 'Instructional Material added successfully!');
+        return redirect()->back()->with('success', 'Instructional material submitted successfully!');
     }
 }
