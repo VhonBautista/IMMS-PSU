@@ -18,33 +18,92 @@
     @endsection   
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {{-- Add Campus Modal --}}
+        {{-- Add IM Modal --}}
         <x-modal name="submit-modal" focusable>
             <div class="p-6">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     {{ __('Submit a Instructional Material') }}
                 </h3>
 
-                <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('admin.campus_management.store') }}">
+                <form class="space-y-4 md:space-y-6" method="POST" action="{{ route('submission.store') }}" enctype="multipart/form-data">
                     @csrf
-        
-                    <div class="w-full">
-                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus Name') }}</label>
-                        <input type="text" name="campus_name" id="campus_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the campus') }}" required >
-                        <x-input-error :messages="$errors->get('campus_name')" class="mt-1" />
+
+
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Title:</label>
+                        <input type="text" name="title" id="title" class="mt-1 p-2 w-full border rounded-md" required>
                     </div>
-        
-                    <div class="w-full">
-                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Location') }}</label>
-                        <textarea rows="2" name="location" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the location of the campus." required></textarea>
-                        <x-input-error :messages="$errors->get('location')" class="mt-1" />
+
+                    <div>
+                        <label for="proponents" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Proponents:</label>
+                        <textarea  name="proponents" id="proponents" class="mt-1 p-2 w-full border rounded-md" required></textarea>
                     </div>
+
+                    <div>
+                        <label for="course_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Course:</label>
+                        <select name="course_id" id="course_id" class="mt-1 p-2 w-full border rounded-md" required>
+                            <option selected disabled>Choose course</option>
+                        @foreach($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                        @endforeach
+                          
+                        </select>
+                    </div>
+                
+                    <div>
+                        <label for="department_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Department:</label>
+                        <select name="department_id" id="department_id" class="mt-1 p-2 w-full border rounded-md" required>
+                            <option selected disabled>Choose department</option>
+                            @foreach($departments as $department)
+                            <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                        @endforeach
+                          
+                        </select>
+                    </div>
+                
+                    <div>
+                        <label for="campus_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Campus:</label>
+                        <select name="campus_id" id="campus_id" class="mt-1 p-2 w-full border rounded-md" required>
+                            <option selected disabled>Choose campus</option>
+                            @foreach($campuses as $campus)
+                            <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="type" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Type of IM:</label>
+                        <select name="type" id="type" class="mt-1 p-2 w-full border rounded-md" required>
+                            <option selected disabled>Select Filetype</option>
+                            <option value = 'course_book'>Course book</option>
+                            <option value = 'textbook'>textbook</option>
+                            <option value = 'modules'>modules</option>
+                            <option value = 'laboratory manual'>laboratory manual</option>
+                            <option value = 'prototype'>prototype</option>
+                            <option value = 'others'>others</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status:</label>
+                        <select name="status" id="status" class="mt-1 p-2 w-full border rounded-md" required>
+                            <option value = 'pending' selected>Pending</option>
+                            <option value = 'evaluating'>Evaluating</option>
+                            <option value = 'resubmission'>Resubmission</option>
+                            <option value = 'approved'>Approved</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="pdf_path" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Instructional Material:</label>
+                        <input type="file" name="pdf_path" id="pdf_path" class="mt-1 p-2 w-full border rounded-md" accept=".pdf" required>
+                    </div>
+                   
 
                     <div class="mt-5 pt-5 flex justify-between lg:justify-end">
                         <x-primary-button class="sm:w-44" type='submit'>
-                            {{ __('Add Campus') }}
+                            {{ __('Save') }}
                         </x-primary-button>
-        
                         <x-secondary-button x-on:click="$dispatch('close')" class="ms-3 sm:w-44">
                             {{ __('Cancel') }}
                         </x-secondary-button>
@@ -107,7 +166,7 @@
                 {{-- * Submission Tab --}}
                 <div class="hidden px-4 pb-4 rounded-lg" id="submission" role="tabpanel" aria-labelledby="submission-tab">
                     <div class="flex w-full flex-wrap items-center justify-between">
-                        <form action="{{ route('submission_management') }}" method="GET" id="daterange-form">   
+                        <form action="{{ route('submission_management') }}" method="GET" id="daterange-form">
                             <div class="flex flex-wrap justify-between items-center">
                                 <div date-rangepicker class="flex items-center">
                                     <div class="relative">
@@ -116,7 +175,7 @@
                                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                             </svg>
                                         </div>
-                                        <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" onchange="submitSearch()">
+                                        <input name="start" id="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
                                     </div>
                                     <span class="mx-4 text-gray-500">to</span>
                                     <div class="relative">
@@ -125,9 +184,9 @@
                                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                             </svg>
                                         </div>
-                                        <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" onchange="submitSearch()">
+                                        <input name="end" id="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
                                     </div>
-                                    <button type="submit" class="p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                                    <button type="button"class="p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800"  onclick="submitSearch()">
                                         {{ __('Go') }}
                                     </button>
                                 </div>
@@ -154,7 +213,7 @@
                                         <th scope="col" class="px-6 py-3">
                                             {{ __('Uploader') }}
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-3"  id="date-column">
                                             {{ __('Date Submitted') }}
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -166,23 +225,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($campuses as $campus)
+                                    @forelse($ims as $im)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $campus->campus_name }}</div>
+                                                <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $im->title }}</div>
                                             </th>
                                             <td class="px-6 py-4">
-                                                {{ $campus->location }}
+                                                <b>{{ $im->user->lastname . ', ' . $im->user->firstname }}</b> <br>
+                                                <p>{{ $im->user->email }}</p>
+                                            </td>
+                                            <td class="px-6 py-4 capitalize" id="date-column">
+                                                {{ $im->created_at->format('M d, Y') }}
                                             </td>
                                             <td class="px-6 py-4 capitalize">
-                                                {{ $campus->created_at->format('M d, Y') }}
-                                            </td>
-                                            <td class="px-6 py-4 capitalize">
-                                                {{ $campus->updated_at->format('M d, Y') }}
+                                                {{ $im->status }}
                                             </td>
                                             <td class="px-6 py-4 text-right">
                                                 <div class="flex space-x-2">
-                                                    <a href="{{ route('admin.campus_management.edit', $campus->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <a href="{{ route('admin.campus_management.edit', $im->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                         <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                                                             <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                                                         </svg>
@@ -203,7 +263,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $campuses->links() }}
+                        {{ $ims->links() }}
                     </div>
                 </div>
                 
@@ -269,7 +329,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($campuses as $campus)
+                                    {{-- @forelse($campuses as $campus)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $campus->campus_name }}</div>
@@ -302,11 +362,11 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
                         </div>
-                        {{ $campuses->links() }}
+                        {{-- {{ $campuses->links() }} --}}
                     </div>
                 </div>
                 
@@ -372,7 +432,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($campuses as $campus)
+                                    {{-- @forelse($campuses as $campus)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $campus->campus_name }}</div>
@@ -405,11 +465,11 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
                                 </tbody>
                             </table>
                         </div>
-                        {{ $campuses->links() }}
+                        {{-- {{ $campuses->links() }} --}}
                     </div>
                 </div>
             </div>
@@ -419,5 +479,6 @@
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endsection
 </x-app-layout>

@@ -36,7 +36,7 @@ class InstructionalMaterial extends Model
         return $this->belongsTo(Campus::class);
     }
 
-    public function submitter()
+    public function user()
     {
         return $this->belongsTo(User::class, 'submitter_id');
     }
