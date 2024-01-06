@@ -91,14 +91,6 @@
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
             <div class="flex w-full flex-wrap mb-3 md:mb-0">
-                <div class="w-full md:w-auto px-0 lg:px-1 lg:pb-0">
-                    <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" onchange="submitSearch()">
-                      <option value="" @if(!request('university_role')) selected @endif>Select University Role</option>
-                      @foreach($universityRoles as $universityRole)
-                        <option value="{{ $universityRole->id }}" @if(request('university_role') == $universityRole->id) selected @endif>{{ $universityRole->university_role }}</option>
-                      @endforeach
-                    </select>
-                </div>
             </div>                   
     
             <div class="relative w-full md:w-3/4">
@@ -211,13 +203,10 @@
                                         <div class="px-2 pt-5 text-gray-800 dark:text-gray-400">
                                             @forelse( $matrix->evaluatorMatrices as $evaluatorMatrix )
                                                 <div class="flex w-full gap-6 justify-between items-center text-sm mb-4">
-                                                    <div class="flex flex-col">
-                                                        <span class="text-sm font-medium">
-                                                            {{ $evaluatorMatrix->evaluator->university_role }}
-                                                        </span>
-                                                        <span class="text-sm font-normal text-gray-600 dark:text-gray-500">
-                                                            {{ $evaluatorMatrix->evaluator->description }}
-                                                        </span>
+                                                    <div scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $evaluatorMatrix->evaluator->lastname . ', ' . $evaluatorMatrix->evaluator->firstname . ' ' . $evaluatorMatrix->evaluator->middlename }}</div>
+                                                        <div class="font-medium text-xs text-gray-500">{{ $evaluatorMatrix->evaluator->email }}</div>
+                                                        <div class="font-medium text-xs text-gray-500">{{ $evaluatorMatrix->evaluator->universityRole->university_role }} at {{ $evaluatorMatrix->evaluator->campus->campus_name }} Campus</div>
                                                     </div>
                                                 </div>
                                             @empty

@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log::class);
     }
+    
+    public function evaluatorMatrices() {
+        return $this->hasMany(EvaluatorMatrix::class, 'evaluator_id');
+    }
 }

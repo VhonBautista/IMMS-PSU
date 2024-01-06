@@ -118,13 +118,13 @@
                                     @forelse( $college->courses->sortBy('course_name') as $course )
                                         <li>
                                             <div class="flex w-full justify-between items-center text-sm mb-1">
-                                                <a data-tooltip-target="tooltip-edit-{{ $college->id . '-' . $course->id }}" href="{{ route('admin.course_management.edit', ['id' => $course->id]) }}" class="text-blue-600 dark:text-blue-500 hover:underline">{{ $course->course_name }}</a>
+                                                <a data-tooltip-target="tooltip-edit-{{ $college->id . '-' . $course->id }}" href="{{ route('admin.course_management.edit', ['id' => $course->id]) }}" data-tooltip-placement="right" class="text-blue-600 dark:text-blue-500 hover:underline">{{ $course->course_name }}</a>
 
-                                                <a data-tooltip-target="tooltip-remove-{{ $college->id . '-' . $course->id }}" href="{{ route('admin.course_college_management.remove', ['collegeId' => $college->id, 'courseId' => $course->id]) }}" class="cursor-pointer text-red-600 hover:text-red-500">Remove</a>
+                                                <a data-tooltip-target="tooltip-remove-{{ $college->id . '-' . $course->id }}" data-tooltip-placement="left" href="{{ route('admin.course_college_management.remove', ['collegeId' => $college->id, 'courseId' => $course->id]) }}" class="cursor-pointer text-red-600 hover:text-red-500">Remove</a>
                                             </div>
                                             
                                             <div id="tooltip-edit-{{ $college->id . '-' . $course->id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                                Edit Course
+                                                Click to Edit
                                             </div>
 
                                             <div id="tooltip-remove-{{ $college->id . '-' . $course->id }}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">

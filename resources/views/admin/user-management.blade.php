@@ -236,8 +236,7 @@
                                             bg-violet-100 text-violet-800 dark:bg-violet-700 dark:text-violet-300
                                         @else
                                             bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-300
-                                        @endif
-                                    ">
+                                        @endif">
                                         {{ $user->role->role_name }}
                                     </span>
                                 </td>

@@ -65,7 +65,7 @@
 
             <input type="hidden" name="college_id" value="{{ $college->id }}">
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('College Name') }}</label>
                 <input type="text" name="college_name" id="college_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the course') }}" required value="{{ old('college_name', $college->college_name) }}">
                 <x-input-error :messages="$errors->get('college_name')" class="mt-1" />
@@ -73,7 +73,7 @@
 
             <div>
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
-                <div class="flex items-start w-full lg:w-1/2">
+                <div class="flex items-start w-full lg:w-3/4">
                     <select name="campus_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
                         @foreach($campuses as $campus)
                             <option value="{{ $campus->id }}" @if($campus->id == $college->campus_id) selected @endif>{{ $campus->campus_name }}</option>
@@ -83,7 +83,7 @@
             </div>
             <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Description (Optional)') }}</label>
                 <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description for the college">{{ $college->description }}</textarea>
             </div>

@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             
             // Fields
-            $table->unsignedBigInteger('univ_role_id');
+            $table->unsignedBigInteger('evaluator_id');
             $table->unsignedBigInteger('matrix_id');
             $table->timestamps();
             
             // References
-            $table->foreign('univ_role_id')->references('id')->on('university_roles');
+            $table->foreign('evaluator_id')->references('id')->on('users');
             $table->foreign('matrix_id')->references('id')->on('matrices');
         });
     }

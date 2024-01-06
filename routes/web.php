@@ -93,7 +93,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Matrix Management
     Route::get('matrix-management/', [MatrixManagementController::class, 'index'])->name('admin.matrix_management');
-    Route::get('get-university-roles-for-matrix/{matrixId}', [MatrixManagementController::class, 'getUniversityRolesForMatrix']);
+    Route::get('get-university-roles-for-matrix/', [MatrixManagementController::class, 'getUniversityRolesForMatrix']);
     Route::post('matrix-management/', [MatrixManagementController::class, 'store'])->name('admin.matrix_management.store');
     Route::get('matrix-management/manage/{matrixId}', [MatrixManagementController::class, 'manage'])->name('admin.matrix_management.manage');
     Route::patch('matrix-management/update/', [MatrixManagementController::class, 'update'])->name('admin.matrix_management.update');
@@ -103,7 +103,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
     Route::post('matrix-management/item', [MatrixManagementController::class, 'storeItem'])->name('admin.matrix_management.item.store');
     Route::get('matrix-management/item/remove/{matrixItemId}/{matrixId}', [MatrixManagementController::class, 'removeItem'])->name('admin.matrix_management.item.remove');
     Route::post('matrix-management/evaluator', [MatrixManagementController::class, 'storeEvaluator'])->name('admin.matrix_management.evaluator.store');
-    Route::get('matrix-management/remove/{universityRoleId}/{matrixId}', [MatrixManagementController::class, 'remove'])->name('admin.matrix_management.remove');
+    Route::get('matrix-management/remove/{evaluatorId}/{matrixId}', [MatrixManagementController::class, 'remove'])->name('admin.matrix_management.remove');
 
     // Utilities
     Route::get('system-log/', [LogController::class, 'index'])->name('admin.system_log');
@@ -120,7 +120,7 @@ Route::middleware('auth', 'role:3')->group(function () {
 
 // ========================== All User Routes ========================== //
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
+    Route::get('/instructional-materials', function () {
         return view('home');
     })->name('home');
 

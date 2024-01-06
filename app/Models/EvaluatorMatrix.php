@@ -10,12 +10,12 @@ class EvaluatorMatrix extends Model
     use HasFactory;
 
     protected $fillable = [
-        'univ_role_id', 
+        'evaluator_id', 
         'matrix_id',
     ];
 
     public function evaluator() {
-        return $this->belongsTo(UniversityRole::class, 'univ_role_id');
+        return $this->belongsTo(User::class, 'evaluator_id');
     }
 
     public function matrix() {

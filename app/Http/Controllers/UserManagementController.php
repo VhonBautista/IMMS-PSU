@@ -109,6 +109,12 @@ class UserManagementController extends Controller
 
         $user = User::findOrFail($request->user_id);
 
+        if ($user->role_id == 3 && $user->evaluatorMatrices()->exists() && $request->role != 3) {
+            return redirect()->back()->with(
+                'error', 'This evaluator cannot update their role because they are currently assigned to one or more evaluation matrices. Please resolve the existing assignments before updating the role.',
+            );
+        }
+
         $user->update([
             'role_id' => $request->role,
             'univ_role_id' => $request->university_role,

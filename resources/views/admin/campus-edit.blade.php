@@ -58,15 +58,15 @@
 
             <input type="hidden" name="campus_id" value="{{ $campus->id }}">
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus Name') }}</label>
                 <input type="text" name="campus_name" id="campus_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the campus') }}" required value="{{ old('campus_name', $campus->campus_name) }}">
                 <x-input-error :messages="$errors->get('campus_name')" class="mt-1" />
             </div>
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Location') }}</label>
-                <textarea rows="2" name="location" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the location of the campus.">{{ old('location', $campus->location) }}</textarea>
+                <textarea rows="6" name="location" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the location of the campus.">{{ old('location', $campus->location) }}</textarea>
             </div>
 
             <x-input-error :messages="$errors->get('campus')" class="mt-1" />

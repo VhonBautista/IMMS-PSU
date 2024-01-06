@@ -18,8 +18,4 @@ class UniversityRole extends Model
     {
         return $this->hasMany(User::class);
     }
-    
-    public function evaluatorMatrices() {
-        return $this->hasMany(EvaluatorMatrix::class, 'univ_role_id');
-    }
 }

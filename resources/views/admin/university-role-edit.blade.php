@@ -58,15 +58,15 @@
 
             <input type="hidden" name="id" value="{{ $university->id }}">
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('University Role') }}</label>
                 <input type="text" name="university_role" id="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the name for the university role') }}" required value="{{ old('university_role', $university->university_role) }}">
                 <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
             </div>
 
-            <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-3/4">
                 <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Description') }}</label>
-                <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description of univeristy role.">{{ old('location', $university->description) }}</textarea>
+                <textarea rows="6" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description of univeristy role.">{{ old('location', $university->description) }}</textarea>
             </div>
 
             <x-input-error :messages="$errors->get('university')" class="mt-1" />

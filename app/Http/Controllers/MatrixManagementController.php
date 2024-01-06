@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Campus;
 use App\Models\Log;
 use App\Models\User;
 use App\Models\EvaluatorMatrix;
@@ -18,9 +20,7 @@ class MatrixManagementController extends Controller
     {
         // Filter
         $searchFilter = $request->search;
-        $universityRoleFilter = $request->university_role;
 
-        $universityRoles = UniversityRole::all();
         $matrices = Matrix::query();
 
         if ($searchFilter) {
@@ -29,28 +29,19 @@ class MatrixManagementController extends Controller
             });
         }
 
-        if ($universityRoleFilter) {
-            $matrices->whereHas('evaluatorMatrices', function ($query) use ($universityRoleFilter) {
-                $query->where('univ_role_id', $universityRoleFilter);
-            });
-        }
-
         $matrices = $matrices->orderBy('matrix_name', 'asc')->paginate(5);
 
-        return view('admin.matrix-management', compact('matrices', 'universityRoles'));
+        return view('admin.matrix-management', compact('matrices'));
     }
 
-    public function getUniversityRolesForMatrix($matrixId)
+    public function getUniversityRolesForMatrix()
     {
-        $matrix = Matrix::findOrFail($matrixId);
-
-        $universityRoles = UniversityRole::whereDoesntHave('evaluatorMatrices', function ($query) use ($matrixId) {
-            $query->where('matrix_id', $matrixId);
-        })
-        ->orderBy('university_role', 'asc')
+        $evaluators = User::whereDoesntHave('evaluatorMatrices')
+        ->where('role_id', 3)
+        ->orderBy('lastname', 'asc')
         ->get();
 
-        return view('admin.matrix-modal', compact('universityRoles'));
+        return view('admin.matrix-modal', compact('evaluators'));
     }
 
     public function store(Request $request)
@@ -97,19 +88,29 @@ class MatrixManagementController extends Controller
     {
         $request->validate([
             'matrix_id' => 'required|numeric',
-            'univ_role_ids' => 'required|array',
-            'univ_role_ids.*' => 'numeric|exists:university_roles,id',
+            'evaluator_ids' => 'required|array',
+            'evaluator_ids.*' => 'numeric|exists:users,id',
         ]);
 
         $matrixId = $request->matrix_id;
-        $univRoleIds = $request->univ_role_ids;
+        $evaluatorIds = $request->evaluator_ids;
 
         $matrix = Matrix::findOrFail($matrixId);
 
-        foreach ($univRoleIds as $univRoleId) {
+        $evaluatorCount = count($evaluatorIds);
+        $existingEvaluatorsCount = EvaluatorMatrix::where('matrix_id', $matrixId)->count();
+        $totalCount = $evaluatorCount + $existingEvaluatorsCount;
+
+        if ($totalCount > 3) {
+            return redirect()
+                ->route('admin.matrix_management.manage', $matrixId)
+                ->with('detail-error', 'Cannot add more than three evaluators per matrix.');
+        }
+
+        foreach ($evaluatorIds as $evaluatorId) {
             EvaluatorMatrix::create([
                 'matrix_id' => $matrixId,
-                'univ_role_id' => $univRoleId,
+                'evaluator_id' => $evaluatorId,
             ]);
         }
 
@@ -258,9 +259,9 @@ class MatrixManagementController extends Controller
         return redirect()->route('admin.matrix_management.manage', $request->input('matrix_id'))->with('success', 'Matrix updated successfully.');
     }
 
-    public function remove(Request $request, $universityRoleId, $matrixId)
+    public function remove(Request $request, $evaluatorId, $matrixId)
     {
-        $evaluatorMatrix = EvaluatorMatrix::where('univ_role_id', $universityRoleId)
+        $evaluatorMatrix = EvaluatorMatrix::where('evaluator_id', $evaluatorId)
                                    ->where('matrix_id', $matrixId)
                                    ->firstOrFail();
         $evaluator = $evaluatorMatrix->evaluator;
@@ -271,7 +272,7 @@ class MatrixManagementController extends Controller
             $area = 'admin.matrix_management';
             $title = 'Evaluator Removed';
             $action = 'removed';
-            $description = $user->firstname . ' ' . $user->lastname . ' removed ' . $evaluator->university_role . ' from the matrix "' . $matrix->matrix_name . '".'; 
+            $description = $user->firstname . ' ' . $user->lastname . ' removed ' . $evaluator->lastname . ', ' . $evaluator->firstname . ' from the matrix "' . $matrix->matrix_name . '".'; 
             
             $users = User::where('role_id', 1)->get();
     

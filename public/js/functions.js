@@ -31,8 +31,8 @@ function setMatrixFormAction(hiddenInputFieldId, idValue)
 
 function setEvaluatorFormAction(hiddenInputFieldId, button) {
     let idValue = button.getAttribute('data-matrix-id');
-    let url = button.getAttribute('data-url') + '/' + idValue;
-
+    let url = button.getAttribute('data-url')
+    
     document.getElementById(hiddenInputFieldId).value = idValue;
 
     fetch(url)
