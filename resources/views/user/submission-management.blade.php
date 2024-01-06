@@ -324,7 +324,7 @@
                                             <div class="font-medium text-xs">{{ $resubmissionMaterial->user->email }}</div>
                                         </td>
                                         <td class="px-6 py-4 capitalize">
-                                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300">
+                                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-yellow-100 text-yellow-800  dark:bg-yellow-900 dark:text-yellow-300">
                                                 {{ $resubmissionMaterial->status }}
                                             </span>
                                         </td>
@@ -334,10 +334,11 @@
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
                                                 <a href="{{ route('admin.campus_management.edit', $resubmissionMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                                                        <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                                        <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
+                                                        <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
                                                     </svg>
-                                                    <span>{{ __('View') }}</span>
+                                                    <span>{{ __('Edit & Resubmit') }}</span>
                                                 </a>
                                             </div>
                                         </td>

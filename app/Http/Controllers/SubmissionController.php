@@ -29,25 +29,37 @@ class SubmissionController extends Controller
         $courses = Course::all();
         $campuses = Campus::all();
         $user = User::all();
-        $instructionalMaterials = InstructionalMaterial::query();
+        $pendingInstructionalMaterials = InstructionalMaterial::query();
+        $resubmissionInstructionalMaterials = InstructionalMaterial::query();
+        $approvedInstructionalMaterials = InstructionalMaterial::query();
         
         if ($searchFilter) {
-            $instructionalMaterials->where(function($query) use ($searchFilter) {
+            $pendingInstructionalMaterials->where(function($query) use ($searchFilter) {
+                $query->where('title', 'like', "%{$searchFilter}%");
+            });
+            $resubmissionInstructionalMaterials->where(function($query) use ($searchFilter) {
+                $query->where('title', 'like', "%{$searchFilter}%");
+            });
+            $approvedInstructionalMaterials->where(function($query) use ($searchFilter) {
                 $query->where('title', 'like', "%{$searchFilter}%");
             });
         }
 
         if ($typeFilter) {
-            $instructionalMaterials->where('type', $typeFilter);
+            $pendingInstructionalMaterials->where('type', $typeFilter);
+            $resubmissionInstructionalMaterials->where('type', $typeFilter);
+            $approvedInstructionalMaterials->where('type', $typeFilter);
         }
 
         if ($startFilter && $endFilter) {
-            $instructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
+            $pendingInstructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
+            $resubmissionInstructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
+            $approvedInstructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
         }
       
-        $pendingMaterials = clone $instructionalMaterials->where('status', 'pending')->orderBy('title', 'asc')->paginate(10);
-        $resubmissionMaterials = clone $instructionalMaterials->where('status', 'resubmission')->orderBy('title', 'asc')->paginate(10);
-        $approvedMaterials = clone $instructionalMaterials->where('status', 'approved')->orderBy('title', 'asc')->paginate(10);
+        $pendingMaterials = $pendingInstructionalMaterials->where('status', 'pending')->orderBy('title', 'asc')->paginate(10);
+        $resubmissionMaterials = $resubmissionInstructionalMaterials->where('status', 'resubmission')->orderBy('title', 'asc')->paginate(10);
+        $approvedMaterials = $approvedInstructionalMaterials->where('status', 'approved')->orderBy('title', 'asc')->paginate(10);
 
         return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses', 'user'));
     }
@@ -83,7 +95,7 @@ class SubmissionController extends Controller
         $uniqueFileName = time() . '_' . $originalFileName;
         $pdfPath = $request->file('pdf_path')->storeAs('pdfs', $uniqueFileName, 'public');
         $pdfPath = 'storage/' . $pdfPath;
-        
+
         $instructionalMaterial = InstructionalMaterial::create([
             'title' => $request->title,
             'pdf_path' => $pdfPath,
