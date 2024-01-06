@@ -24,8 +24,7 @@ class SubmissionController extends Controller
         $campuses = Campus::all();
         $user = User::all();
         $ims = InstructionalMaterial::query();
-        $start = $request->input('start');
-        $end = $request->input('end');
+        
 
         if ($searchFilter) {
             $ims->where(function($query) use ($searchFilter) {
@@ -34,11 +33,11 @@ class SubmissionController extends Controller
                     ->orWhere('type', 'like', "%{$searchFilter}%");
             });
         }
-        $submissions = InstructionalMaterial::whereBetween('created_at', [Carbon::parse($start), Carbon::parse($end)->endOfDay()])
-        ->get();
+        
+      
         $ims = $ims->orderBy('title', 'asc')->paginate(10);
 
-        return view('user.submission-management', compact('ims','departments','courses','campuses','user','submissions'));
+        return view('user.submission-management', compact('ims','departments','courses','campuses','user'));
     }
     public function store(Request $request)
 {

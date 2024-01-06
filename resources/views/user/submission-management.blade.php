@@ -166,7 +166,7 @@
                 {{-- * Submission Tab --}}
                 <div class="hidden px-4 pb-4 rounded-lg" id="submission" role="tabpanel" aria-labelledby="submission-tab">
                     <div class="flex w-full flex-wrap items-center justify-between">
-                        <form action="{{ route('submission_management') }}" method="GET" id="daterange-form">   
+                        <form action="{{ route('submission_management') }}" method="GET" id="daterange-form">
                             <div class="flex flex-wrap justify-between items-center">
                                 <div date-rangepicker class="flex items-center">
                                     <div class="relative">
@@ -175,7 +175,7 @@
                                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                             </svg>
                                         </div>
-                                        <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" onchange="submitSearch()">
+                                        <input name="start" id="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
                                     </div>
                                     <span class="mx-4 text-gray-500">to</span>
                                     <div class="relative">
@@ -184,9 +184,9 @@
                                                 <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                             </svg>
                                         </div>
-                                        <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" onchange="submitSearch()">
+                                        <input name="end" id="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
                                     </div>
-                                    <button type="submit" class="p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                                    <button type="button"class="p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800"  onclick="submitSearch()">
                                         {{ __('Go') }}
                                     </button>
                                 </div>
@@ -213,7 +213,7 @@
                                         <th scope="col" class="px-6 py-3">
                                             {{ __('Uploader') }}
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-6 py-3"  id="date-column">
                                             {{ __('Date Submitted') }}
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -234,7 +234,7 @@
                                                 <b>{{ $im->user->lastname . ', ' . $im->user->firstname }}</b> <br>
                                                 <p>{{ $im->user->email }}</p>
                                             </td>
-                                            <td class="px-6 py-4 capitalize">
+                                            <td class="px-6 py-4 capitalize" id="date-column">
                                                 {{ $im->created_at->format('M d, Y') }}
                                             </td>
                                             <td class="px-6 py-4 capitalize">
@@ -479,5 +479,6 @@
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endsection
 </x-app-layout>
