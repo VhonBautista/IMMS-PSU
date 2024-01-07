@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Campus;
 use App\Models\College;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Notifications\SystemNotification;
 use Illuminate\Support\Facades\Notification;
 class CollegeManagementController extends Controller

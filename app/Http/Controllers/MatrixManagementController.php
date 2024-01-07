@@ -9,7 +9,6 @@ use App\Models\EvaluatorMatrix;
 use App\Models\Matrix;
 use App\Models\MatrixItem;
 use App\Models\SubMatrix;
-use App\Models\UniversityRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\SystemNotification;
@@ -21,6 +20,7 @@ class MatrixManagementController extends Controller
     {
         // Filter
         $searchFilter = $request->search;
+        $levelFilter = $request->level;
 
         $matrices = Matrix::query();
 
@@ -28,6 +28,10 @@ class MatrixManagementController extends Controller
             $matrices->where(function ($query) use ($searchFilter) {
                 $query->where('matrix_name', 'like', "%{$searchFilter}%");
             });
+        }
+
+        if ($levelFilter) {
+            $matrices->where('level', $levelFilter);
         }
 
         $matrices = $matrices->orderBy('matrix_name', 'asc')->paginate(5);
@@ -50,11 +54,13 @@ class MatrixManagementController extends Controller
         $request->validate([
             'matrix_name' => 'required|string|max:255',
             'description' => 'required',
+            'level' => 'required',
         ]);
 
         Matrix::create([
             'matrix_name' => $request->input('matrix_name'),
             'description' => $request->input('description'),
+            'level' => $request->input('level'),
         ]);
 
         // =============================== Log & Notification ===============================//
@@ -229,13 +235,15 @@ class MatrixManagementController extends Controller
             'matrix_id' => 'required',
             'matrix_name' => 'required|string|max:255',
             'description' => 'required',
+            'level' => 'required',
         ]);
 
         $matrix = Matrix::findOrFail($request->input('matrix_id'));
 
         $matrix->update([
             'matrix_name' => $request->input('matrix_name'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'level' => $request->input('level'),
         ]);
 
         $user = $request->user();

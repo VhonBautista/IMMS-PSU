@@ -17,6 +17,7 @@ return new class extends Migration
             // Fields
             $table->string('matrix_name');
             $table->text('description');
+            $table->enum('level', ['campus', 'university']);
             $table->timestamps();
         });
     }

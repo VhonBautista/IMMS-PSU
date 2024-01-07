@@ -12,6 +12,7 @@ class Matrix extends Model
     protected $fillable = [
         'matrix_name',
         'description',
+        'level',
     ];
     
     public function subMatrices()

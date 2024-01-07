@@ -51,6 +51,16 @@
                     <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description for the matrix" required></textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-1" />
                 </div>
+
+                <div class="w-full">
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Matrix Level') }}</label>
+                    <div class="flex items-start w-full">
+                        <select name="level" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                            <option value="campus" selected>Campus Level</option>
+                            <option value="university">University Level</option>
+                        </select>
+                    </div>
+                </div>
                         
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
                     <x-primary-button class="sm:w-44" type='submit'>
@@ -90,8 +100,16 @@
         <form action="{{ route('admin.matrix_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
-            <div class="flex w-full flex-wrap mb-3 md:mb-0">
-            </div>                   
+            
+            <div class="flex w-full flex-wrap">
+                <div class="w-full lg:w-auto px-0 lg:px-1 pb-3 lg:pb-0">
+                    <select name="level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" onchange="submitSearch()">
+                      <option value="" @if(!request('level')) selected @endif>Select Matrix Level</option>
+                      <option value="campus" @if(request('level') == 'campus') selected @endif>{{ __('Campus Level') }}</option>
+                      <option value="university" @if(request('level') == 'university') selected @endif>{{ __('University Level') }}</option>
+                    </select>
+                </div>
+            </div>              
     
             <div class="relative w-full md:w-3/4">
                 <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for matrices by matrix name" value="{{ request('search') }}">
@@ -110,7 +128,7 @@
                     @forelse( $matrices as $matrix )
                         <h2 id="accordion-collapse-heading-{{ $matrix->id }}" class="mt-3">
                             <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-{{ $matrix->id }}" aria-expanded="true" aria-controls="accordion-collapse-body-{{ $matrix->id }}">
-                                <span class="text-md font-bold">{{ $matrix->matrix_name }}</span>
+                                <span class="text-md font-bold capitalize">{{ $matrix->matrix_name . ' (' . $matrix->level . ' Level)' }}</span>
                                 <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                                 </svg>
@@ -224,7 +242,7 @@
                     @empty
                         <div class="bg-white mt-3 border rounded-lg dark:bg-gray-800 px-6 py-4 text-center">
                             <div class="p-4 text-sm text-gray-500">
-                                {{ __('There are no records') }}
+                                {{ __('There are no matrices available') }}
                             </div>
                         </div>
                     @endforelse

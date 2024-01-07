@@ -46,11 +46,19 @@
                     {{ __('Instructional Material Details') }}
                 </h3>
                 <div class="px-2">
-                    <div class="text-sm mb-4 font-normal text-gray-600 capitalize flex items-end justify-between">
-                        <div>
-                            <strong>{{ __('Proponents: ') }}</strong>{{ $instructionalMaterial->proponents }} |  <strong>{{ __('Material Type: ') }}</strong>{{ $instructionalMaterial->type }}
+                    <div class="text-sm mb-4 font-normal text-gray-600 capitalize flex flex-wrap items-end justify-between">
+                        <div class="flex flex-wrap">
+                            <span>
+                                <strong>{{ __('Proponents: ') }}</strong>
+                                {{ $instructionalMaterial->proponents }}
+                            </span>
+                            <span class="mx-3 hidden sm:block">|</span>
+                            <span>
+                                <strong>{{ __('Material Type: ') }}</strong>
+                                {{ $instructionalMaterial->type }}
+                            </span>
                         </div>
-                        <div>
+                        <div class="mt-3 sm:mt-0">
                             <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300">
                                 {{ $instructionalMaterial->status }}
                             </span>
@@ -61,7 +69,7 @@
                     </p>
                 </div>
             </div>
-            <div class="hidden w-full sm:block">
+            <div class="hidden w-full sm:block mb-4">
                 <h3 class="text-md mb-3 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
                     {{ __('PDF Viewer') }}
                 </h3>

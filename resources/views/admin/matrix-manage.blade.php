@@ -168,6 +168,16 @@
                 <textarea rows="6" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description for the matrix" required>{{ old('description', $matrix->description) }}</textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-1" />
             </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Matrix Level') }}</label>
+                <div class="flex items-start w-full lg:w-3/4">
+                    <select name="level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        <option value="campus" @if($matrix->level == 'campus') selected @endif>Campus Level</option>
+                        <option value="university" @if($matrix->level == 'university') selected @endif>University Level</option>
+                    </select>
+                </div>
+            </div>
     
             <div class="flex items-center gap-4">
                 <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>

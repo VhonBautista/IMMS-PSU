@@ -16,6 +16,9 @@ class SubmissionController extends Controller
 {
     public function index(Request $request)
     {
+        // Auth User ID
+        $userId = $request->user()->id;
+        
         // Filter
         $searchFilter = $request->search;
         $typeFilter = $request->type;
@@ -56,9 +59,20 @@ class SubmissionController extends Controller
             $approvedInstructionalMaterials->whereBetween('created_at', [$startFormatted, $endFormatted]);
         }
       
-        $pendingMaterials = $pendingInstructionalMaterials->where('status', 'pending')->orderBy('title', 'asc')->paginate(10);
-        $resubmissionMaterials = $resubmissionInstructionalMaterials->where('status', 'resubmission')->orderBy('title', 'asc')->paginate(10);
-        $approvedMaterials = $approvedInstructionalMaterials->where('status', 'approved')->orderBy('title', 'asc')->paginate(10);
+        $pendingMaterials = $pendingInstructionalMaterials->where('status', 'pending')
+        ->where('submitter_id', $userId)
+        ->orderBy('title', 'asc')
+        ->paginate(10);
+
+        $resubmissionMaterials = $resubmissionInstructionalMaterials->where('status', 'resubmission')
+        ->where('submitter_id', $userId)
+        ->orderBy('title', 'asc')
+        ->paginate(10);
+
+        $approvedMaterials = $approvedInstructionalMaterials->where('status', 'approved')
+        ->where('submitter_id', $userId)
+        ->orderBy('title', 'asc')
+        ->paginate(10);
 
         return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses', 'user'));
     }
@@ -111,7 +125,7 @@ class SubmissionController extends Controller
             'material_id' => $instructionalMaterial->id,
         ]);
 
-        $area = 'evaluation_management'; 
+        $area = 'evaluator.evaluation_management'; 
         $title = 'New Instructional Material Added'; 
         $action = 'submitted'; 
         $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material titled "' . $request->input('title') . '".'; 

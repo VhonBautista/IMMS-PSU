@@ -8,6 +8,7 @@ use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MatrixManagementController;
 use App\Http\Controllers\NotificationController;
@@ -115,7 +116,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {
-    
+    Route::get('evaluation-management/', [EvaluationController::class, 'index'])->name('evaluator.evaluation_management');
 });
 
 // ========================== All User Routes ========================== //

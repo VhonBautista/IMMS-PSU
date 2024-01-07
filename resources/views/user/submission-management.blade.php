@@ -149,7 +149,7 @@
                     <form action="{{ route('submission_management') }}" method="GET" id="search-form" class="w-full">   
             
                         <div class="relative w-full">
-                            <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for instructional materials by name" value="{{ request('search') }}">
+                            <input type="search" id="search-user" name="search" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-r-gray-50 border-r-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-r-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for instructional materials by title" value="{{ request('search') }}">
                             <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -225,7 +225,7 @@
                                         {{ __('Instructional Material') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        {{ __('Uploader') }}
+                                        {{ __('Submitter') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         {{ __('Status') }}
@@ -244,7 +244,7 @@
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $pendingMaterial->title }}</div>
                                             <div class="font-medium text-xs text-gray-500 capitalize truncate ... max-w-[300px]">
-                                                {{ str_replace('_', ' ', $pendingMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $pendingMaterial->department->department_name }}
+                                                {{ str_replace('_', ' ', $pendingMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $pendingMaterial->course->course_name }}
                                             </div>
                                         </th>
                                         <td scope="row" class="px-6 py-4 font-medium text-gray-500 whitespace-nowrap dark:text-white">
@@ -297,7 +297,7 @@
                                         {{ __('Instructional Material') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        {{ __('Uploader') }}
+                                        {{ __('Submitter') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         {{ __('Status') }}
@@ -316,7 +316,7 @@
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $resubmissionMaterial->title }}</div>
                                             <div class="font-medium text-xs text-gray-500 capitalize truncate ... max-w-[300px]">
-                                                {{ str_replace('_', ' ', $resubmissionMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $resubmissionMaterial->department->department_name }}
+                                                {{ str_replace('_', ' ', $resubmissionMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $resubmissionMaterial->course->course_name }}
                                             </div>
                                         </th>
                                         <td scope="row" class="px-6 py-4 font-medium text-gray-500 whitespace-nowrap dark:text-white">
@@ -370,7 +370,7 @@
                                         {{ __('Instructional Material') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        {{ __('Uploader') }}
+                                        {{ __('Submitter') }}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         {{ __('Status') }}
@@ -389,7 +389,7 @@
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $approvedMaterial->title }}</div>
                                             <div class="font-medium text-xs text-gray-500 capitalize truncate ... max-w-[300px]">
-                                                {{ str_replace('_', ' ', $approvedMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $approvedMaterial->department->department_name }}
+                                                {{ str_replace('_', ' ', $approvedMaterial->type)}} <span class="lowercase">{{ __('for') }}</span> {{ $approvedMaterial->course->course_name }}
                                             </div>
                                         </th>
                                         <td scope="row" class="px-6 py-4 font-medium text-gray-500 whitespace-nowrap dark:text-white">
@@ -397,7 +397,7 @@
                                             <div class="font-medium text-xs">{{ $approvedMaterial->user->email }}</div>
                                         </td>
                                         <td class="px-6 py-4 capitalize">
-                                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300">
+                                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-green-100 text-green-800  dark:bg-green-900 dark:text-green-300">
                                                 {{ $approvedMaterial->status }}
                                             </span>
                                         </td>
@@ -406,7 +406,7 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('admin.campus_management.edit', $approvedMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <a href="{{ route('submission_management.view', $approvedMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                     <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                                                         <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                                                     </svg>
@@ -436,6 +436,5 @@
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @endsection
 </x-app-layout>
