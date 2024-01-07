@@ -56,12 +56,12 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Matrix Level') }}</label>
                     <div class="flex items-start w-full">
                         <select name="level" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                            <option value="campus" selected>Campus Level</option>
-                            <option value="university">University Level</option>
+                            <option value="campus" selected>{{ __('Campus Level') }}</option>
+                            <option value="university">{{ __('University Level') }}</option>
                         </select>
                     </div>
                 </div>
-                        
+
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
                     <x-primary-button class="sm:w-44" type='submit'>
                         {{ __('Add Matrix') }}

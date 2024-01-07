@@ -9,6 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MatrixManagementController;
 use App\Http\Controllers\NotificationController;
@@ -108,32 +110,46 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Utilities
     Route::get('system-log/', [LogController::class, 'index'])->name('admin.system_log');
-    Route::get('/notification', [NotificationController::class, 'index'])->name('admin.notification');
-    Route::post('/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
-    Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
-
 });
 
 // ========================== Evaluator Routes ========================== //
 Route::middleware('auth', 'role:3')->group(function () {
+    // Evaluation Management
     Route::get('evaluation-management/', [EvaluationController::class, 'index'])->name('evaluator.evaluation_management');
+    Route::get('evaluation-management/history', [HistoryController::class, 'index'])->name('evaluator.evaluation_management.history');
+    Route::get('evaluation-management/{materialId}', [EvaluationController::class, 'evaluate'])->name('evaluator.evaluation_management.evaluation');
+    Route::post('evaluation-management/', [EvaluationController::class, 'store'])->name('evaluator.evaluation_management.store');
+});
+
+// ========================== Normal User Routes ========================== //
+Route::middleware('auth', 'role:4')->group(function () {
+    // Submission Management
+    Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
+    Route::get('submission-management/preview/{materialId}', [SubmissionController::class, 'view'])->name('submission_management.view');
+    Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
+    Route::get('submission-management/evaluation/{id}', [SubmissionController::class, 'viewEvaluation'])->name('submission_management.evaluation');
+    Route::patch('submission-management/evaluation/resubmit', [SubmissionController::class, 'resubmit'])->name('submission_management.resubmit');
 });
 
 // ========================== All User Routes ========================== //
 Route::middleware('auth')->group(function () {
-    Route::get('/instructional-materials', function () {
-        return view('home');
-    })->name('home');
+    // Home
+    Route::get('/instructional-materials', [HomeController::class, 'index'])->name('home');
+    Route::get('view/{materialId}', [HomeController::class, 'view'])->name('view');
 
-    // Submission Management
-    Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
-    Route::get('submission-management/{materialId}', [SubmissionController::class, 'view'])->name('submission_management.view');
-    Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
-
-
+    // Filter Campus
+    // Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses']);
+    // Route::get('/get-departments/{campusId}', [SubmissionController::class, 'getDepartments']);
+    
+    // Profile Management
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Utilities
+    Route::get('/notification', [NotificationController::class, 'index'])->name('admin.notification');
+    Route::post('/mark-as-read/{id}', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+    Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-as-read');
 });
 
 require __DIR__.'/auth.php';

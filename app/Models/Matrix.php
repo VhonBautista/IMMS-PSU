@@ -13,6 +13,7 @@ class Matrix extends Model
         'matrix_name',
         'description',
         'level',
+        'stage',
     ];
     
     public function subMatrices()
@@ -28,5 +29,10 @@ class Matrix extends Model
     public function evaluationStages()
     {
         return $this->hasMany(EvaluationStage::class, 'matrix_id');
+    }
+    
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'material_id');
     }
 }

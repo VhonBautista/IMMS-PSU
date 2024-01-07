@@ -5,3 +5,7 @@ function submitSearch() {
 function submitSearchSubmission() {
     document.getElementById('search-form-submission').submit();
 }
+
+function submitSearchExtreme() {
+    document.getElementById('search-form-extreme').submit();
+}

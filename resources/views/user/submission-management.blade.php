@@ -43,7 +43,7 @@
                                 <option value="course_book">{{ __('Course Book') }}</option>
                                 <option value="textbook">{{ __('Textbook') }}</option>
                                 <option value="modules">{{ __('Modules') }}</option>
-                                <option value="laboratory manual">{{ __('Laboratory Manual') }}</option>
+                                <option value="laboratory_manual">{{ __('Laboratory Manual') }}</option>
                                 <option value="prototype">{{ __('Prototype') }}</option>
                                 <option value="others">{{ __('Others') }}</option>
                             </select>
@@ -101,12 +101,12 @@
                 </div>
 
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <x-primary-button class="sm:w-44" type='submit'>
-                        {{ __('Submit') }}
-                    </x-primary-button>
-                    <x-secondary-button x-on:click="$dispatch('close')" class="ms-3 sm:w-44">
+                    <x-secondary-button x-on:click="$dispatch('close')" class="sm:w-44">
                         {{ __('Cancel') }}
                     </x-secondary-button>
+                    <x-primary-button class="ms-3 sm:w-44" type='submit'>
+                        {{ __('Submit') }}
+                    </x-primary-button>
                 </div>
             </form>
         </div>
@@ -134,13 +134,23 @@
     {{-- Alert End --}}
 
     <div class="bg-white p-6 rounded-lg">
+        <nav class="flex mb-3" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li aria-current="page">
+                    <div class="flex items-center">
+                    <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Submissions') }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
         <div>
             <ul class="flex flex-wrap -mb-px font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
                 <li role="presentation">
-                    <button class="inline-block p-2 md:p-4 py-2 md:py-6 border-b-2 md:text-sm text-xs rounded-t-lg" id="submission-tab" data-tabs-target="#submission" type="button" role="tab" aria-controls="submission" aria-selected="false">{{ __('Submission') }}</button>
+                    <button class="inline-block p-2 md:p-4 py-2 md:py-6 border-b-2 md:text-sm text-xs rounded-t-lg" id="submission-tab" data-tabs-target="#submission" type="button" role="tab" aria-controls="submission" aria-selected="false">{{ __('Pending') }}</button>
                 </li>
                 <li role="presentation">
-                    <button class="inline-block p-2 md:p-4 py-2 md:py-6 border-b-2 md:text-sm text-xs rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="resubmission-tab" data-tabs-target="#resubmission" type="button" role="tab" aria-controls="resubmission" aria-selected="false">{{ __('Resubmission') }}</button>
+                    <button class="inline-block p-2 md:p-4 py-2 md:py-6 border-b-2 md:text-sm text-xs rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="resubmission-tab" data-tabs-target="#resubmission" type="button" role="tab" aria-controls="resubmission" aria-selected="false">{{ __('Returned') }}</button>
                 </li>
                 <li role="presentation">
                     <button class="inline-block p-2 md:p-4 py-2 md:py-6 border-b-2 md:text-sm text-xs rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="approved-tab" data-tabs-target="#approved" type="button" role="tab" aria-controls="approved" aria-selected="false">{{ __('Approved') }}</button>
@@ -262,10 +272,10 @@
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
                                                 <a href="{{ route('submission_management.view', $pendingMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white hidden md:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                                                         <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                                                     </svg>
-                                                    <span>{{ __('View') }}</span>
+                                                    <span>{{ __('Preview') }}</span>
                                                 </a>
                                             </div>
                                         </td>
@@ -333,12 +343,12 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('admin.campus_management.edit', $resubmissionMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                                <a href="{{ route('submission_management.evaluation', $resubmissionMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white hidden md:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                                         <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
                                                         <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
                                                     </svg>
-                                                    <span>{{ __('Edit & Resubmit') }}</span>
+                                                    <span>{{ __('Resubmit') }}</span>
                                                 </a>
                                             </div>
                                         </td>
@@ -406,8 +416,8 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('submission_management.view', $approvedMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                                                <a href="{{ route('view', $approvedMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white hidden md:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
                                                         <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
                                                     </svg>
                                                     <span>{{ __('View') }}</span>
@@ -432,6 +442,40 @@
             </div>
         </div>
     </div>
+
+
+    
+    <script>
+        document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
+            var campusId = this.value;
+    
+           
+            fetch('/get-courses/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var courseDropdown = document.querySelector('select[name="course_id"]');
+                    courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
+                    
+                    data.courses.forEach(course => {
+                        courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching courses:', error));
+    
+
+            fetch('/get-departments/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var departmentDropdown = document.querySelector('select[name="department_id"]');
+                    departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
+                    
+                    data.departments.forEach(department => {
+                        departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching departments:', error));
+        });
+    </script>
     
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>

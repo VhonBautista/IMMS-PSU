@@ -57,10 +57,13 @@ class MatrixManagementController extends Controller
             'level' => 'required',
         ]);
 
+        $matricesCount = Matrix::count() + 1;
+
         Matrix::create([
             'matrix_name' => $request->input('matrix_name'),
             'description' => $request->input('description'),
             'level' => $request->input('level'),
+            'stage' => $matricesCount,
         ]);
 
         // =============================== Log & Notification ===============================//

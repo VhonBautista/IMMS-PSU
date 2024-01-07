@@ -22,15 +22,7 @@
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li>
                     <div class="flex items-center">
-                    <a href="{{ route('submission_management') }}" class="text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Submissions') }}</a></a>
-                    </div>
-                </li>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                    <svg class="w-2 lg:w-3 h-2 lg:h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                    </svg>
-                    <span class="ml-1 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('View') }}</span>
+                    <a href="{{ url()->previous() }}" class="text-xs lg:text-sm font-medium text-gray-500 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ __('Back') }}</a></a>
                     </div>
                 </li>
             </ol>
@@ -41,7 +33,7 @@
             <span class="text-sm text-gray-600 tracking-wide">{{ $instructionalMaterial->department->department_name . ', ' . $instructionalMaterial->campus->campus_name . ' Campus' }}</span>
         </div>
         <div class="px-0 sm:px-6 flex gap-6 flex-wrap">
-            <div>
+            <section>
                 <h3 class="text-md text-center mb-1 sm:text-start font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
                     {{ __('Instructional Material Details') }}
                 </h3>
@@ -59,7 +51,14 @@
                             </span>
                         </div>
                         <div class="mt-3 sm:mt-0">
-                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300">
+                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded 
+                                @if ($instructionalMaterial->status == 'approved')
+                                    bg-green-100 text-green-800  dark:bg-green-900 dark:text-green-300
+                                @elseif ($instructionalMaterial->status == 'resubmission')
+                                    bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-300
+                                @else
+                                    bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-300
+                                @endif">
                                 {{ $instructionalMaterial->status }}
                             </span>
                         </div>
@@ -68,13 +67,29 @@
                         {{ __('The instructional material, entitled "') }}<strong>{{ $instructionalMaterial->title }}</strong>{{ __('," stands as a meticulously crafted learning resource tailored for the ') }}<strong>{{ $instructionalMaterial->course->course_name }}</strong>{{ __(' program within the ') }}<strong>{{ $instructionalMaterial->department->department_name }}</strong>{{ __('. Its submission on ') }}<strong>{{ date('F d, Y', strtotime($instructionalMaterial->created_at)) }}</strong>{{ __(', by the esteemed uploader, "') }}<strong>{{ $instructionalMaterial->user->firstname . ' ' . $instructionalMaterial->user->lastname }}</strong>{{ __('," marks a significant contribution to the academic landscape. The development of this instructional material was spearheaded by a team of accomplished individuals, whose collective expertise and dedication are reflected in its content and structure. The collaboration of these professionals, comprising the talented minds listed in the random order of names, underscores the commitment to creating a comprehensive and impactful educational resource for the benefit of students pursuing excellence in the field.') }}
                     </p>
                 </div>
-            </div>
-            <div class="hidden w-full sm:block mb-4">
+            </section>
+
+            <section class="hidden w-full sm:block mb-4">
                 <h3 class="text-md mb-3 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
                     {{ __('PDF Viewer') }}
                 </h3>
-                <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
-            </div>
+                
+                <div id="accordion-viewer" data-accordion="collapse">
+                    <h2 id="accordion-viewer-heading">
+                        <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border rounded border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-viewer-body-" aria-expanded="false" aria-controls="accordion-viewer-body-">
+                            <span>{{ __('Click to display Instructional Material PDF') }}</span>
+                            <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                    </h2>
+                    <div id="accordion-viewer-body-" class="hidden" aria-labelledby="accordion-viewer-heading">
+                        <div class="p-5">
+                            <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </x-app-layout>

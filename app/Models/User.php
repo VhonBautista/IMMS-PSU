@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(EvaluatorMatrix::class, 'evaluator_id');
     }
+    
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'material_id');
+    }
 }

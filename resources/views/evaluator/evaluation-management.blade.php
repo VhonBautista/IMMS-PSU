@@ -13,11 +13,14 @@
             <div class="text-sm font-medium">
                 @if ($user->evaluatorMatrix)
                     <div class="flex items-center text-green-600 ">
-                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4"  data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-matrix-info" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
+                        <div id="tooltip-text-matrix-info" role="tooltip" class="absolute sm:hidden z-10 max-w-[300px] invisible inline-block px-3 py-2 text-sm font-normal text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            {{ __('Matrix in use - ') . $user->evaluatorMatrix->matrix->matrix_name . __(' Matrix') }}
+                        </div>
                         <span class="sr-only">Info</span>
-                        <div class="ml-2 text-sm font-medium">
+                        <div class="hidden sm:block ml-2 text-sm font-medium">
                             {{ __('Matrix in use - ') . $user->evaluatorMatrix->matrix->matrix_name . __(' Matrix') }}
                         </div>
                     </div>
@@ -128,7 +131,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('submission_management.view', $evaluationMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <a href="{{ route('evaluator.evaluation_management.evaluation', $evaluationMaterial->instructionalMaterial->id) }}" target="_blank" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                                 <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z"/>
                                             </svg>
