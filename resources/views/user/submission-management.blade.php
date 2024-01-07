@@ -333,7 +333,7 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('admin.campus_management.edit', $resubmissionMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <a href="{{ route('resubmission_management', $resubmissionMaterial->id) }}" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                     <svg class="w-4 h-4 me-2 text-white transition duration-75 group-hover:text-blue-700 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                                         <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
                                                         <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
@@ -432,10 +432,50 @@
             </div>
         </div>
     </div>
+
+
     
+    <script>
+        document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
+            var campusId = this.value;
+    
+           
+            fetch('/get-courses/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var courseDropdown = document.querySelector('select[name="course_id"]');
+                    courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
+                    
+                    data.courses.forEach(course => {
+                        courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching courses:', error));
+    
+
+            fetch('/get-departments/' + campusId)
+                .then(response => response.json())
+                .then(data => {
+                    var departmentDropdown = document.querySelector('select[name="department_id"]');
+                    departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
+                    
+                    data.departments.forEach(department => {
+                        departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching departments:', error));
+        });
+    </script>
+    
+
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     @endsection
+
+
+  
 </x-app-layout>

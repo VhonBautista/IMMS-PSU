@@ -12,10 +12,12 @@ use App\Models\User;
 use App\Models\InstructionalMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 class SubmissionController extends Controller
 {
     public function index(Request $request)
     {
+       
         // Filter
         $searchFilter = $request->search;
         $typeFilter = $request->type;
@@ -135,4 +137,75 @@ class SubmissionController extends Controller
 
         return redirect()->back()->with('success', 'Instructional material submitted successfully!');
     }
+
+    public function edit(Request $request,$id)
+    {
+        $ims = InstructionalMaterial::findOrFail($id);
+        $campuses = Campus::all();
+
+        return view('material-resubmit', compact('ims','campuses'));
+    }
+
+    public function update(Request $request)
+{
+    // Validate the request data
+    $request->validate([
+        'title' => 'required|string',
+        'type' => 'required|string',
+        'campus_id' => 'required|exists:campuses,id',
+        'course_id' => 'required|exists:courses,id',
+        'department_id' => 'required|exists:departments,id',
+        'proponents' => 'required|string',
+        'pdf_path' => 'nullable|file|mimes:pdf|max:50000', 
+    ]);
+
+    // Find the InstructionalMaterial by ID
+    $ims = InstructionalMaterial::findOrFail($request->input('IM_id'));
+
+    // Handle PDF file
+    if ($request->hasFile('pdf_path')) {
+    // Delete the old PDF
+    if ($ims->pdf_path) {
+        $pdfPath = storage_path('app/public/' . $ims->pdf_path);
+
+        if (file_exists($pdfPath)) {
+            unlink($pdfPath);
+        }
+    }
+
+        // Generate a unique file name
+        $originalFileName = $request->file('pdf_path')->getClientOriginalName();
+        $uniqueFileName = time() . '_' . $originalFileName;
+
+        // Store the new PDF with the unique file name
+        $pdfPath = $request->file('pdf_path')->storeAs('pdfs', $uniqueFileName, 'public');
+        $ims->pdf_path = $pdfPath;
+    }
+
+    // Update other fields
+    $ims->update([
+        'title' => $request->input('title'),
+        'type' => $request->input('type'),
+        'campus_id' => $request->input('campus_id'),
+        'course_id' => $request->input('course_id'),
+        'department_id' => $request->input('department_id'),
+        'proponents' => $request->input('proponents'),
+        'status' => 'pending', 
+    ]);
+
+    return redirect()->route('resubmission_management',$request->input('IM_id'))->with('success', 'Your Instructional Material updated successfully.');
+}
+
+    public function getCourses($campusId)
+    {
+        $courses = Course::where('campus_id', $campusId)->get();
+        return response()->json(['courses' => $courses]);
+    }
+
+    public function getDepartments($campusId)
+    {
+        $departments = Department::where('campus_id', $campusId)->get();
+        return response()->json(['departments' => $departments]);
+    }
+
 }

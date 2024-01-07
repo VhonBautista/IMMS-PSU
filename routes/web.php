@@ -128,7 +128,12 @@ Route::middleware('auth')->group(function () {
     Route::get('submission-management/', [SubmissionController::class, 'index'])->name('submission_management');
     Route::get('submission-management/{materialId}', [SubmissionController::class, 'view'])->name('submission_management.view');
     Route::post('submission-management/store', [SubmissionController::class, 'store'])->name('submission.store');
-
+    //filter campus
+    Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses']);
+    Route::get('/get-departments/{campusId}', [SubmissionController::class, 'getDepartments']);
+    //resubmission (edit)
+    Route::get('resubmission-management/{id}', [SubmissionController::class, 'edit'])->name('resubmission_management');
+    Route::patch('resubmission-management/edit/', [SubmissionController::class, 'update'])->name('resubmission_management.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
