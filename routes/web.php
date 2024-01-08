@@ -42,9 +42,9 @@ Route::get('/', function () {
 
 // ====================== Admin & Moderator Routes ====================== //
 Route::middleware(['auth', 'role:1,2'])->group(function () {
+    
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+        return view('admin.dashboard'); })->name('admin.dashboard');
 
     // User Management
     Route::get('user-management/', [UserManagementController::class, 'index'])->name('admin.user_management');
