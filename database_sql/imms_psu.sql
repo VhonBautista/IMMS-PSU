@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2024 at 08:19 PM
+-- Generation Time: Jan 08, 2024 at 06:06 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -540,12 +540,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `lastname`, `firstname`, `middlename`, `email`, `email_verified_at`, `password`, `remember_token`, `role_id`, `univ_role_id`, `campus_id`, `created_at`, `updated_at`) VALUES
-(1, 'Main', 'Admin', NULL, 'main@psu.edu.ph', NULL, '$2y$10$rv.l.uiJGGucv3bYGJElxupvkRiTx8KYlYHfzuO4N0Y2VP6yniR2q', NULL, 1, 1, 1, '2023-12-15 23:58:54', '2023-12-15 23:58:54'),
-(12, 'CFL', 'Evaluator', NULL, 'cfl@psu.edu.ph', NULL, '$2y$10$PDseINxqTJB7zXrg.To5YexS06tkefIZmDQ9LvaFUllWbvr9iRCa.', NULL, 3, 9, 9, '2024-01-03 10:02:42', '2024-01-07 07:52:46'),
-(13, 'University', 'Evaluator', NULL, 'uni@psu.edu.ph', NULL, '$2y$10$/64XD0iTYZil1n064Xr3Fuk57azjUNcR58ABYWOIuulXj1xk1HPLm', NULL, 3, 10, 9, '2024-01-03 10:23:47', '2024-01-07 04:10:03'),
-(14, 'Main', 'Moderator', NULL, 'mod@psu.edu.ph', NULL, '$2y$10$Bq6I8ITK5iqwCoIBP95ouOeKQz/5snHRfQnrZOFrIG3VVczfRQSXG', NULL, 2, 1, 1, '2024-01-07 10:58:01', '2024-01-07 11:02:01'),
-(15, 'Main', 'Evaluator', NULL, 'eva@psu.edu.ph', NULL, '$2y$10$iHnwzNgIq9AKr9UwknA3eehWaszQAS6phmfbu2SDZBnwxF4u.7f9u', NULL, 3, 5, 1, '2024-01-07 10:58:59', '2024-01-07 11:01:41'),
-(16, 'User', 'Regular', NULL, 'reg@psu.edu.ph', NULL, '$2y$10$TsKxqGrLlyvPr.xuZdn9..TDcVoAlvP.iuLVr0ANolE7tT13JOxhy', NULL, 4, 7, 9, '2024-01-07 10:59:44', '2024-01-07 10:59:44'),
+(1, 'Administrator', 'Main', NULL, 'main@psu.edu.ph', NULL, '$2y$10$rv.l.uiJGGucv3bYGJElxupvkRiTx8KYlYHfzuO4N0Y2VP6yniR2q', NULL, 1, 1, 1, '2023-12-15 23:58:54', '2023-12-15 23:58:54'),
+(12, 'Evaluator', 'CFL', NULL, 'cfl@psu.edu.ph', NULL, '$2y$10$PDseINxqTJB7zXrg.To5YexS06tkefIZmDQ9LvaFUllWbvr9iRCa.', NULL, 3, 9, 9, '2024-01-03 10:02:42', '2024-01-07 07:52:46'),
+(13, 'Evaluator', 'University', NULL, 'uni@psu.edu.ph', NULL, '$2y$10$/64XD0iTYZil1n064Xr3Fuk57azjUNcR58ABYWOIuulXj1xk1HPLm', NULL, 3, 10, 9, '2024-01-03 10:23:47', '2024-01-07 04:10:03'),
+(14, 'Moderator', 'Main', NULL, 'mod@psu.edu.ph', NULL, '$2y$10$Bq6I8ITK5iqwCoIBP95ouOeKQz/5snHRfQnrZOFrIG3VVczfRQSXG', NULL, 2, 1, 1, '2024-01-07 10:58:01', '2024-01-07 11:02:01'),
+(15, 'Evaluator', 'Campus', NULL, 'camp@psu.edu.ph', NULL, '$2y$10$iHnwzNgIq9AKr9UwknA3eehWaszQAS6phmfbu2SDZBnwxF4u.7f9u', NULL, 3, 5, 1, '2024-01-07 10:58:59', '2024-01-07 11:01:41'),
+(16, 'Regular', 'User', NULL, 'reg@psu.edu.ph', NULL, '$2y$10$TsKxqGrLlyvPr.xuZdn9..TDcVoAlvP.iuLVr0ANolE7tT13JOxhy', NULL, 4, 7, 9, '2024-01-07 10:59:44', '2024-01-07 10:59:44'),
 (17, 'President', 'Vice', NULL, 'vice@psu.edu.ph', NULL, '$2y$10$B8kjUOnYcY0.Hf1s6MMVvuU.Su6DfAFwv1KPdSjxVE93hbds37Ud6', NULL, 3, 3, 1, '2024-01-07 11:00:38', '2024-01-07 11:01:16');
 
 --
