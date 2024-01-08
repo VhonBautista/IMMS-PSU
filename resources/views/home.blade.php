@@ -164,8 +164,47 @@
             </div>
         </div>
     </div>
-    
+    <p>Total IMs you have submitted: {{ $totalSubmittedByUser }}</p>
+ {{-- Pie Chart --}}
+ <div style="width: 50%; height:50%">
+    <canvas id="statusPieChart" width="200" height="200"></canvas>
+</div>
+
+
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
     @endsection
+
+    {{-- Render Pie Chart --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('statusPieChart').getContext('2d');
+            var myPieChart;
+
+            function updateStatusPieChart(data) {
+                if (myPieChart) {
+                    myPieChart.destroy();
+                }
+                myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.map(entry => entry.status),
+                        datasets: [{
+                            data: data.map(entry => entry.count),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                // Add more colors as needed
+                            ],
+                        }],
+                    },
+                });
+            }
+
+            // Update with statusCounts data from the controller
+            updateStatusPieChart(@json($statusCounts));
+        });
+    </script>
 </x-app-layout>

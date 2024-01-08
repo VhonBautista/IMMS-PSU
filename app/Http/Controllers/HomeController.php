@@ -63,7 +63,13 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('home', compact('instructionalMaterials', 'courses', 'departments', 'campuses'));
+        $statusCounts = InstructionalMaterial::select('status', InstructionalMaterial::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->get();
+
+        $totalSubmittedByUser = InstructionalMaterial::where('submitter_id', auth()->id())->count();
+
+        return view('home', compact('instructionalMaterials', 'courses', 'departments', 'campuses','statusCounts', 'totalSubmittedByUser'));
     }
 
     public function view($materialId)

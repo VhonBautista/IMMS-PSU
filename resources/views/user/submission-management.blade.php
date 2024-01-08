@@ -69,9 +69,7 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Target Course') }}</label>
                     <select name="course_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
                         <option selected disabled>{{ __('Select Target Course') }}</option>
-                        @foreach($courses as $course)
-                            <option value="{{ $course->id }}">{{  $course->campus->campus_name . ' - ' . $course->course_name }}</option>
-                        @endforeach
+                       
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('course_id')" class="mt-1" />
@@ -80,9 +78,7 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Department') }}</label>
                     <select name="department_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
                         <option selected disabled>{{ __('Select Department') }}</option>
-                        @foreach($departments as $department)
-                            <option value="{{ $department->id }}">{{  $department->campus->campus_name . ' - ' . $department->department_name }}</option>
-                        @endforeach
+                        
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('department_id')" class="mt-1" />

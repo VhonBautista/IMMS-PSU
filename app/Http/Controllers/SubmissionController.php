@@ -209,18 +209,25 @@ class SubmissionController extends Controller
             'status' => 'pending', 
         ]);
 
-        return redirect()->route('submission_management')->with('success', 'Instructional material has been resubmitted!');
+        $campus = Campus::findOrFail($request->input('campus_id'));
+    $courses = Course::where('campus_id', $campus->id)->get();
+    $departments = Department::where('campus_id', $campus->id)->get();
+
+        return redirect()->route('submission_management', [
+        'courses' => $courses,
+        'departments' => $departments,
+    ])->with('success', 'Instructional material has been resubmitted!');
     }
 
-    // public function getCourses($campusId)
-    // {
-    //     $courses = Course::where('campus_id', $campusId)->get();
-    //     return response()->json(['courses' => $courses]);
-    // }
+     public function getCourses($campusId)
+    {
+         $courses = Course::where('campus_id', $campusId)->get();
+    return response()->json(['courses' => $courses]);
+     }
 
-    // public function getDepartments($campusId)
-    // {
-    //     $departments = Department::where('campus_id', $campusId)->get();
-    //     return response()->json(['departments' => $departments]);
-    // }
+    public function getDepartments($campusId)
+     {
+        $departments = Department::where('campus_id', $campusId)->get();
+         return response()->json(['departments' => $departments]);
+     }
 }
