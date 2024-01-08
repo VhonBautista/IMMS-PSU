@@ -8,28 +8,28 @@
     <div class="flex">
         <div class="w-full md:w-1/2 lg:w-1/4 mb-4 px-4">
             <div class="bg-blue-500 text-white dark:bg-blue-700 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h2 class="text-xl font-semibold mb-4"><i class="fas fa-graduation-cap mr-2"></i>Courses</h2>
+                <a href="{{ route('admin.course_management') }}"><h2 class="text-xl font-semibold mb-4"><i class="fas fa-graduation-cap mr-2"></i>Courses</h2></a>
                 <p class="text-2xl">{{ $courseCount }}</p>
             </div>
         </div>
     
         <div class="w-full md:w-1/2 lg:w-1/4 mb-4 px-4">
             <div class="bg-yellow-500 text-white dark:bg-yellow-700 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h2 class="text-xl font-semibold mb-4"><i class="fas fa-building mr-2"></i>Departments</h2>
+                <a href="{{ route('admin.department_management') }}"><h2 class="text-xl font-semibold mb-4"><i class="fas fa-building mr-2"></i>Departments</h2></a>
                 <p class="text-2xl">{{ $departmentCount }}</p>
             </div>
         </div>
     
         <div class="w-full md:w-1/2 lg:w-1/4 mb-4 px-4">
             <div class="bg-green-500 text-white dark:bg-green-700 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h2 class="text-xl font-semibold mb-4"><i class="fas fa-university mr-2"></i>Colleges</h2>
+               <a href="{{ route('admin.college_management') }}"> <h2 class="text-xl font-semibold mb-4"><i class="fas fa-university mr-2"></i>Colleges</h2></a>
                 <p class="text-2xl">{{ $collegeCount }}</p>
             </div>
         </div>
     
         <div class="w-full md:w-1/2 lg:w-1/4 mb-4 px-4">
             <div class="bg-purple-500 text-white dark:bg-purple-700 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h2 class="text-xl font-semibold mb-4"><i class="fas fa-map-marker-alt mr-2"></i>Campuses</h2>
+                <a href="{{ route('admin.campus_management') }}"><h2 class="text-xl font-semibold mb-4"><i class="fas fa-map-marker-alt mr-2"></i>Campuses</h2></a>
                 <p class="text-2xl">{{ $campusCount }}</p>
             </div>
         </div>
