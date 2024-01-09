@@ -291,7 +291,9 @@
                     {{ $pendingMaterials->links() }}
                 </div>
             </div>
-            
+          
+    
+
             {{-- * Resubmission Tab --}}
             <div class="hidden px-4 pb-4 rounded-lg" id="resubmission" role="tabpanel" aria-labelledby="resubmission-tab">
                 <div class="max-w-7xl mt-3 space-y-6">
@@ -438,7 +440,21 @@
             </div>
         </div>
     </div>
-
+    <div class="flex flex-col items-center mt-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-left">User Submission Details</h2>
+        
+        <div class="flex items-center">
+            <div class="text-center mr-4">
+                <p class="text-xl font-semibold mb-2">Total IMs you have submitted:</p>
+                <p class="text-9xl font-bold">{{ $totalSubmittedByUser }}</p>
+            </div>
+            
+            {{-- Pie Chart --}}
+            <div class="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/2">
+                <canvas id="statusPieChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
 
     
     <script>
@@ -477,4 +493,38 @@
         <script src="{{ asset('js/search-filter.js') }}"></script>
         <script src="{{ asset('js/functions.js') }}"></script>
     @endsection
+
+
+    {{-- Render Pie Chart --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('statusPieChart').getContext('2d');
+            var myPieChart;
+
+            function updateStatusPieChart(data) {
+                if (myPieChart) {
+                    myPieChart.destroy();
+                }
+                myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.map(entry => entry.status),
+                        datasets: [{
+                            data: data.map(entry => entry.count),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                              
+                            ],
+                        }],
+                    },
+                });
+            }
+
+            
+            updateStatusPieChart(@json($statusCounts));
+        });
+    </script>
 </x-app-layout>

@@ -74,7 +74,11 @@ class SubmissionController extends Controller
             ->orderBy('title', 'asc')
             ->paginate(10);
 
-        return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses'));
+        $statusCounts = InstructionalMaterial::select('status', InstructionalMaterial::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->get();
+         $totalSubmittedByUser = InstructionalMaterial::where('submitter_id', auth()->id())->count();
+        return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses','totalSubmittedByUser', 'statusCounts'));
     }
 
     public function view($materialId)
