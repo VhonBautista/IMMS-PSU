@@ -86,9 +86,9 @@
                 <div>
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Target Course') }}</label>
                     <select name="course_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        @foreach($courses as $course)
+                        {{-- @foreach($courses as $course)
                             <option value="{{ $course->id }}" @if($instructionalMaterial->course_id == $course->id) selected @endif>{{  $course->campus->campus_name . ' - ' . $course->course_name }}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('course_id')" class="mt-1" />
@@ -96,9 +96,9 @@
                 <div>
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Department') }}</label>
                     <select name="department_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        @foreach($departments as $department)
+                        {{-- @foreach($departments as $department)
                             <option value="{{ $department->id }}" @if($instructionalMaterial->department_id == $department->id) selected @endif>{{  $department->campus->campus_name . ' - ' . $department->department_name }}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('department_id')" class="mt-1" />
@@ -249,5 +249,38 @@
                 <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
             </div>
         </div> --}}
+
+
+        <script>
+            document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
+                var campusId = this.value;
+        
+               
+                fetch('/get-courses/' + campusId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var courseDropdown = document.querySelector('select[name="course_id"]');
+                        courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
+                        
+                        data.courses.forEach(course => {
+                            courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
+                        });
+                    })
+                    .catch(error => console.error('Error fetching courses:', error));
+        
+    
+                fetch('/get-departments/' + campusId)
+                    .then(response => response.json())
+                    .then(data => {
+                        var departmentDropdown = document.querySelector('select[name="department_id"]');
+                        departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
+                        
+                        data.departments.forEach(department => {
+                            departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
+                        });
+                    })
+                    .catch(error => console.error('Error fetching departments:', error));
+            });
+        </script>
     </div>
 </x-app-layout>
