@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2024 at 06:06 AM
+-- Generation Time: Jan 09, 2024 at 07:39 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -184,6 +184,19 @@ CREATE TABLE `evaluations` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `evaluations`
+--
+
+INSERT INTO `evaluations` (`id`, `matrix_id`, `material_id`, `evaluator_id`, `passed_criteria`, `comment`, `status`, `created_at`, `updated_at`) VALUES
+(20, 1, 10, 15, 'Assessment Alignment, Clarity and Coherence, Content Relevance, Inclusivity and Diversity, Accessibility and Navigation, Consistency in Design.', 'Mali yung layout', 'failed', '2024-01-08 22:02:35', '2024-01-08 22:02:35'),
+(21, 1, 10, 15, 'Assessment Alignment, Clarity and Coherence, Content Relevance, Inclusivity and Diversity, Multimodal Presentation, Accessibility and Navigation, Consistency in Design, Use of Visual Elements, Visual Hierarchy, Whitespace and Margins.', 'magaling kang kupal ka', 'passed', '2024-01-08 22:06:22', '2024-01-08 22:06:22'),
+(22, 3, 10, 12, 'Plagiarize.', 'goods original', 'passed', '2024-01-08 22:08:48', '2024-01-08 22:08:48'),
+(23, 4, 10, 13, 'Clear Language and Terminology, Logical Structure, Interactive Exercises and Assessments, Multimedia Integration.', 'goods', 'passed', '2024-01-08 22:11:14', '2024-01-08 22:11:14'),
+(24, 5, 10, 17, 'Engagement and Interactivity, Relevance and Alignment, Accessibility, Cultural Sensitivity, Adaptability, Customization.', 'ok naman', 'passed', '2024-01-08 22:12:20', '2024-01-08 22:12:20'),
+(25, 1, 11, 15, 'Content Relevance, Inclusivity and Diversity, Accessibility and Navigation.', 'kulang nanaman', 'failed', '2024-01-08 22:25:36', '2024-01-08 22:25:36'),
+(26, 1, 13, 15, 'Assessment Alignment, Clarity and Coherence, Accessibility and Navigation.', 'Mali madami', 'failed', '2024-01-08 22:26:38', '2024-01-08 22:26:38');
+
 -- --------------------------------------------------------
 
 --
@@ -198,6 +211,25 @@ CREATE TABLE `evaluation_stages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `evaluation_stages`
+--
+
+INSERT INTO `evaluation_stages` (`id`, `matrix_id`, `material_id`, `stage`, `created_at`, `updated_at`) VALUES
+(8, 1, 9, 1, '2024-01-08 17:16:49', '2024-01-08 17:16:49'),
+(9, 5, 10, 4, '2024-01-08 18:52:59', '2024-01-08 22:11:14'),
+(10, 1, 11, 1, '2024-01-08 20:26:18', '2024-01-08 20:26:18'),
+(11, 1, 12, 1, '2024-01-08 20:27:00', '2024-01-08 20:27:00'),
+(12, 1, 13, 1, '2024-01-08 20:30:52', '2024-01-08 20:30:52'),
+(13, 1, 14, 1, '2024-01-08 20:31:25', '2024-01-08 20:31:25'),
+(14, 1, 15, 1, '2024-01-08 20:31:58', '2024-01-08 20:31:58'),
+(15, 1, 16, 1, '2024-01-08 20:33:36', '2024-01-08 20:33:36'),
+(16, 1, 17, 1, '2024-01-08 20:34:08', '2024-01-08 20:34:08'),
+(17, 1, 18, 1, '2024-01-08 20:34:56', '2024-01-08 20:34:56'),
+(18, 1, 19, 1, '2024-01-08 20:50:59', '2024-01-08 20:50:59'),
+(19, 1, 20, 1, '2024-01-08 20:51:58', '2024-01-08 20:51:58'),
+(20, 1, 21, 1, '2024-01-08 20:55:04', '2024-01-08 20:55:04');
 
 -- --------------------------------------------------------
 
@@ -254,11 +286,30 @@ CREATE TABLE `instructional_materials` (
   `department_id` bigint(20) UNSIGNED NOT NULL,
   `campus_id` bigint(20) UNSIGNED NOT NULL,
   `submitter_id` bigint(20) UNSIGNED NOT NULL,
-  `type` enum('course_book','textbook','modules','laboratory manual','prototype','others') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('course_book','textbook','modules','laboratory_manual','prototype','others') COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('pending','evaluating','resubmission','approved') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `instructional_materials`
+--
+
+INSERT INTO `instructional_materials` (`id`, `title`, `pdf_path`, `proponents`, `course_id`, `department_id`, `campus_id`, `submitter_id`, `type`, `status`, `created_at`, `updated_at`) VALUES
+(9, 'Aliquip sint veniam', 'storage/pdfs/1704763009_POEM ANALYSIS.pdf', 'Ad quis facere conse', 10, 10, 3, 16, 'prototype', 'pending', '2024-01-02 17:16:49', '2024-01-08 17:16:49'),
+(10, 'Hic labore excepturi', 'storage/pdfs/1704780263_POEM ANALYSIS.pdf', 'Laboris suscipit por', 5, 1, 9, 16, 'course_book', 'approved', '2024-01-03 18:52:59', '2024-01-08 22:12:20'),
+(11, 'Nulla ipsum blanditi', 'storage/pdfs/1704774378_NTAG_INVITATION.pdf', 'Deserunt dicta aliqu', 1, 1, 9, 16, 'others', 'resubmission', '2024-01-02 20:26:18', '2024-01-08 22:25:36'),
+(12, 'Ab soluta nulla dict', 'storage/pdfs/1704774420_POEM ANALYSIS.pdf', 'Aliquid nihil nulla', 2, 10, 9, 16, 'modules', 'pending', '2024-01-04 20:27:00', '2024-01-08 20:27:00'),
+(13, 'Molestiae consequatu', 'storage/pdfs/1704774652_POEM ANALYSIS.pdf', 'At enim excepteur du', 7, 5, 9, 16, 'laboratory_manual', 'resubmission', '2024-01-04 20:30:52', '2024-01-08 22:26:38'),
+(14, 'Sed temporibus nemo', 'storage/pdfs/1704774685_POEM ANALYSIS.pdf', 'Aspernatur placeat', 4, 2, 9, 16, 'others', 'pending', '2024-01-04 20:31:25', '2024-01-08 20:31:25'),
+(15, 'Quo ipsam elit expl', 'storage/pdfs/1704774718_POEM ANALYSIS.pdf', 'Modi reprehenderit', 8, 6, 9, 16, 'others', 'pending', '2024-01-05 20:31:58', '2024-01-08 20:31:58'),
+(16, 'Dolore est sequi inc', 'storage/pdfs/1704774816_NTAG_INVITATION.pdf', 'Anim cumque et asper', 5, 3, 9, 16, 'modules', 'pending', '2024-01-06 20:33:36', '2024-01-08 20:33:36'),
+(17, 'Facilis fugit quaer', 'storage/pdfs/1704774848_POEM ANALYSIS.pdf', 'Dolore id dolore in', 9, 7, 9, 16, 'course_book', 'pending', '2024-01-06 20:34:08', '2024-01-08 20:34:08'),
+(18, 'Perferendis do odio', 'storage/pdfs/1704774896_NTAG_INVITATION.pdf', 'Excepturi deleniti c', 10, 8, 9, 16, 'textbook', 'pending', '2024-01-07 20:34:56', '2024-01-08 20:34:56'),
+(19, 'Numquam enim corpori', 'storage/pdfs/1704775859_POEM ANALYSIS.pdf', 'Non saepe eum doloru', 1, 10, 9, 16, 'laboratory_manual', 'pending', '2024-01-08 20:50:59', '2024-01-08 20:50:59'),
+(20, 'Quis quas proident', 'storage/pdfs/1704775918_POEM ANALYSIS.pdf', 'Ea similique nulla e', 11, 10, 9, 16, 'others', 'pending', '2024-01-08 20:51:58', '2024-01-08 20:51:58'),
+(21, 'Est elit ut volupt', 'storage/pdfs/1704776104_NTAG_INVITATION.pdf', 'Quisquam omnis omnis', 2, 10, 9, 16, 'course_book', 'pending', '2024-01-08 20:55:04', '2024-01-08 20:55:04');
 
 -- --------------------------------------------------------
 
@@ -276,6 +327,33 @@ CREATE TABLE `logs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `area`, `title`, `action`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Aliquip sint veniam\".', 16, '2024-01-08 17:16:49', '2024-01-08 17:16:49'),
+(2, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Hic labore excepturi\".', 16, '2024-01-08 18:52:59', '2024-01-08 18:52:59'),
+(3, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Nulla ipsum blanditi\".', 16, '2024-01-08 20:26:18', '2024-01-08 20:26:18'),
+(4, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Ab soluta nulla dict\".', 16, '2024-01-08 20:27:00', '2024-01-08 20:27:00'),
+(5, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Molestiae consequatu\".', 16, '2024-01-08 20:30:52', '2024-01-08 20:30:52'),
+(6, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Sed temporibus nemo\".', 16, '2024-01-08 20:31:25', '2024-01-08 20:31:25'),
+(7, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Quo ipsam elit expl\".', 16, '2024-01-08 20:31:58', '2024-01-08 20:31:58'),
+(8, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Dolore est sequi inc\".', 16, '2024-01-08 20:33:36', '2024-01-08 20:33:36'),
+(9, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Facilis fugit quaer\".', 16, '2024-01-08 20:34:08', '2024-01-08 20:34:08'),
+(10, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Perferendis do odio\".', 16, '2024-01-08 20:34:56', '2024-01-08 20:34:56'),
+(11, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Numquam enim corpori\".', 16, '2024-01-08 20:50:59', '2024-01-08 20:50:59'),
+(12, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Quis quas proident\".', 16, '2024-01-08 20:51:58', '2024-01-08 20:51:58'),
+(13, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material entitled \"Est elit ut volupt\".', 16, '2024-01-08 20:55:04', '2024-01-08 20:55:04'),
+(14, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material entitled \"Hic labore excepturi\".', 15, '2024-01-08 22:02:35', '2024-01-08 22:02:35'),
+(15, 'evaluator.evaluation_management', 'Instructional Material Resubmitted', 'submitted', 'User Regular resubmitted the Instructional Material entitled \"Hic labore excepturi\".', 16, '2024-01-08 22:04:23', '2024-01-08 22:04:23'),
+(16, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material entitled \"Hic labore excepturi\".', 15, '2024-01-08 22:06:22', '2024-01-08 22:06:22'),
+(17, 'submission_management', 'Evaluation Submitted', 'submitted', 'CFL Evaluator submitted an evaluation regarding your Instructional Material entitled \"Hic labore excepturi\".', 12, '2024-01-08 22:08:48', '2024-01-08 22:08:48'),
+(18, 'submission_management', 'Evaluation Submitted', 'submitted', 'University Evaluator submitted an evaluation regarding your Instructional Material entitled \"Hic labore excepturi\".', 13, '2024-01-08 22:11:14', '2024-01-08 22:11:14'),
+(19, 'submission_management', 'Evaluation Submitted', 'submitted', 'Vice President submitted an evaluation regarding your Instructional Material entitled \"Hic labore excepturi\".', 17, '2024-01-08 22:12:20', '2024-01-08 22:12:20'),
+(20, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Nulla ipsum blanditi\".', 15, '2024-01-08 22:25:36', '2024-01-08 22:25:36'),
+(21, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Molestiae consequatu\".', 15, '2024-01-08 22:26:38', '2024-01-08 22:26:38');
 
 -- --------------------------------------------------------
 
@@ -339,11 +417,11 @@ INSERT INTO `matrix_items` (`id`, `item`, `text`, `sub_matrix_id`, `created_at`,
 (16, 'Cultural Sensitivity', 'To what extent do the materials consider cultural diversity and inclusivity?', 9, '2024-01-07 11:07:39', '2024-01-07 11:07:39'),
 (17, 'Adaptability', 'Can the instructional materials be easily adapted to meet the needs of different learners or teaching contexts?', 10, '2024-01-07 11:08:21', '2024-01-07 11:08:21'),
 (18, 'Customization', 'How easy is it for instructors to customize or supplement the materials based on specific requirements?', 10, '2024-01-07 11:08:31', '2024-01-07 11:08:31'),
-(19, 'Plagiarize', 'Plagiarism is the act of using someone else\'s work, ideas, or intellectual property without giving proper credit or permission, and presenting it as one\'s own. This can include various forms of content, such as text, ideas, images, and more. Plagiarism is considered an ethical and academic violation, as it undermines the principles of originality, honesty, and intellectual integrity.', 11, '2024-01-07 11:10:12', '2024-01-07 11:10:12'),
 (20, 'Logical Structure', 'Examine the logical flow and organization of the instructional material, ensuring a coherent and easy-to-follow structure.', 12, '2024-01-07 11:17:44', '2024-01-07 11:17:44'),
 (21, 'Clear Language and Terminology', 'Assess the use of clear language and appropriate terminology to ensure that students can easily comprehend the presented information.', 12, '2024-01-07 11:17:55', '2024-01-07 11:17:55'),
 (22, 'Multimedia Integration', 'Evaluate the use of multimedia elements (videos, images, simulations) to enhance engagement and interactivity within the instructional material.', 13, '2024-01-07 11:18:13', '2024-01-07 11:18:13'),
-(23, 'Interactive Exercises and Assessments', 'Check for the inclusion of interactive exercises, quizzes, or assessments that encourage student participation and reinforce learning.', 13, '2024-01-07 11:18:21', '2024-01-07 11:18:21');
+(23, 'Interactive Exercises and Assessments', 'Check for the inclusion of interactive exercises, quizzes, or assessments that encourage student participation and reinforce learning.', 13, '2024-01-07 11:18:21', '2024-01-07 11:18:21'),
+(24, 'original', 'Hinid plagarized', 14, '2024-01-08 22:10:10', '2024-01-08 22:10:10');
 
 -- --------------------------------------------------------
 
@@ -399,6 +477,33 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('0fa936b3-d436-4dab-9a7c-7c861129e5bc', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Facilis fugit quaer\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:34:08', '2024-01-08 21:45:01'),
+('167a3bf0-13cc-471d-aa81-bae5924339a5', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Perferendis do odio\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:34:56', '2024-01-08 21:45:01'),
+('346aa1dd-19af-4875-aea8-c4a061fe7729', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"submission_management\"}', '2024-01-08 22:03:09', '2024-01-08 22:02:35', '2024-01-08 22:03:09'),
+('3b90b598-4470-48d7-ae85-2b4c61dc9194', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Quo ipsam elit expl\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:31:58', '2024-01-08 21:45:01'),
+('4079a17d-452b-4acb-81c3-54ab2d00bbe0', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Est elit ut volupt\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:55:04', '2024-01-08 21:45:01'),
+('424486f6-6707-49d9-bc8d-24f4b1448b9d', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Molestiae consequatu\\\".\",\"route\":\"submission_management\"}', NULL, '2024-01-08 22:26:38', '2024-01-08 22:26:38'),
+('514ccc8b-f1b9-4b96-b919-c802027674d6', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"CFL Evaluator submitted an evaluation regarding your Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"submission_management\"}', '2024-01-08 22:24:34', '2024-01-08 22:08:48', '2024-01-08 22:24:34'),
+('58a567c6-6c3c-44f5-9e4c-9717ef91d09e', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Ab soluta nulla dict\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:27:00', '2024-01-08 21:45:01'),
+('6c5cf516-a3ec-4ed8-afd5-4297fd0df4da', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 18:52:59', '2024-01-08 21:45:01'),
+('737bbd8f-2aad-46fb-a241-ab1ae5c0bc4d', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"University Evaluator submitted an evaluation regarding your Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"submission_management\"}', '2024-01-08 22:24:34', '2024-01-08 22:11:14', '2024-01-08 22:24:34'),
+('78288bff-da12-4be2-acfc-9fd242cb0ee1', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 22:25:22', '2024-01-08 22:04:23', '2024-01-08 22:25:22'),
+('7c0ec61a-3c33-4870-89ee-4c08f5cc4bf1', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Molestiae consequatu\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:30:52', '2024-01-08 21:45:01'),
+('7d7b47f8-a461-4b82-a0de-a1b4bde1e0cd', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Quis quas proident\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:51:58', '2024-01-08 21:45:01'),
+('8006faeb-072c-4bb2-96bb-883f6455a6cb', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Dolore est sequi inc\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:33:37', '2024-01-08 21:45:01'),
+('84f499ad-7a71-4e06-a5ff-73ac96804fab', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"submission_management\"}', '2024-01-08 22:24:34', '2024-01-08 22:06:23', '2024-01-08 22:24:34'),
+('86c358b7-12b8-4bc9-8fc4-06d63b8af8f5', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Aliquip sint veniam\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 17:16:50', '2024-01-08 21:45:01'),
+('9065f374-d978-48be-ae59-50e182f5bb94', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Sed temporibus nemo\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:31:25', '2024-01-08 21:45:01'),
+('b005fde3-37b0-423a-98f0-ceaf64c6f7ce', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Nulla ipsum blanditi\\\".\",\"route\":\"submission_management\"}', NULL, '2024-01-08 22:25:36', '2024-01-08 22:25:36'),
+('b5c77c95-8723-4622-bb7e-817c361f6484', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Numquam enim corpori\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:50:59', '2024-01-08 21:45:01'),
+('ec2e93f3-62b1-4c2c-9b24-caf6ea1c373d', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material entitled \\\"Nulla ipsum blanditi\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-08 21:45:01', '2024-01-08 20:26:18', '2024-01-08 21:45:01'),
+('f58fc7e7-a3cd-4f79-a48e-e5e919ede184', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Vice President submitted an evaluation regarding your Instructional Material entitled \\\"Hic labore excepturi\\\".\",\"route\":\"submission_management\"}', '2024-01-08 22:24:06', '2024-01-08 22:12:20', '2024-01-08 22:24:06');
 
 -- --------------------------------------------------------
 
@@ -479,9 +584,9 @@ INSERT INTO `sub_matrices` (`id`, `title`, `matrix_id`, `created_at`, `updated_a
 (8, 'Effectiveness of Instructional Materials', 5, '2024-01-07 11:06:37', '2024-01-07 11:06:37'),
 (9, 'Accessibility and Inclusivity', 5, '2024-01-07 11:07:18', '2024-01-07 11:07:18'),
 (10, 'Adaptability and Flexibility', 5, '2024-01-07 11:08:13', '2024-01-07 11:08:13'),
-(11, 'Plagiarism', 3, '2024-01-07 11:09:20', '2024-01-07 11:09:20'),
 (12, 'Clarity and Organization', 4, '2024-01-07 11:17:36', '2024-01-07 11:17:36'),
-(13, 'Engagement and Interactivity', 4, '2024-01-07 11:18:02', '2024-01-07 11:18:02');
+(13, 'Engagement and Interactivity', 4, '2024-01-07 11:18:02', '2024-01-07 11:18:02'),
+(14, 'Plagiarism', 3, '2024-01-08 22:09:49', '2024-01-08 22:09:49');
 
 -- --------------------------------------------------------
 
@@ -544,7 +649,7 @@ INSERT INTO `users` (`id`, `lastname`, `firstname`, `middlename`, `email`, `emai
 (12, 'Evaluator', 'CFL', NULL, 'cfl@psu.edu.ph', NULL, '$2y$10$PDseINxqTJB7zXrg.To5YexS06tkefIZmDQ9LvaFUllWbvr9iRCa.', NULL, 3, 9, 9, '2024-01-03 10:02:42', '2024-01-07 07:52:46'),
 (13, 'Evaluator', 'University', NULL, 'uni@psu.edu.ph', NULL, '$2y$10$/64XD0iTYZil1n064Xr3Fuk57azjUNcR58ABYWOIuulXj1xk1HPLm', NULL, 3, 10, 9, '2024-01-03 10:23:47', '2024-01-07 04:10:03'),
 (14, 'Moderator', 'Main', NULL, 'mod@psu.edu.ph', NULL, '$2y$10$Bq6I8ITK5iqwCoIBP95ouOeKQz/5snHRfQnrZOFrIG3VVczfRQSXG', NULL, 2, 1, 1, '2024-01-07 10:58:01', '2024-01-07 11:02:01'),
-(15, 'Evaluator', 'Campus', NULL, 'camp@psu.edu.ph', NULL, '$2y$10$iHnwzNgIq9AKr9UwknA3eehWaszQAS6phmfbu2SDZBnwxF4u.7f9u', NULL, 3, 5, 1, '2024-01-07 10:58:59', '2024-01-07 11:01:41'),
+(15, 'Evaluator', 'Campus', NULL, 'camp@psu.edu.ph', NULL, '$2y$10$iHnwzNgIq9AKr9UwknA3eehWaszQAS6phmfbu2SDZBnwxF4u.7f9u', NULL, 3, 5, 9, '2024-01-07 10:58:59', '2024-01-08 21:58:23'),
 (16, 'Regular', 'User', NULL, 'reg@psu.edu.ph', NULL, '$2y$10$TsKxqGrLlyvPr.xuZdn9..TDcVoAlvP.iuLVr0ANolE7tT13JOxhy', NULL, 4, 7, 9, '2024-01-07 10:59:44', '2024-01-07 10:59:44'),
 (17, 'President', 'Vice', NULL, 'vice@psu.edu.ph', NULL, '$2y$10$B8kjUOnYcY0.Hf1s6MMVvuU.Su6DfAFwv1KPdSjxVE93hbds37Ud6', NULL, 3, 3, 1, '2024-01-07 11:00:38', '2024-01-07 11:01:16');
 
@@ -744,13 +849,13 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `evaluations`
 --
 ALTER TABLE `evaluations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `evaluation_stages`
 --
 ALTER TABLE `evaluation_stages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `evaluator_matrices`
@@ -768,13 +873,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `instructional_materials`
 --
 ALTER TABLE `instructional_materials`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `matrices`
@@ -786,7 +891,7 @@ ALTER TABLE `matrices`
 -- AUTO_INCREMENT for table `matrix_items`
 --
 ALTER TABLE `matrix_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -810,7 +915,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sub_matrices`
 --
 ALTER TABLE `sub_matrices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `university_roles`
