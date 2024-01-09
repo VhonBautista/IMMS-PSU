@@ -62,19 +62,24 @@ class SubmissionController extends Controller
         $pendingMaterials = $pendingInstructionalMaterials->whereIn('status', ['evaluating', 'pending'])
             ->where('submitter_id', $userId)
             ->orderBy('title', 'asc')
-            ->paginate(10);
+            ->paginate(5);
 
         $resubmissionMaterials = $resubmissionInstructionalMaterials->where('status', 'resubmission')
             ->where('submitter_id', $userId)
             ->orderBy('title', 'asc')
-            ->paginate(10);
+            ->paginate(5);
 
         $approvedMaterials = $approvedInstructionalMaterials->where('status', 'approved')
             ->where('submitter_id', $userId)
             ->orderBy('title', 'asc')
-            ->paginate(10);
+            ->paginate(5);
+            
+        $statusCounts = InstructionalMaterial::select('status', InstructionalMaterial::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->get();
 
-        return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses'));
+        $totalSubmittedByUser = InstructionalMaterial::where('submitter_id', auth()->id())->count();
+        return view('user.submission-management', compact('pendingMaterials', 'resubmissionMaterials', 'approvedMaterials', 'departments', 'courses', 'campuses','statusCounts', 'totalSubmittedByUser'));
     }
 
     public function view($materialId)
@@ -105,6 +110,7 @@ class SubmissionController extends Controller
 
     public function store(Request $request)
     {
+        // Auth User
         $user = Auth::user();
 
         // todo: matrix id will come from matrix where stage is == first
@@ -145,7 +151,7 @@ class SubmissionController extends Controller
         $area = 'evaluator.evaluation_management'; 
         $title = 'New Instructional Material Submitted'; 
         $action = 'submitted'; 
-        $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material entitled "' . $request->input('title') . '".'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material titled "' . $request->input('title') . '".'; 
         
         $users = User::where('role_id', 3)
             ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
@@ -169,6 +175,9 @@ class SubmissionController extends Controller
 
     public function resubmit(Request $request)
     {
+        // Auth User
+        $user = Auth::user();
+
         $request->validate([
             'material_id' => 'required',
             'title' => 'required',
@@ -181,6 +190,8 @@ class SubmissionController extends Controller
         ]);
 
         $instructionalMaterial = InstructionalMaterial::findOrFail($request->input('material_id'));
+        $matrixId = $instructionalMaterial->evaluationStage->matrix_id;
+        
         $oldPdfPath = $instructionalMaterial->pdf_path;
         $oldPdfPath = str_replace('storage/', 'public/', $oldPdfPath);
         
@@ -210,24 +221,43 @@ class SubmissionController extends Controller
         ]);
 
         $campus = Campus::findOrFail($request->input('campus_id'));
-    $courses = Course::where('campus_id', $campus->id)->get();
-    $departments = Department::where('campus_id', $campus->id)->get();
+        $courses = Course::where('campus_id', $campus->id)->get();
+        $departments = Department::where('campus_id', $campus->id)->get();
 
-        return redirect()->route('submission_management', [
-        'courses' => $courses,
-        'departments' => $departments,
-    ])->with('success', 'Instructional material has been resubmitted!');
+        $area = 'evaluator.evaluation_management'; 
+        $title = 'Instructional Material Resubmitted'; 
+        $action = 'submitted'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' resubmitted the Instructional Material titled "' . $request->input('title') . '".'; 
+        
+        $users = User::where('role_id', 3)
+            ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
+                $query->where('matrix_id', $matrixId);
+            })
+            ->get();
+
+        Log::create([
+            'area' => $area , 
+            'title' => $title,
+            'action' => $action,
+            'description' => $description,
+            'user_id' => $user->id, // ! Do not change
+        ]);
+        if ($users) {
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
+        }
+
+        return redirect()->route('submission_management', ['courses' => $courses, 'departments' => $departments,])->with('success', 'Instructional material has been resubmitted!');
     }
 
-     public function getCourses($campusId)
+    public function getCourses($campusId)
     {
-         $courses = Course::where('campus_id', $campusId)->get();
-    return response()->json(['courses' => $courses]);
-     }
+        $courses = Course::where('campus_id', $campusId)->get();
+        return response()->json(['courses' => $courses]);
+    }
 
     public function getDepartments($campusId)
-     {
+    {
         $departments = Department::where('campus_id', $campusId)->get();
-         return response()->json(['departments' => $departments]);
-     }
+        return response()->json(['departments' => $departments]);
+    }
 }

@@ -64,7 +64,7 @@ class EvaluationController extends Controller
             ->with(['instructionalMaterial'])
             ->orderBy('instructional_materials.updated_at', 'asc')
             ->select('evaluation_stages.*')
-            ->paginate(10);
+            ->paginate(5);
             
         return view('evaluator.evaluation-management', compact('forEvaluationMaterials', 'user'));
     }
@@ -153,6 +153,28 @@ class EvaluationController extends Controller
                         }
                     }
                 }
+                
+                $area = 'evaluator.evaluation_management'; 
+                $title = 'New Material for Evaluation'; 
+                $action = 'added'; 
+                $description = $user->firstname . ' ' . $user->lastname . ' has given approval for the instructional material titled "' . $request->input('title') . '," advancing it to the next stage of evaluation.'; 
+            
+                $users = User::where('role_id', 3)
+                ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
+                    $query->where('matrix_id', $matrixId);
+                })
+                ->get();
+
+                Log::create([
+                    'area' => $area , 
+                    'title' => $title,
+                    'action' => $action,
+                    'description' => $description,
+                    'user_id' => $user->id, // ! Do not change
+                ]);
+                if ($users) {
+                    Notification::send($users, new SystemNotification($title, $action, $description, $area));
+                }  
 
                 $instructionalMaterial->update([
                     'status' => 'pending',
@@ -167,7 +189,7 @@ class EvaluationController extends Controller
         $area = 'submission_management'; 
         $title = 'Evaluation Submitted'; 
         $action = 'submitted'; 
-        $description = $user->firstname . ' ' . $user->lastname . ' submitted an evaluation regarding your Instructional Material entitled "' . $instructionalMaterial->title . '".'; 
+        $description = $user->firstname . ' ' . $user->lastname . ' submitted an evaluation regarding your Instructional Material titled "' . $instructionalMaterial->title . '".'; 
         
         $submitterId = $instructionalMaterial->submitter_id;
         $submitter = User::findOrFail($submitterId);

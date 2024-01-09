@@ -86,9 +86,9 @@
                 <div>
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Target Course') }}</label>
                     <select name="course_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        {{-- @foreach($courses as $course)
+                        @foreach($courses as $course)
                             <option value="{{ $course->id }}" @if($instructionalMaterial->course_id == $course->id) selected @endif>{{  $course->campus->campus_name . ' - ' . $course->course_name }}</option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('course_id')" class="mt-1" />
@@ -96,9 +96,9 @@
                 <div>
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Department') }}</label>
                     <select name="department_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        {{-- @foreach($departments as $department)
+                        @foreach($departments as $department)
                             <option value="{{ $department->id }}" @if($instructionalMaterial->department_id == $department->id) selected @endif>{{  $department->campus->campus_name . ' - ' . $department->department_name }}</option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
                 </div>
                 <x-input-error :messages="$errors->get('department_id')" class="mt-1" />
@@ -209,78 +209,40 @@
                 {{ $evaluations->links() }}
             </div>
         </div>
-        {{-- <div class="text-md my-6 font-bold tracking-widest text-gray-900 md:text-2xl dark:text-white capitalize flex flex-col justify-center items-center w-full">
-            {{ $instructionalMaterial->title }}
-            <span class="text-sm text-gray-600 tracking-wide">{{ $instructionalMaterial->department->department_name . ', ' . $instructionalMaterial->campus->campus_name . ' Campus' }}</span>
-        </div>
-        <div class="px-0 sm:px-6 flex gap-6 flex-wrap">
-            <div>
-                <h3 class="text-md text-center mb-1 sm:text-start font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
-                    {{ __('Instructional Material Details') }}
-                </h3>
-                <div class="px-2">
-                    <div class="text-sm mb-4 font-normal text-gray-600 capitalize flex flex-wrap items-end justify-between">
-                        <div class="flex flex-wrap">
-                            <span>
-                                <strong>{{ __('Proponents: ') }}</strong>
-                                {{ $instructionalMaterial->proponents }}
-                            </span>
-                            <span class="mx-3 hidden sm:block">|</span>
-                            <span>
-                                <strong>{{ __('Material Type: ') }}</strong>
-                                {{ $instructionalMaterial->type }}
-                            </span>
-                        </div>
-                        <div class="mt-3 sm:mt-0">
-                            <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300">
-                                {{ $instructionalMaterial->status }}
-                            </span>
-                        </div>
-                    </div>
-                    <p class="text-sm mb-2 font-normal text-gray-600 leading-6 tracking-wider">
-                        {{ __('The instructional material, entitled "') }}<strong>{{ $instructionalMaterial->title }}</strong>{{ __('," stands as a meticulously crafted learning resource tailored for the ') }}<strong>{{ $instructionalMaterial->course->course_name }}</strong>{{ __(' program within the ') }}<strong>{{ $instructionalMaterial->department->department_name }}</strong>{{ __('. Its submission on ') }}<strong>{{ date('F d, Y', strtotime($instructionalMaterial->created_at)) }}</strong>{{ __(', by the esteemed uploader, "') }}<strong>{{ $instructionalMaterial->user->firstname . ' ' . $instructionalMaterial->user->lastname }}</strong>{{ __('," marks a significant contribution to the academic landscape. The development of this instructional material was spearheaded by a team of accomplished individuals, whose collective expertise and dedication are reflected in its content and structure. The collaboration of these professionals, comprising the talented minds listed in the random order of names, underscores the commitment to creating a comprehensive and impactful educational resource for the benefit of students pursuing excellence in the field.') }}
-                    </p>
-                </div>
-            </div>
-            <div class="hidden w-full sm:block mb-4">
-                <h3 class="text-md mb-3 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
-                    {{ __('PDF Viewer') }}
-                </h3>
-                <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
-            </div>
-        </div> --}}
-
-
-        <script>
-            document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
-                var campusId = this.value;
-        
-               
-                fetch('/get-courses/' + campusId)
-                    .then(response => response.json())
-                    .then(data => {
-                        var courseDropdown = document.querySelector('select[name="course_id"]');
-                        courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
-                        
-                        data.courses.forEach(course => {
-                            courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
-                        });
-                    })
-                    .catch(error => console.error('Error fetching courses:', error));
-        
-    
-                fetch('/get-departments/' + campusId)
-                    .then(response => response.json())
-                    .then(data => {
-                        var departmentDropdown = document.querySelector('select[name="department_id"]');
-                        departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
-                        
-                        data.departments.forEach(department => {
-                            departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
-                        });
-                    })
-                    .catch(error => console.error('Error fetching departments:', error));
-            });
-        </script>
     </div>
+
+    @section('scripts')
+    <script>
+        document.querySelector('select[name="campus_id"]').addEventListener('change', function () {
+            var campusId = this.value;
+            let urlCourses = "{{ route('fetch_courses', [':campusId']) }}".replace(':campusId', campusId);
+            let urlDepartments = "{{ route('fetch_departments', [':campusId']) }}".replace(':campusId', campusId);
+
+            fetch(urlCourses)
+                .then(response => response.json())
+                .then(data => {
+                    var courseDropdown = document.querySelector('select[name="course_id"]');
+                    courseDropdown.innerHTML = '<option selected disabled>Select Target Course</option>';
+                    
+                    data.courses.forEach(course => {
+                        courseDropdown.innerHTML += '<option value="' + course.id + '">' + course.course_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching courses:', error));
+    
+
+            fetch(urlDepartments)
+                .then(response => response.json())
+                .then(data => {
+                    var departmentDropdown = document.querySelector('select[name="department_id"]');
+                    departmentDropdown.innerHTML = '<option selected disabled>Select Department</option>';
+                    
+                    data.departments.forEach(department => {
+                        departmentDropdown.innerHTML += '<option value="' + department.id + '">' + department.department_name + '</option>';
+                    });
+                })
+                .catch(error => console.error('Error fetching departments:', error));
+        });
+    </script>
+    @endsection
 </x-app-layout>

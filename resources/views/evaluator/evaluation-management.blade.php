@@ -13,7 +13,7 @@
             <div class="text-sm font-medium">
                 @if ($user->evaluatorMatrix)
                     <div class="flex items-center text-green-600 ">
-                        <svg class="w-4 h-4"  data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-matrix-info" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4" data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-matrix-info" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
                         <div id="tooltip-text-matrix-info" role="tooltip" class="absolute sm:hidden z-10 max-w-[300px] invisible inline-block px-3 py-2 text-sm font-normal text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -64,7 +64,7 @@
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     
             <div class="flex w-full flex-wrap">
-                <div class="w-full lg:w-auto px-0 lg:px-1 pb-3 lg:pb-0">
+                <div class="w-full lg:w-auto pe-0 lg:pe-1 pb-3 lg:pb-0">
                     <select name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" onchange="submitSearch()">
                         <option value="" @if(!request('type')) selected @endif>Select Material Type</option>
                         <option value="course_book" @if(request('type') == 'course_book') selected @endif>Course Book</option>

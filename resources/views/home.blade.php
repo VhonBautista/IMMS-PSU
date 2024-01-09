@@ -28,7 +28,7 @@
                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                 </svg>
                             </div>
-                            <input name="start" type="text" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" value="{{ request('start') }}">
+                            <input name="start" type="text" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start">
                         </div>
                         <span class="mx-4 text-gray-500">to</span>
                         <div class="relative">
@@ -38,7 +38,7 @@
                                 </svg>
                             </div>
                             
-                            <input name="end" id="end" type="text" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" value="{{ request('end') }}">
+                            <input name="end" id="end" type="text" autocomplete="off" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end">
                         </div>
                         <button type="submit" class="p-2.5 text-sm font-medium h-full text-white bg-gray-800 rounded-r-lg border border-gray-800 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                             {{ __('Go') }}
@@ -165,60 +165,7 @@
         </div>
     </div>
  
-    <div class="flex flex-col items-center mt-10 bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-left">User Submission Details</h2>
-        
-        <div class="flex items-center">
-            <div class="text-center mr-4">
-                <p class="text-xl font-semibold mb-2">Total IMs you have submitted:</p>
-                <p class="text-9xl font-bold">{{ $totalSubmittedByUser }}</p>
-            </div>
-            
-            {{-- Pie Chart --}}
-            <div class="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/2">
-                <canvas id="statusPieChart" width="400" height="400"></canvas>
-            </div>
-        </div>
-    </div>
-    
-    
-    
-   
-
     @section('scripts')
         <script src="{{ asset('js/search-filter.js') }}"></script>
     @endsection
-
-    {{-- Render Pie Chart --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var ctx = document.getElementById('statusPieChart').getContext('2d');
-            var myPieChart;
-
-            function updateStatusPieChart(data) {
-                if (myPieChart) {
-                    myPieChart.destroy();
-                }
-                myPieChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: data.map(entry => entry.status),
-                        datasets: [{
-                            data: data.map(entry => entry.count),
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.7)',
-                                'rgba(54, 162, 235, 0.7)',
-                                'rgba(255, 206, 86, 0.7)',
-                                'rgba(75, 192, 192, 0.7)',
-                              
-                            ],
-                        }],
-                    },
-                });
-            }
-
-            
-            updateStatusPieChart(@json($statusCounts));
-        });
-    </script>
 </x-app-layout>

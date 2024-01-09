@@ -41,9 +41,9 @@ class InstructionalMaterial extends Model
         return $this->belongsTo(User::class, 'submitter_id');
     }
     
-    public function evaluationStages()
+    public function evaluationStage()
     {
-        return $this->hasMany(EvaluationStage::class, 'material_id');
+        return $this->hasOne(EvaluationStage::class, 'material_id');
     }
     
     public function evaluations()

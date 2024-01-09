@@ -161,7 +161,7 @@
     @endif
     {{-- Alert End --}}
 
-    <div class="bg-white p-6 rounded-lg ">
+    <div class="bg-white p-6 rounded-lg">
         <form action="{{ route('admin.user_management') }}" method="GET" id="search-form" class="flex flex-col justify-center md:flex-row md:justify-between">
             <label for="search-user" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     

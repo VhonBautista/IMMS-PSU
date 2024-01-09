@@ -8,7 +8,7 @@ use App\Http\Controllers\DepartmentManagementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\CourseManagementController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
@@ -43,10 +43,9 @@ Route::get('/', function () {
 
 // ====================== Admin & Moderator Routes ====================== //
 Route::middleware(['auth', 'role:1,2'])->group(function () {
-    //dashboard
-    Route::get('dashboard/', [dashboardController::class, 'index'])->name('admin.dashboard');
+    // Dashboard
+    Route::get('dashboard/', [DashboardController::class, 'index'])->name('admin.dashboard');
    
-
     // User Management
     Route::get('user-management/', [UserManagementController::class, 'index'])->name('admin.user_management');
     Route::post('user-management/', [UserManagementController::class, 'createAccount'])->name('user.create_account');
@@ -139,8 +138,8 @@ Route::middleware('auth')->group(function () {
     Route::get('view/{materialId}', [HomeController::class, 'view'])->name('view');
 
     // Filter Campus
-     Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses']);
-     Route::get('/get-departments/{campusId}', [SubmissionController::class, 'getDepartments']);
+     Route::get('/get-courses/{campusId}', [SubmissionController::class, 'getCourses'])->name('fetch_courses');
+     Route::get('/get-departments/{campusId}', [SubmissionController::class, 'getDepartments'])->name('fetch_departments');
     
     // Profile Management
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
