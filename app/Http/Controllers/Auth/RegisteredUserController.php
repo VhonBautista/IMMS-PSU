@@ -22,8 +22,8 @@ class RegisteredUserController extends Controller
 {
     public function create(): View
     {
-        $universityRoles = UniversityRole::all();
-        $campuses = Campus::all();
+        $universityRoles = UniversityRole::orderBy('university_role', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
     
         return view('auth.register', compact('universityRoles', 'campuses'));
     }

@@ -17,8 +17,13 @@ return new class extends Migration
             // Fields
             $table->string('matrix_name');
             $table->text('description');
+            $table->unsignedBigInteger('campus_id');
+            $table->integer('stage');
             $table->enum('level', ['campus', 'university']);
             $table->timestamps();
+            
+            // References
+            $table->foreign('campus_id')->references('id')->on('campuses');
         });
     }
 

@@ -98,26 +98,25 @@
                                         <div class="font-medium text-xs text-gray-500">{{ $evaluation->evaluator->universityRole->university_role . ' at ' . $evaluation->evaluator->campus->campus_name . ' Campus' }}</div>
                                     </th>
                                     <td class="px-6 py-4">
-                                        <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">
-                                            {{ __('Matrix Details:') }}
-                                        </div>
                                         <p class="font-medium text-xs text-gray-500 capitalize">
-                                            {{ $evaluation->matrix->matrix_name . ' (' . $evaluation->matrix->level . ' Level)'  }}
+                                            {{ $evaluation->matrix->matrix_name . ' Matrix (' . $evaluation->matrix->level . ' Level)'  }}
+                                            <div class="font-medium text-xs text-blue-600 cursor-pointer hover:underline dark:text-gray-200 capitalize " data-tooltip-trigger="click" data-tooltip-target="tooltip-text-{{ $evaluation->id }}" aria-hidden="true">
+                                                {{ __('View Passed Criteria Details') }}
+                                            </div>
                                         </p>
-                                        <div class="font-medium text-sm mt-2 text-gray-800 dark:text-gray-200 capitalize">
-                                            {{ __('Passed Criteria:') }}
+
+                                        <div id="tooltip-text-{{ $evaluation->id }}" role="tooltip"
+                                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                            {!! $evaluation->passed_criteria !!}
                                         </div>
-                                        <p class="font-medium text-xs text-gray-500 capitalize">
-                                            {{ $evaluation->passed_criteria }}
-                                        </p>
                                     </td>
                                     {{-- <td class="px-6 py-4">
                                         <p class="font-medium text-xs text-gray-500">
                                             {{ $evaluation->comment }}
                                         </p>
                                     </td> --}}
-                                    <td class="px-6 py-4 capitalize">
-                                        {{ $evaluation->created_at->format('M d, Y') }}
+                                    <td class="px-6 py-4 text-xs capitalize">
+                                        {{ $evaluation->created_at->format('M d, Y h:i A') }}
                                     </td>
                                 </tr>
                             @empty

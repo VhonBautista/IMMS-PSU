@@ -30,6 +30,8 @@ Route::get('/', function () {
                 return redirect()->route('admin.dashboard');
                 break;
             case 3:
+                return redirect()->route('evaluator.evaluation_management');
+                break;
             case 4:
                 return redirect()->route('home');
                 break;
@@ -96,7 +98,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Matrix Management
     Route::get('matrix-management/', [MatrixManagementController::class, 'index'])->name('admin.matrix_management');
-    Route::get('get-university-roles-for-matrix/', [MatrixManagementController::class, 'getUniversityRolesForMatrix']);
+    Route::get('get-evaluators-for-matrix/', [MatrixManagementController::class, 'getEvaluatorsForMatrix']);
     Route::post('matrix-management/', [MatrixManagementController::class, 'store'])->name('admin.matrix_management.store');
     Route::get('matrix-management/manage/{matrixId}', [MatrixManagementController::class, 'manage'])->name('admin.matrix_management.manage');
     Route::patch('matrix-management/update/', [MatrixManagementController::class, 'update'])->name('admin.matrix_management.update');

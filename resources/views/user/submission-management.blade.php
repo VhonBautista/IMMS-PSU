@@ -268,8 +268,8 @@
                                                         {{ $pendingMaterial->status }}
                                                     </span>
                                                 </td>
-                                                <td class="px-6 py-4 capitalize" id="date-column">
-                                                    {{ $pendingMaterial->created_at->format('M d, Y') }}
+                                                <td class="px-6 py-4 text-xs capitalize" id="date-column">
+                                                    {{ $pendingMaterial->created_at->format('M d, Y h:i A') }}
                                                 </td>
                                                 <td class="px-6 py-4 text-right">
                                                     <div class="flex space-x-2">
@@ -340,8 +340,8 @@
                                                         {{ $resubmissionMaterial->status }}
                                                     </span>
                                                 </td>
-                                                <td class="px-6 py-4 capitalize" id="date-column">
-                                                    {{ $resubmissionMaterial->created_at->format('M d, Y') }}
+                                                <td class="px-6 py-4 text-xs capitalize" id="date-column">
+                                                    {{ $resubmissionMaterial->created_at->format('M d, Y h:i A') }}
                                                 </td>
                                                 <td class="px-6 py-4 text-right">
                                                     <div class="flex space-x-2">
@@ -413,8 +413,8 @@
                                                         {{ $approvedMaterial->status }}
                                                     </span>
                                                 </td>
-                                                <td class="px-6 py-4 capitalize" id="date-column">
-                                                    {{ $approvedMaterial->created_at->format('M d, Y') }}
+                                                <td class="px-6 py-4 text-xs capitalize" id="date-column">
+                                                    {{ $approvedMaterial->created_at->format('M d, Y h:i A') }}
                                                 </td>
                                                 <td class="px-6 py-4 text-right">
                                                     <div class="flex space-x-2">

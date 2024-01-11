@@ -17,8 +17,8 @@ class CourseCollegeManagementController extends Controller
         $searchFilter = $request->search;
         $campusFilter = $request->campus;
 
-        $courses = Course::all();
-        $campuses = Campus::all();
+        $courses = Course::orderBy('course_name', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
         $colleges = College::query();
 
         if ($searchFilter) {

@@ -31,7 +31,7 @@
     <x-modal name="add-sub-matrix-modal" focusable>
         <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                {{ __('Add New Title') }}
+                {{ __('Add New Subtitle') }}
             </h3>
 
             <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('admin.matrix_management.title.store') }}">
@@ -47,7 +47,7 @@
                         
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
                     <x-primary-button class="sm:w-44" type='submit'>
-                        {{ __('Add Title') }}
+                        {{ __('Add Subtitle') }}
                     </x-primary-button>
     
                     <x-secondary-button x-on:click="$dispatch('close')" class="ms-3 sm:w-44">
@@ -73,10 +73,17 @@
                 <input type="hidden" name="sub_matrix_id" id="sub-matrix-id-input" value="">
                 <input type="hidden" name="matrix_id" id="item-matrix-id-input" value="">
 
-                <div class="w-full">
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Item Name') }}</label>
-                    <input type="text" name="matrix_item_name" id="matrix_item_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the item name for the matrix item') }}" required>
-                    <x-input-error :messages="$errors->get('matrix_item_name')" class="mt-1" />
+                <div class="flex flex-wrap sm:flex-nowrap gap-6">
+                    <div class="w-full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Item Name') }}</label>
+                        <input type="text" name="matrix_item_name" id="matrix_item_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the item name for the matrix item') }}" required>
+                        <x-input-error :messages="$errors->get('matrix_item_name')" class="mt-1" />
+                    </div>
+                    <div class="w-full">
+                        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Score') }}</label>
+                        <input type="number" min="0" max="100" name="matrix_item_score" id="matrix_item_score" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="0" required>
+                        <x-input-error :messages="$errors->get('matrix_item_score')" class="mt-1" />
+                    </div>
                 </div>
                 
                 <div class="w-full">
@@ -143,6 +150,22 @@
                 </svg>
             </button>
         </div>
+    @elseif (session('error'))
+        <div id="alert-3" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-100 border border-2 border-red-500 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium">
+                {{ session('error') }}
+            </div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
     @endif
     {{-- Alert End --}}
 
@@ -178,6 +201,18 @@
                     </select>
                 </div>
             </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                <div class="flex items-start w-full lg:w-3/4">
+                    <select name="campus_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                        @foreach($campuses as $campus)
+                            <option value="{{ $campus->id }}" @if($matrix->campus_id == $campus->id) selected @endif>{{ $campus->campus_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
     
             <div class="flex items-center gap-4">
                 <x-primary-button class="sm:w-44">{{ __('Save') }}</x-primary-button>
@@ -266,7 +301,7 @@
                                 @forelse( $subMatrix->matrixItems->sortBy('item') as $matrixItem )
                                     <li class="flex justify-between items-center w-full pt-1">
                                         <div class="flex w-full justify-between items-center text-sm mb-1">
-                                            <span class="cursor-auto text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="right" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" >{{ $matrixItem->item }}</span>
+                                            <span class="cursor-auto text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="right" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" >{{ $matrixItem->item . ' (' . $matrixItem->score . ' points)' }}</span>
                                         </div>
 
                                         <a data-tooltip-target="tooltip-remove-item-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" href="{{ route('admin.matrix_management.item.remove', ['matrixItemId' => $matrixItem->id, 'matrixId' => $matrix->id]) }}" data-tooltip-placement="right" class="text-sm cursor-pointer text-red-600 hover:text-red-500">
@@ -278,7 +313,7 @@
                                         </div>
                                         
                                         <div id="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" role="tooltip" class="absolute z-10 max-w-[400px] invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                            {{ $matrixItem->text }}
+                                            <p>{{ $matrixItem->text }}</p>
                                         </div>
                                     </li>
                                 @empty
@@ -301,9 +336,9 @@
                 <h1 class="text-lg flex w-full pb-3 border-b items-center justify-between text-center md:text-start font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">
                     {{ __('Matrix Evaluators') }}
 
-                    @if(count($matrix->evaluatorMatrices) < 2)
+                    @if(count($matrix->evaluatorMatrices) < 3)
                         <button
-                            data-url="{{ url('get-university-roles-for-matrix') }}"
+                            data-url="{{ url('get-evaluators-for-matrix') }}"
                             data-matrix-id="{{ $matrix->id }}"
                             onclick="setEvaluatorFormAction('evaluator-matrix-id-input', this)"
                             x-data=""

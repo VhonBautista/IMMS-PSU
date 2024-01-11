@@ -17,6 +17,7 @@ return new class extends Migration
             // Fields
             $table->string('item');
             $table->text('text');
+            $table->integer('score')->default(0);
             $table->unsignedBigInteger('sub_matrix_id');
             $table->timestamps();
             

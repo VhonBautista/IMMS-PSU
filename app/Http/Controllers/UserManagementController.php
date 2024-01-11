@@ -22,9 +22,9 @@ class UserManagementController extends Controller
         $universityRoleFilter = $request->university_role;
         $campusFilter = $request->campus;
 
-        $universityRoles = UniversityRole::all();
-        $campuses = Campus::all();
-        $roles = Role::all();
+        $universityRoles = UniversityRole::orderBy('university_role', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
+        $roles = Role::orderBy('role_name', 'asc')->get();
         $users = User::whereNotIn('id', [1]);
 
         if ($searchFilter) {
@@ -88,9 +88,9 @@ class UserManagementController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $universityRoles = UniversityRole::all();
-        $campuses = Campus::all();
-        $roles = Role::all();
+        $universityRoles = UniversityRole::orderBy('university_role', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
+        $roles = Role::orderBy('role_name', 'asc')->get();
         
         if($user) {
             return view('admin.user-manage', compact('user', 'universityRoles', 'campuses', 'roles'));

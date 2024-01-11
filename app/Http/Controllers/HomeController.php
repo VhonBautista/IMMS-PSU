@@ -26,9 +26,9 @@ class HomeController extends Controller
         $startFormatted = $startFilter ? date('Y-m-d 00:00:00', strtotime($startFilter)) : null;
         $endFormatted = $endFilter ? date('Y-m-d 23:59:59', strtotime($endFilter)) : null;
         
-        $courses = Course::all();
-        $departments = Department::all();
-        $campuses = Campus::all();
+        $courses = Course::orderBy('course_name', 'asc')->get();
+        $departments = Department::orderBy('department_name', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
         $instructionalMaterials = InstructionalMaterial::query();
 
@@ -70,6 +70,10 @@ class HomeController extends Controller
     {
         $instructionalMaterial = InstructionalMaterial::findOrFail($materialId);
 
-        return view('view', compact('instructionalMaterial'));
+        $evaluations = $instructionalMaterial->evaluations()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('view', compact('instructionalMaterial', 'evaluations'));
     }
 }

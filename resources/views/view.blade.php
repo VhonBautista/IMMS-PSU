@@ -1,3 +1,8 @@
+@php
+    $user = auth()->user();
+    $userId = $user->id;
+@endphp
+
 <x-app-layout>
     @section('links')
         <li class="me-1">
@@ -90,6 +95,90 @@
                     </div>
                 </div>
             </section>
+
+            @if ($userId == $instructionalMaterial->submitter_id)
+                <section class="w-full mb-4">
+                    <h3 class="text-md mb-3 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
+                        {{ __('Evaluation History') }}
+                    </h3>
+                    <div class="w-full mt-3 mx-0 sm:mx-3 shadow rounded-lg mx-auto space-y-6">
+                        <div class="relative overflow-x-auto border sm:rounded-lg">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            {{ __('Status') }}
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            {{ __('Evaluator') }}
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            {{ __('Evaluation Details') }}
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            {{ __('Evaluator\'s Comment') }}
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            {{ __('Date Evaluated') }}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($evaluations as $evaluation)
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td class="px-6 py-4 capitalize">
+                                                <span class="block text-sm text-center font-medium mr-2 px-2.5 py-1 rounded 
+                                                    @if ($evaluation->status == 'passed')
+                                                        bg-green-100 text-green-800  dark:bg-green-900 dark:text-green-300
+                                                    @else
+                                                        bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-300
+                                                    @endif">
+                                                    {{ $evaluation->status }}
+                                                </span>
+                                            </td>
+                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                                <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $evaluation->evaluator->lastname . ', ' . $evaluation->evaluator->firstname . ' ' . $evaluation->evaluator->middlename }}</div>
+                                                <div class="font-medium text-xs text-gray-500">{{ $evaluation->evaluator->email }}</div>
+                                                <div class="font-medium text-xs text-gray-500">{{ $evaluation->evaluator->universityRole->university_role . ' at ' . $evaluation->evaluator->campus->campus_name . ' Campus' }}</div>
+                                            </th>
+                                            <td class="px-6 py-4">
+                                                <p class="font-medium text-xs text-gray-500 capitalize">
+                                                    {{ $evaluation->matrix->matrix_name . ' Matrix (' . $evaluation->matrix->level . ' Level)'  }}
+                                                    <div class="font-medium text-xs text-blue-600 cursor-pointer hover:underline dark:text-gray-200 capitalize " data-tooltip-trigger="click" data-tooltip-target="tooltip-text-{{ $evaluation->id }}" aria-hidden="true">
+                                                        {{ __('View Passed Criteria Details') }}
+                                                    </div>
+                                                </p>
+        
+                                                <div id="tooltip-text-{{ $evaluation->id }}" role="tooltip"
+                                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                                    {!! $evaluation->passed_criteria !!}
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <p class="font-medium text-xs text-gray-500">
+                                                    {{ $evaluation->comment }}
+                                                </p>
+                                            </td>
+                                            <td class="px-6 py-4 text-xs capitalize">
+                                                {{ $evaluation->created_at->format('M d, Y h:i A') }}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td colspan="7" class="px-6 py-4 text-center">
+                                                <div class="p-4 text-sm">
+                                                    {{ __('There are no records') }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                        {{ $evaluations->links() }}
+                    </div>
+                </section>
+            @endif
         </div>
     </div>
 </x-app-layout>

@@ -17,25 +17,26 @@
         </x-responsive-nav-link>
     @endsection
 
-    {{-- Resubmit Modal --}}
-    <x-modal name="resubmit-modal" focusable>
+    {{-- Evaluate Modal --}}
+    <x-modal name="evaluate-modal" focusable>
         <div class="p-6">
             <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                {{ __('Return Material for Resubmission') }}
+                {{ __('Evaluate Material') }}
             </h3>
 
-            <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('evaluator.evaluation_management.store') }}">
+            <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('evaluator.evaluation_management.store') }}" id="evaluation-form">
                 @csrf
+                
+                <input type="hidden" name="status" id="status" value="">
+                <input type="hidden" id="passed-criteria" name="passed_criteria" value="">
                 
                 <input type="hidden" name="matrix_id" value="{{ $matrix->id }}">
                 <input type="hidden" name="material_id" value="{{ $instructionalMaterial->id }}">
-                <input type="hidden" name="status" value="failed">
-                <input type="hidden" id="resubmit-passed-criteria" name="passed_criteria" value="">
 
                 <div class="w-full">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Passed Criteria') }}</label>
                     <p class="w-full text-gray-900 text-sm pt-1 px-2.5">
-                        <span id="display-resubmit-passed-criteria"></span>
+                        <span id="display-passed-criteria"></span>
                     </p>
                 </div>
 
@@ -46,55 +47,13 @@
                 </div>
                         
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')" class="sm:w-44">
-                        {{ __('Cancel') }}
-                    </x-secondary-button>
+                    <button class="ms-3 sm:w-44w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white bg-red-600 border border-transparent hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="failed-btn">
+                        {{ __('Return for Resubmission') }}
+                    </button>
 
-                    <x-primary-button class="ms-3 sm:w-44 bg-red" type='submit'>
-                        {{ __('Submit') }}
-                    </x-primary-button>
-                </div>
-            </form>
-        </div>
-    </x-modal>
-    {{-- Modal End --}}
-
-    {{-- Approve Modal --}}
-    <x-modal name="approve-modal" focusable>
-        <div class="p-6">
-            <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                {{ __('Aprrove Material') }}
-            </h3>
-
-            <form class="space-y-4 md:space-y-6 w-full" method="POST" action="{{ route('evaluator.evaluation_management.store') }}">
-                @csrf
-                
-                <input type="hidden" name="matrix_id" value="{{ $matrix->id }}">
-                <input type="hidden" name="material_id" value="{{ $instructionalMaterial->id }}">
-                <input type="hidden" name="status" value="passed">
-                <input type="hidden" id="approve-passed-criteria" name="passed_criteria" value="">
-
-                <div class="w-full">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Passed Criteria') }}</label>
-                    <p class="w-full text-gray-900 text-sm pt-1 px-2.5">
-                        <span id="display-approve-passed-criteria"></span>
-                    </p>
-                </div>
-
-                <div class="w-full">
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Remarks') }}</label>
-                    <textarea rows="4" name="comment" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Provide additional comments regarding this instructional material." required></textarea>
-                    <x-input-error :messages="$errors->get('comment')" class="mt-1" />
-                </div>
-                        
-                <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <x-secondary-button x-on:click="$dispatch('close')" class="sm:w-44">
-                        {{ __('Cancel') }}
-                    </x-secondary-button>
-
-                    <x-primary-button class="ms-3 sm:w-44 bg-red" type='submit'>
-                        {{ __('Submit') }}
-                    </x-primary-button>
+                    <button class="ms-3 sm:w-44 w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 border border-transparent hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="passed-btn">
+                        {{ __('Submit Evaluation') }}
+                    </button>
                 </div>
             </form>
         </div>
@@ -114,36 +73,18 @@
                     <div class="text-sm mt-4 mb-1 font-medium text-gray-800 dark:text-gray-300 capitalize">{{ $subMatrix->title }}</div>
                     @forelse($subMatrix->matrixItems->sortBy('item') as $matrixItem)
                         <li class="ms-2 my-1.5 flex full items-center justify-between">
-                            <div class="flex w-full justify-between items-center text-sm mb-1">
+                            <div class="flex w-full justify-between items-center text-sm mb-1 pe-2">
                                 <div class="flex items-center gap-1">
-                                    <span class="text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true">{{ $matrixItem->item }}</span>
+                                    <span class="text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true">{{ $matrixItem->item . ' (' . $matrixItem->score . '%)' }}</span>
                                 </div>
                             </div>
 
-                            <input type="checkbox" value="{{ $matrixItem->item }}"
-                                class="me-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 checkbox-item"
-                                id="{{ $instructionalMaterial->id . '-' . $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}">
+                            <input type="number" min="0" max="{{ $matrixItem->score }}" id="input-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="0">
 
                             <div id="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" role="tooltip"
                                 class="absolute z-10 max-w-[300px] invisible inline-block px-3 py-2 text-sm font-normal text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                 {{ $matrixItem->text }}
                             </div>
-
-                            <script>
-                                document.addEventListener("DOMContentLoaded", function() {
-                                    var checkbox = document.getElementById("{{ $instructionalMaterial->id . '-' . $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}");
-                                    var key = checkbox.id;
-                                    var isChecked = localStorage.getItem(key);
-
-                                    if (isChecked === "true") {
-                                        checkbox.checked = true;
-                                    }
-
-                                    checkbox.addEventListener("change", function() {
-                                        localStorage.setItem(key, this.checked);
-                                    });
-                                });
-                            </script>
                         </li>
                     @empty
                         <div class="px-6 py-4 flex flex-col text-sm font-normal items-center text-center w-full text-gray-500 dark:text-gray-400">
@@ -157,22 +98,13 @@
                 </div>
             @endforelse
             <div class="mx-3">
-                <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'approve-modal')" class="w-full px-3 py-2 mt-6 text-sm font-medium flex justify-center items-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-800 dark:focus:ring-green-800">
+                <button type="button" id="open-evalutaion-modal-button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'evaluate-modal')" class="w-full px-3 py-2 mt-6 text-sm font-medium flex justify-center items-center text-white bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                     <svg class="w-4 h-4 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
                         <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
                         <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-2.359 10.707-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L7 12.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
                     </svg>
                     <span>
-                        {{ __('Approve Material') }}
-                    </span>
-                </button>
-                <button type="button" x-data="" x-on:click.prevent="$dispatch('open-modal', 'resubmit-modal')" class="w-full px-3 py-2 mt-3 text-sm font-medium flex justify-center items-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-800 dark:focus:ring-red-800">
-                    <svg class="w-4 h-4 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
-                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2Zm-2.359 10.707-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L7 12.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                    </svg>
-                    <span>
-                        {{ __('Return for Resubmission') }}
+                        {{ __('Evaluate Material') }}
                     </span>
                 </button>
             </div>
@@ -237,6 +169,98 @@
     </div>
     
     @section('scripts')
-        <script src="{{ asset('js/evaluate.js') }}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var nestedArray = [];
+
+                @foreach ($matrix->subMatrices as $subMatrix)
+                    var subMatrixData = {
+                        title: "{{ $subMatrix->title }}",
+                        matrixItems: [
+                            @foreach($subMatrix->matrixItems->sortBy('item') as $matrixItem)
+                                {
+                                    item: "{{ $matrixItem->item }}",
+                                    score: {{ $matrixItem->score }},
+                                    value: 0,
+                                    inputId: "input-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}"
+                                },
+                            @endforeach
+                        ]
+                    };
+
+                    nestedArray.push(subMatrixData);
+                @endforeach
+
+                // Function to update values from input fields
+                function updateValues() {
+                    nestedArray.forEach(function(subMatrixData) {
+                        subMatrixData.matrixItems.forEach(function(matrixItem) {
+                            matrixItem.value = document.getElementById(matrixItem.inputId).value;
+                        });
+                    });
+                }
+
+                // Generate and display the unordered list
+                function displayList() {
+                    updateValues();
+
+                    var displayContainer = document.getElementById("display-passed-criteria");
+                    displayContainer.innerHTML = '';
+                    var hiddenInput = document.getElementById("passed-criteria");
+
+                    nestedArray.forEach(function(subMatrixData) {
+                        var subMatrixTitleDiv = document.createElement("div");
+                        subMatrixTitleDiv.classList.add("mb-2", "text-md", "font-medium", "text-gray-800", "dark:text-white");
+                        
+                        var totalScore = subMatrixData.matrixItems.reduce(function (acc, matrixItem) {
+                            return acc + matrixItem.score;
+                        }, 0);
+
+                        var totalValue = subMatrixData.matrixItems.reduce(function (acc, matrixItem) {
+                            return acc + parseInt(matrixItem.value, 10);
+                        }, 0);
+
+                        subMatrixTitleDiv.textContent = subMatrixData.title + ' - Total Score: (' + totalValue + '/' + totalScore + ')';
+
+                        var ul = document.createElement("ul");
+                        ul.classList.add("max-w-md", "space-y-1", "list-disc", "list-inside");
+
+                        subMatrixData.matrixItems.forEach(function(matrixItem) {
+                            var li = document.createElement("li");
+                            li.classList.add("font-normal", "text-gray-600");
+                            li.textContent = matrixItem.item + ' - Score: (' + matrixItem.value + '/' + matrixItem.score + ')';
+                            ul.appendChild(li);
+                        });
+
+                        subMatrixTitleDiv.appendChild(ul);
+                        displayContainer.appendChild(subMatrixTitleDiv);
+                    });
+
+                    hiddenInput.value = displayContainer.innerHTML;
+                }
+
+                // Event listener for "Open Evaluation Modal" button
+                document.getElementById("open-evalutaion-modal-button").addEventListener('click', function() {
+                    updateValues();
+                    displayList();
+                });
+
+                // Event listener for "Submit Evaluation" button
+                document.getElementById("passed-btn").addEventListener('click', function() {
+                    document.getElementById("status").value = "passed";
+                    displayList();
+                    document.getElementById("evaluation-form").submit();
+                });
+
+                // Event listener to the "Return for Resubmission" button
+                document.getElementById("failed-btn").addEventListener('click', function() {
+                    document.getElementById("status").value = "failed";
+                    displayList();
+                    document.getElementById("evaluation-form").submit();
+                });
+                
+                displayList();
+            });
+        </script>
     @endsection
 </x-app-layout>

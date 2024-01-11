@@ -18,7 +18,7 @@ class DepartmentManagementController extends Controller
         $searchFilter = $request->search;
         $campusFilter = $request->campus;
 
-        $campuses = Campus::all();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
         $departments = Department::query();
 
         if ($searchFilter) {
@@ -71,7 +71,7 @@ class DepartmentManagementController extends Controller
     public function edit($id)
     {
         $department = Department::findOrFail($id);
-        $campuses = Campus::all();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
         return view('admin.department-edit', compact('department','campuses'));
     }

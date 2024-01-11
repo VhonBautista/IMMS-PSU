@@ -16,7 +16,7 @@ class CourseManagementController extends Controller
         $searchFilter = $request->search;
         $campusFilter = $request->campus;
 
-        $campuses = Campus::all();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
         $courses = Course::query();
 
         if ($searchFilter) {
@@ -71,7 +71,7 @@ class CourseManagementController extends Controller
     public function edit($id)
     {
         $course = Course::findOrFail($id);
-        $campuses = Campus::all();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
         return view('admin.course-edit', compact('course', 'campuses'));
     }

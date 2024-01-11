@@ -134,14 +134,14 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $campus->campus_name }}</div>
                                 </th>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 text-xs">
                                     {{ $campus->location }}
                                 </td>
-                                <td class="px-6 py-4 capitalize">
-                                    {{ $campus->created_at->format('M d, Y') }}
+                                <td class="px-6 py-4 text-xs capitalize">
+                                    {{ $campus->created_at->format('M d, Y h:i A') }}
                                 </td>
-                                <td class="px-6 py-4 capitalize">
-                                    {{ $campus->updated_at->format('M d, Y') }}
+                                <td class="px-6 py-4 text-xs capitalize">
+                                    {{ $campus->updated_at->format('M d, Y h:i A') }}
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex space-x-2">

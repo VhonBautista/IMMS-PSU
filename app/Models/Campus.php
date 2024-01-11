@@ -33,4 +33,9 @@ class Campus extends Model
     {
         return $this->hasMany(InstructionalMaterial::class, 'submitter_id');
     }
+    
+    public function matrices()
+    {
+        return $this->hasMany(Matrix::class);
+    }
 }

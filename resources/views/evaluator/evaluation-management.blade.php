@@ -126,8 +126,8 @@
                                 <td class="px-6 py-4 capitalize" id="date-column">
                                     {{ $evaluationMaterial->instructionalMaterial->campus->campus_name }}
                                 </td>
-                                <td class="px-6 py-4 capitalize" id="date-column">
-                                    {{ $evaluationMaterial->instructionalMaterial->created_at->format('M d, Y') }}
+                                <td class="px-6 py-4 text-xs capitalize" id="date-column">
+                                    {{ $evaluationMaterial->instructionalMaterial->created_at->format('M d, Y h:i A') }}
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex space-x-2">

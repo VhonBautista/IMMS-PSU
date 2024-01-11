@@ -88,8 +88,8 @@ class EvaluationController extends Controller
     {
         // Auth User
         $user = $request->user();
-        $universityRole = $request->user()->univ_role_id;
-        $role = $request->user()->role_id;
+        $universityRole = $user->univ_role_id;
+        $role = $user->role_id;
 
         $request->validate([
             'matrix_id' => 'required',
@@ -143,38 +143,38 @@ class EvaluationController extends Controller
                     if ($evaluationStage) {
                         $evaluationStage->increment('stage');
                     
-                        $evaluationStageStage = $evaluationStage->stage;
-                        $newMatrixStage = Matrix::where('stage', $evaluationStageStage)->first();
+                        $evaluationCurrentStage = $evaluationStage->stage;
+                        $newMatrixStage = Matrix::where('stage', $evaluationCurrentStage)->first();
                     
                         if ($newMatrixStage) {
                             $evaluationStage->update([
                                 'matrix_id' => $newMatrixStage->id,
                             ]);
+                                        
+                            $area = 'evaluator.evaluation_management'; 
+                            $title = 'New Material for Evaluation'; 
+                            $action = 'added'; 
+                            $description = $user->firstname . ' ' . $user->lastname . ' has given approval for the instructional material titled "' . $request->input('title') . '," advancing it to the next stage of evaluation.'; 
+                        
+                            $users = User::where('role_id', 3)
+                            ->whereHas('evaluatorMatrix', function ($query) use ($newMatrixStage) {
+                                $query->where('matrix_id', $newMatrixStage->id);
+                            })
+                            ->get();
+
+                            Log::create([
+                                'area' => $area , 
+                                'title' => $title,
+                                'action' => $action,
+                                'description' => $description,
+                                'user_id' => $user->id, // ! Do not change
+                            ]);
+                            if ($users) {
+                                Notification::send($users, new SystemNotification($title, $action, $description, $area));
+                            }  
                         }
                     }
                 }
-                
-                $area = 'evaluator.evaluation_management'; 
-                $title = 'New Material for Evaluation'; 
-                $action = 'added'; 
-                $description = $user->firstname . ' ' . $user->lastname . ' has given approval for the instructional material titled "' . $request->input('title') . '," advancing it to the next stage of evaluation.'; 
-            
-                $users = User::where('role_id', 3)
-                ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
-                    $query->where('matrix_id', $matrixId);
-                })
-                ->get();
-
-                Log::create([
-                    'area' => $area , 
-                    'title' => $title,
-                    'action' => $action,
-                    'description' => $description,
-                    'user_id' => $user->id, // ! Do not change
-                ]);
-                if ($users) {
-                    Notification::send($users, new SystemNotification($title, $action, $description, $area));
-                }  
 
                 $instructionalMaterial->update([
                     'status' => 'pending',

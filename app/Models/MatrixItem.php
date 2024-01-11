@@ -12,6 +12,7 @@ class MatrixItem extends Model
     protected $fillable = [
         'item', 
         'text', 
+        'score', 
         'sub_matrix_id',
     ];
 

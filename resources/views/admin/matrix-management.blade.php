@@ -52,13 +52,33 @@
                     <x-input-error :messages="$errors->get('description')" class="mt-1" />
                 </div>
 
-                <div class="w-full">
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Matrix Level') }}</label>
-                    <div class="flex items-start w-full">
-                        <select name="level" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                            <option value="campus" selected>{{ __('Campus Level') }}</option>
-                            <option value="university">{{ __('University Level') }}</option>
-                        </select>
+                <div class="flex flex-wrap sm:flex-nowrap gap-6">
+                    <div class="w-full">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Matrix Level') }}</label>
+                            <div class="flex items-start w-full">
+                                <select name="level" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                                    <option value="campus" selected>{{ __('Campus Level') }}</option>
+                                    <option value="university">{{ __('University Level') }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
+                    </div>
+                    
+                    <div class="w-full">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Campus') }}</label>
+                            <div class="flex items-start w-full">
+                                <select name="campus_id" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
+                                    <option value="" disabled selected>Select Campus</option>
+                                    @foreach($campuses as $campus)
+                                        <option value="{{ $campus->id }}">{{ $campus->campus_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <x-input-error :messages="$errors->get('campus_id')" class="mt-1" />
                     </div>
                 </div>
 
@@ -87,6 +107,22 @@
                 {{ session('success') }}
             </div>
             <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+            </button>
+        </div>
+    @elseif (session('error'))
+        <div id="alert-3" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-100 border border-2 border-red-500 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium">
+                {{ session('error') }}
+            </div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
                 <span class="sr-only">Close</span>
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -149,7 +185,7 @@
                                             </span>
                                         </a>
         
-                                        <button type="button" onclick="setDeleteTitleFormAction('delete-matrix-id-input', {{ $matrix->id }}, 'delete-matrix-id-input', {{ $matrix->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-matrix-modal')" class="mx-0 lg:mx-1 px-3 py-2 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                        <button type="button" onclick="setMatrixFormAction('delete-matrix-id-input', {{ $matrix->id }})" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-matrix-modal')" class="mx-0 lg:mx-1 px-3 py-2 mb-2 text-xs font-medium tracking-wide text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                             <svg class="w-3 h-3 text-white lg:me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                                 <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                                               </svg>
@@ -187,7 +223,7 @@
                                                                     <li>
                                                                         <div class="flex w-full justify-between items-center text-sm mb-1">
                                                                             <div class="flex items-center gap-1">
-                                                                                <span class="text-gray-600 font-normal dark:text-gray-500">{{ $matrixItem->item }}</span>
+                                                                                <span class="text-gray-600 font-normal dark:text-gray-500">{{ $matrixItem->item . ' (' . $matrixItem->score . ' points)' }}</span>
                             
                                                                                 <svg class="w-3 h-3 text-gray-800 dark:text-white" data-tooltip-placement="bottom" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h2v5m-2 0h4M9.408 5.5h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>

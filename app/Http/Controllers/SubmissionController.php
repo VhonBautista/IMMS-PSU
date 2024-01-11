@@ -10,6 +10,7 @@ use App\Models\Campus;
 use App\Models\EvaluationStage;
 use App\Models\User;
 use App\Models\InstructionalMaterial;
+use App\Models\Matrix;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -28,9 +29,9 @@ class SubmissionController extends Controller
         $startFormatted = date('Y-m-d 00:00:00', strtotime($startFilter));
         $endFormatted = date('Y-m-d 23:59:59', strtotime($endFilter));
 
-        $departments = department::all();
-        $courses = Course::all();
-        $campuses = Campus::all();
+        $departments = department::orderBy('department_name', 'asc')->get();
+        $courses = Course::orderBy('course_name', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
         $pendingInstructionalMaterials = InstructionalMaterial::query();
         $resubmissionInstructionalMaterials = InstructionalMaterial::query();
         $approvedInstructionalMaterials = InstructionalMaterial::query();
@@ -97,9 +98,9 @@ class SubmissionController extends Controller
     {
         $instructionalMaterial = InstructionalMaterial::findOrFail($id);
 
-        $departments = department::all();
-        $courses = Course::all();
-        $campuses = Campus::all();
+        $departments = department::orderBy('department_name', 'asc')->get();
+        $courses = Course::orderBy('course_name', 'asc')->get();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
         $evaluations = $instructionalMaterial->evaluations()
             ->orderBy('created_at', 'desc')
@@ -113,9 +114,6 @@ class SubmissionController extends Controller
         // Auth User
         $user = Auth::user();
 
-        // todo: matrix id will come from matrix where stage is == first
-        $matrixId = 1;
-
         $request->validate([
             'title' => 'required',
             'proponents' => 'required|max:255',
@@ -125,6 +123,20 @@ class SubmissionController extends Controller
             'course_id' => 'required|exists:courses,id',
             'type' => 'required|in:course_book,textbook,modules,laboratory_manual,prototype,others',
         ]);
+        
+        $campusId = $request->input('campus_id');
+        $campus = Campus::find($campusId);
+
+        $matrix = Matrix::where('level', 'campus')
+                 ->where('campus_id', $campusId)
+                 ->where('stage', 1)
+                 ->first();
+
+        if (!$matrix) {
+            return redirect()->back()->with('error', 'Apologies, but currently, there is no available evaluation matrix for ' . $campus->campus_name );
+        }
+
+        $matrixId = $matrix->id;
 
         // Store Material PDF to storage
         $originalFileName = $request->file('pdf_path')->getClientOriginalName();

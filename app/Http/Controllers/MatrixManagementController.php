@@ -23,6 +23,7 @@ class MatrixManagementController extends Controller
         $levelFilter = $request->level;
 
         $matrices = Matrix::query();
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
         if ($searchFilter) {
             $matrices->where(function ($query) use ($searchFilter) {
@@ -36,10 +37,10 @@ class MatrixManagementController extends Controller
 
         $matrices = $matrices->orderBy('matrix_name', 'asc')->paginate(5);
 
-        return view('admin.matrix-management', compact('matrices'));
+        return view('admin.matrix-management', compact('matrices', 'campuses'));
     }
 
-    public function getUniversityRolesForMatrix()
+    public function getEvaluatorsForMatrix()
     {
         $evaluators = User::whereDoesntHave('evaluatorMatrix')
         ->where('role_id', 3)
@@ -54,45 +55,67 @@ class MatrixManagementController extends Controller
         $request->validate([
             'matrix_name' => 'required|string|max:255',
             'description' => 'required',
+            'campus_id' => 'required|exists:campuses,id',
             'level' => 'required',
         ]);
-
-        $matricesCount = Matrix::count() + 1;
-
+    
+        $matrixName = $request->input('matrix_name');
+        $level = $request->input('level');
+        $campusId = $request->input('campus_id');
+        $stage = ($level == 'campus') ? 1 : 3;
+    
+        if ($level == 'campus' && Matrix::where('level', 'campus')->where('campus_id', $campusId)->exists()) {
+            return redirect()
+                ->route('admin.matrix_management')
+                ->with('error', 'This campus already has an existing matrix assigned to it at the campus level.');
+        }
+    
+        if ($level == 'university') {
+            $existingStage2Matrix = Matrix::where('level', 'university')->where('stage', 2)->exists();
+            $existingStage3Matrix = Matrix::where('level', 'university')->where('stage', 3)->exists();
+    
+            if (($existingStage2Matrix) || ($stage == 3 && $existingStage3Matrix)) {
+                return redirect()
+                    ->route('admin.matrix_management')
+                    ->with('error', 'The system can only have one university-level matrix and one plagiarism matrix.');
+            }
+        }
+    
         Matrix::create([
-            'matrix_name' => $request->input('matrix_name'),
+            'matrix_name' => $matrixName,
             'description' => $request->input('description'),
-            'level' => $request->input('level'),
-            'stage' => $matricesCount,
+            'campus_id' => $campusId,
+            'level' => $level,
+            'stage' => $stage,
         ]);
-
+    
         // =============================== Log & Notification ===============================//
         // Information Details
         $user = $request->user();
-        if ($user->id != 1){
+        if ($user->id != 1) {
             $area = 'admin.matrix_management';
             $title = 'New Matrix added';
             $action = 'added';
-            $description = $user->firstname . ' ' . $user->lastname . '  added a new matrix "' . $request->input('matrix_name') . '".'; 
-            
-            // Reciever of Notification
+            $description = $user->firstname . ' ' . $user->lastname . ' added a new matrix "' . $matrixName . '".';
+    
+            // Receiver of Notification
             $users = User::where('role_id', 1)->get();
     
             // Log & Notification
             Log::create([
-                'area' => $area , 
+                'area' => $area,
                 'title' => $title,
                 'action' => $action,
                 'description' => $description,
-                'user_id' => $user->id, // ! Do not change
+                'user_id' => $user->id,
             ]);
             Notification::send($users, new SystemNotification($title, $action, $description, $area));
         }
-
+    
         // =============================== Log & Notification Details End ===============================//
-
+    
         return redirect()->route('admin.matrix_management')->with('success', 'Matrix added successfully.');
-    }
+    }    
 
     public function storeEvaluator(Request $request)
     {
@@ -152,17 +175,34 @@ class MatrixManagementController extends Controller
             'matrix_id' => 'required|numeric',
             'sub_matrix_id' => 'required|numeric',
             'matrix_item_name' => 'required|string',
+            'matrix_item_score' => 'required|integer',
             'description' => 'required',
         ]);
 
         $matrixId = $request->matrix_id;
         $subMatrixId = $request->sub_matrix_id;
         $matrixItemName = $request->matrix_item_name;
+        $matrixItemScore = $request->matrix_item_score;
         $description = $request->description;
+
+        $subMatrix = SubMatrix::find($subMatrixId);
+        
+        $totalScore = 0;
+        foreach ($subMatrix->matrixItems as $matrixItem) {
+            $totalScore += $matrixItem->score;
+        }
+        $totalScore += $matrixItemScore;
+
+        if ($totalScore > 100) {
+            return redirect()
+                ->route('admin.matrix_management.manage', $subMatrix->matrix_id)
+                ->with('detail-error', 'The cumulative score for each subtitle should not exceed 100 points.');
+        }
 
         MatrixItem::create([
             'item' => $matrixItemName,
             'text' => $description,
+            'score' => $matrixItemScore,
             'sub_matrix_id' => $subMatrixId,
         ]);
 
@@ -228,8 +268,9 @@ class MatrixManagementController extends Controller
     public function manage($id)
     {
         $matrix = Matrix::findOrFail($id);
+        $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
-        return view('admin.matrix-manage', compact('matrix'));
+        return view('admin.matrix-manage', compact('matrix', 'campuses'));
     }
 
     public function update(Request $request)
@@ -379,53 +420,51 @@ class MatrixManagementController extends Controller
         $request->validate([
             'matrix_id' => ['required'],
         ]);
-
-        try {
-            $matrix = Matrix::findOrFail($request->matrix_id);
-            
-            // Deleting evaluator matrices
-            $matrix->evaluatorMatrices->each(function ($evaluatorMatrix) {
-                $evaluatorMatrix->delete();
-            });
-
-            // Deleting sub matrices and their items
-            $matrix->subMatrices->each(function ($subMatrix) {
-                $subMatrix->matrixItems->each(function ($matrixItem) {
-                    $matrixItem->delete();
-                });
-
-                $subMatrix->delete();
-            });
-
-            $user = $request->user();
-            if ($user->id != 1){
-                $area = 'admin.matrix_management';
-                $title = 'Matrix Deleted';
-                $action = 'deleted';
-                $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".'; 
-                
-                // Reciever of Notification
-                $users = User::where('role_id', 1)->get();
-
-                // Log & Notification
-                Log::create([
-                    'area' => $area , 
-                    'title' => $title,
-                    'action' => $action,
-                    'description' => $description,
-                    'user_id' => $user->id, // ! Do not change
-                ]);
-                Notification::send($users, new SystemNotification($title, $action, $description, $area));
-            }
-
-            // Deleting the main matrix
-            $matrix->delete();
-
-            return redirect()->route('admin.matrix_management')->with(
-                'success', 'Matrix deleted successfully.',
-            );
-        } catch (QueryException $e) {
-            return redirect()->back()->with('error', 'Cannot delete matrix. Other instructional materials are still associated with this matrix.');
+    
+        $matrix = Matrix::findOrFail($request->matrix_id);
+    
+        // Deleting evaluations first
+        $matrix->evaluations()->delete();
+    
+        // Deleting other related records
+        $matrix->evaluatorMatrices()->delete();
+    
+        // Deleting sub matrices and their items
+        $matrix->subMatrices->each(function ($subMatrix) {
+            $subMatrix->matrixItems()->delete();
+        });
+        $matrix->subMatrices()->delete();
+    
+        // Deleting evaluation stages
+        $matrix->evaluationStages()->delete();
+    
+        // Notify only if the user is not the first user (assuming ID 1 is a super admin)
+        $user = $request->user();
+        if ($user->id != 1) {
+            $area = 'admin.matrix_management';
+            $title = 'Matrix Deleted';
+            $action = 'deleted';
+            $description = $user->firstname . ' ' . $user->lastname . ' deleted the Matrix "' . $matrix->matrix_name . '".';
+    
+            // Receiver of Notification
+            $users = User::where('role_id', 1)->get();
+    
+            // Log & Notification
+            Log::create([
+                'area' => $area,
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id,
+            ]);
+            Notification::send($users, new SystemNotification($title, $action, $description, $area));
         }
-    }
+    
+        // Deleting the main matrix
+        $matrix->delete();
+    
+        return redirect()->route('admin.matrix_management')->with(
+            'success', 'Matrix deleted successfully.'
+        );
+    }    
 }

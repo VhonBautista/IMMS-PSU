@@ -12,6 +12,7 @@ class Matrix extends Model
     protected $fillable = [
         'matrix_name',
         'description',
+        'campus_id',
         'level',
         'stage',
     ];
@@ -33,6 +34,11 @@ class Matrix extends Model
     
     public function evaluations()
     {
-        return $this->hasMany(Evaluation::class, 'material_id');
+        return $this->hasMany(Evaluation::class, 'matrix_id');
+    }
+    
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class);
     }
 }
