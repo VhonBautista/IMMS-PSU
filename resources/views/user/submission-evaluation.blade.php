@@ -105,7 +105,8 @@
 
                 <div class="w-full">
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Proponents') }}</label>
-                    <textarea rows="6" name="proponents" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 capitalize" placeholder="Enter the names of the proponents for the instructional material, separated by commas." required>{{ old('proponents', $instructionalMaterial->proponents) }}</textarea>
+                    <textarea rows="6" name="proponents" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 capitalize" placeholder="Enter the names of the proponents for the instructional material." required>{{ old('proponents', $instructionalMaterial->proponents) }}</textarea>
+                    <span class="text-xs font-medium text-gray-600">{{ __('Kindly input the names of the proponents, separating them with commas (,).') }}</span>
                     <x-input-error :messages="$errors->get('proponents')" class="mt-1" />
                 </div>
                 

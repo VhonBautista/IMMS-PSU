@@ -47,11 +47,11 @@
                 </div>
                         
                 <div class="mt-5 pt-5 flex justify-between lg:justify-end">
-                    <button class="ms-3 sm:w-44w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white bg-red-600 border border-transparent hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="failed-btn">
+                    <button class="hidden ms-3 sm:w-44w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white bg-red-600 border border-transparent hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="failed-btn">
                         {{ __('Return for Resubmission') }}
                     </button>
 
-                    <button class="ms-3 sm:w-44 w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 border border-transparent hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="passed-btn">
+                    <button class="hidden ms-3 sm:w-44 w-full px-4 py-2 font-semibold capitalize text-xs text-center rounded-md tracking-widest text-white dark:text-gray-800 bg-gray-800 dark:bg-gray-200 border border-transparent hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" type='button' id="passed-btn">
                         {{ __('Submit Evaluation') }}
                     </button>
                 </div>
@@ -220,7 +220,7 @@
                             return acc + parseInt(matrixItem.value, 10);
                         }, 0);
 
-                        subMatrixTitleDiv.textContent = subMatrixData.title + ' - Total Score: (' + totalValue + '/' + totalScore + ')';
+                        subMatrixTitleDiv.textContent = subMatrixData.title;
 
                         var ul = document.createElement("ul");
                         ul.classList.add("max-w-md", "space-y-1", "list-disc", "list-inside");
@@ -228,7 +228,7 @@
                         subMatrixData.matrixItems.forEach(function(matrixItem) {
                             var li = document.createElement("li");
                             li.classList.add("font-normal", "text-gray-600");
-                            li.textContent = matrixItem.item + ' - Score: (' + matrixItem.value + '/' + matrixItem.score + ')';
+                            li.textContent = matrixItem.item + ' (' + matrixItem.score + '%) : Score ' + matrixItem.value + '%';
                             ul.appendChild(li);
                         });
 
@@ -236,6 +236,33 @@
                         displayContainer.appendChild(subMatrixTitleDiv);
                     });
 
+                    // Calculate the average of total scores
+                    var totalScores = nestedArray.map(function(subMatrixData) {
+                        return subMatrixData.matrixItems.reduce(function(acc, matrixItem) {
+                            return acc + parseInt(matrixItem.value, 10);
+                        }, 0);
+                    });
+
+                    var averageTotalScore = totalScores.reduce(function(acc, totalScore) {
+                        return acc + totalScore;
+                    }, 0) / totalScores.length;
+
+                    // Hide or show buttons based on the average total score
+                    var failedBtn = document.getElementById("failed-btn");
+                    var passedBtn = document.getElementById("passed-btn");
+
+                    if (averageTotalScore > 75) {
+                        failedBtn.classList.add("hidden");
+                        passedBtn.classList.remove("hidden");
+                    } else {
+                        failedBtn.classList.remove("hidden");
+                        passedBtn.classList.add("hidden");
+                    }
+                    var averageScoreParagraph = document.createElement("p");
+                    averageScoreParagraph.classList.add("font-medium", "text-md", "text-gray-800", "dark:text-white");
+                    averageScoreParagraph.textContent = "Average Score: " + averageTotalScore + "%";
+                    displayContainer.appendChild(averageScoreParagraph);
+                    
                     hiddenInput.value = displayContainer.innerHTML;
                 }
 

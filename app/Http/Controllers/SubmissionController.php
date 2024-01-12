@@ -29,7 +29,7 @@ class SubmissionController extends Controller
         $startFormatted = date('Y-m-d 00:00:00', strtotime($startFilter));
         $endFormatted = date('Y-m-d 23:59:59', strtotime($endFilter));
 
-        $departments = department::orderBy('department_name', 'asc')->get();
+        $departments = Department::orderBy('department_name', 'asc')->get();
         $courses = Course::orderBy('course_name', 'asc')->get();
         $campuses = Campus::orderBy('campus_name', 'asc')->get();
         $pendingInstructionalMaterials = InstructionalMaterial::query();
@@ -98,7 +98,7 @@ class SubmissionController extends Controller
     {
         $instructionalMaterial = InstructionalMaterial::findOrFail($id);
 
-        $departments = department::orderBy('department_name', 'asc')->get();
+        $departments = Department::orderBy('department_name', 'asc')->get();
         $courses = Course::orderBy('course_name', 'asc')->get();
         $campuses = Campus::orderBy('campus_name', 'asc')->get();
 
@@ -263,13 +263,13 @@ class SubmissionController extends Controller
 
     public function getCourses($campusId)
     {
-        $courses = Course::where('campus_id', $campusId)->get();
+        $courses = Course::where('campus_id', $campusId)->orderBy('course_name', 'asc')->get();
         return response()->json(['courses' => $courses]);
     }
 
     public function getDepartments($campusId)
     {
-        $departments = Department::where('campus_id', $campusId)->get();
+        $departments = Department::where('campus_id', $campusId)->orderBy('department_name', 'asc')->get();
         return response()->json(['departments' => $departments]);
     }
 }
