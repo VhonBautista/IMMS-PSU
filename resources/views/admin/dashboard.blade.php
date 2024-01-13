@@ -109,55 +109,110 @@
         </div>
     </div>
     
-    @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart;
-        
-                function updateChart(data) {
-                    if (myChart) {
-                        myChart.destroy();
-                    }
-                    
-                    myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: data.map(entry => entry.date),
-                            datasets: [{
-                                label: 'Total Submitted Materials',
-                                fill: true,
-                                data: data.map(entry => entry.count),
-                                borderColor: 'rgb(14, 159, 110)',
-                                backgroundColor: 'rgb(14, 159, 110, 0.3)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    max: 10,
-                                    ticks: {
-                                        precision: 0
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-        
-                updateChart(@json($imsPerDay));
-        
-                window.downloadChart = function () {
-                    var canvas = document.getElementById('myChart');
-                    var image = canvas.toDataURL('image/png');
-                    var link = document.createElement('a');
-                    link.href = image;
-                    link.download = 'chart.png';
-                    link.click();
-                };
-            });
-        </script>
+    <div class="bg-white p-6 rounded-lg mt-6">
+        <span class="ml-1 mb-2 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Total Instructional Material Submitted.') }}</span>
+        <table class="min-w-full border-collapse" id="imsTable">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 py-2 px-4 text-center">Title</th>
+                    <th class="border border-gray-300 py-2 px-4 text-center">Submitter</th>
+                    <th class="border border-gray-300 py-2 px-4 text-center">Status</th>
+                    <th class="border border-gray-300 py-2 px-4 text-center">Date Submitted</th>
+                    <th class="border border-gray-300 py-2 px-4 text-center">View</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($instructionalMaterials as $material)
+                    <tr class="border border-gray-300">
+                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->title }}</td>
+                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->user->lastname . ', ' . $material->user->firstname }}</td>
+                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->status }}</td>
+                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->created_at->format('M d, Y') }}</td>
+                        <td class="border border-gray-300 py-2 px-4 text-center">
+                            <a href="{{ asset($material->pdf_path) }}" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Download IM
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+   
+    <script>
+        $(document).ready(function () {
+            $('#imsTable').DataTable();
+        });
+    </script>
+
+<script>
+    let table = new DataTable('#imsTable')
+    </script>
+   
+
+
+
+
+
+   @section('scripts')
+   <script>
+       document.addEventListener('DOMContentLoaded', function () {
+           var ctx = document.getElementById('myChart').getContext('2d');
+           var myChart;
+   
+           function updateChart(submittedData, approvedData) {
+               if (myChart) {
+                   myChart.destroy();
+               }
+   
+               myChart = new Chart(ctx, {
+                   type: 'line',
+                   data: {
+                       labels: submittedData.map(entry => entry.date),
+                       datasets: [
+                           {
+                               label: 'Total Submitted Materials',
+                               fill: true,
+                               data: submittedData.map(entry => entry.count),
+                               borderColor: 'rgb(14, 159, 110)',
+                               backgroundColor: 'rgb(14, 159, 110, 0.3)',
+                               borderWidth: 1
+                           },
+                           {
+                               label: 'Total Approved Materials',
+                               fill: true,
+                               data: approvedData.map(entry => entry.count),
+                               borderColor: 'rgb(255, 99, 132)',
+                               backgroundColor: 'rgb(255, 99, 132, 0.3)',
+                               borderWidth: 1
+                           }
+                       ]
+                   },
+                   options: {
+                       scales: {
+                           y: {
+                               beginAtZero: true,
+                               precision: 0
+                           }
+                       }
+                   }
+               });
+           }
+   
+           updateChart(@json($submittedMaterials), @json($approvedMaterials));
+   
+           window.downloadChart = function () {
+               var canvas = document.getElementById('myChart');
+               var image = canvas.toDataURL('image/png');
+               var link = document.createElement('a');
+               link.href = image;
+               link.download = 'chart.png';
+               link.click();
+           };
+       });
+   </script>
     @endsection
 </x-app-layout>

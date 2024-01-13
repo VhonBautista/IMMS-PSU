@@ -10,6 +10,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <!-- Add this to your HTML head section -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.0/viewer.min.css" integrity="sha384-tPq1S1lVD1HF1IdLpZZ49PBfWwMHgKd3dtShyyLJd5i+Y/dKbPQbr7u3dI5I2ymo" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.0/viewer.min.js" integrity="sha384-kOj+S0LBr+MjA+qmN8L7/OiMdF/v9AzuXzM+X8e+HtHysCdUOq+C02AJfOKcvq5Y" crossorigin="anonymous"></script>
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -68,5 +72,6 @@
         <script src="{{ asset('js/mark-read.js')}}"></script>
         <script src="{{ asset('js/session-storage.js')}}"></script>
         @yield('scripts')
+        @yield('javascripts')
     </body>
 </html>
