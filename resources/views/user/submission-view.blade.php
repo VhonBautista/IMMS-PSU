@@ -96,15 +96,21 @@
                     </h2>
                     <div id="accordion-viewer-body-" class="hidden" aria-labelledby="accordion-viewer-heading">
                         <div class="p-5">
-                            @if (pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION) === 'pdf')
-                                <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
-                            @elseif (pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION) === 'docx')
-                                <!-- Use Microsoft Office Viewer for DOCX files -->
-                                <iframe class="px-2" src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset($instructionalMaterial->pdf_path)) }}" width="100%" height="1200px" frameborder="0"></iframe>
+                            @if (in_array(pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION), ['pdf', 'docx']))
+                                @if (pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION) === 'pdf')
+                                    <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
+                                @elseif (pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION) === 'docx')
+                                    <!-- Use Microsoft Office Viewer for DOCX files -->
+                                    <iframe class="px-2" src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode(asset($instructionalMaterial->pdf_path)) }}" width="100%" height="1200px" frameborder="0"></iframe>
+                                @endif
+                            @elseif (in_array(pathinfo($instructionalMaterial->pdf_path, PATHINFO_EXTENSION), ['png', 'jpg', 'jpeg']))
+                                <!-- Display image directly -->
+                                <img src="{{ asset($instructionalMaterial->pdf_path) }}" alt="Image" class="w-full h-auto">
                             @else
                                 <p>This file format is not supported for direct viewing. Please download the file to view.</p>
                             @endif
                         </div>
+                        
                         
                         
                         

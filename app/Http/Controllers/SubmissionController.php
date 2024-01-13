@@ -117,7 +117,7 @@ class SubmissionController extends Controller
         $request->validate([
             'title' => 'required',
             'proponents' => 'required|max:255',
-            'pdf_path' => 'required|mimes:pdf,docx|max:50000',
+            'pdf_path' => 'required|mimes:pdf,docx,jpg,png,jpeg|max:50000',
             'campus_id' => 'required|exists:campuses,id',
             'department_id' => 'required|exists:departments,id',
             'course_id' => 'required|exists:courses,id',
@@ -194,7 +194,7 @@ class SubmissionController extends Controller
             'material_id' => 'required',
             'title' => 'required',
             'proponents' => 'required|max:255',
-            'pdf_path' => 'required|mimes:pdf|max:50000',
+            'pdf_path' => 'required|mimes:pdf,docx,jpg,png,jpeg|max:50000',
             'campus_id' => 'required|exists:campuses,id',
             'department_id' => 'required|exists:departments,id',
             'course_id' => 'required|exists:courses,id',

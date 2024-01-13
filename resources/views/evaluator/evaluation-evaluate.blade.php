@@ -161,7 +161,7 @@
             </div>
             <div class="hidden w-full sm:block mb-4">
                 <h3 class="text-md mb-3 font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white capitalize">
-                    {{ __('PDF Viewer') }}
+                    {{ __('IM Viewer') }}
                 </h3>
                 <iframe class="px-2" src="{{ asset($instructionalMaterial->pdf_path) }}" width="100%" height="1200px" frameborder="0"></iframe>
             </div>
