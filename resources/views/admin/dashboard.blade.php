@@ -139,80 +139,69 @@
         </table>
     </div>
     
-    
-    
-   
-    <script>
-        $(document).ready(function () {
-            $('#imsTable').DataTable();
-        });
-    </script>
-
-<script>
-    let table = new DataTable('#imsTable')
-    </script>
-   
-
-
-
-
-
    @section('scripts')
-   <script>
-       document.addEventListener('DOMContentLoaded', function () {
-           var ctx = document.getElementById('myChart').getContext('2d');
-           var myChart;
-   
-           function updateChart(submittedData, approvedData) {
-               if (myChart) {
-                   myChart.destroy();
-               }
-   
-               myChart = new Chart(ctx, {
-                   type: 'line',
-                   data: {
-                       labels: submittedData.map(entry => entry.date),
-                       datasets: [
-                           {
-                               label: 'Total Submitted Materials',
-                               fill: true,
-                               data: submittedData.map(entry => entry.count),
-                               borderColor: 'rgb(14, 159, 110)',
-                               backgroundColor: 'rgb(14, 159, 110, 0.3)',
-                               borderWidth: 1
-                           },
-                           {
-                               label: 'Total Approved Materials',
-                               fill: true,
-                               data: approvedData.map(entry => entry.count),
-                               borderColor: 'rgb(255, 99, 132)',
-                               backgroundColor: 'rgb(255, 99, 132, 0.3)',
-                               borderWidth: 1
-                           }
-                       ]
-                   },
-                   options: {
-                       scales: {
-                           y: {
-                               beginAtZero: true,
-                               precision: 0
-                           }
-                       }
+        <script>
+            $(document).ready(function () {
+                $('#imsTable').DataTable();
+            });
+            
+            let table = new DataTable('#imsTable')
+        </script>
+        <script>
+           document.addEventListener('DOMContentLoaded', function () {
+               var ctx = document.getElementById('myChart').getContext('2d');
+               var myChart;
+       
+               function updateChart(submittedData, approvedData) {
+                   if (myChart) {
+                       myChart.destroy();
                    }
-               });
-           }
-   
-           updateChart(@json($submittedMaterials), @json($approvedMaterials));
-   
-           window.downloadChart = function () {
-               var canvas = document.getElementById('myChart');
-               var image = canvas.toDataURL('image/png');
-               var link = document.createElement('a');
-               link.href = image;
-               link.download = 'chart.png';
-               link.click();
-           };
-       });
-   </script>
+       
+                   myChart = new Chart(ctx, {
+                       type: 'line',
+                       data: {
+                           labels: submittedData.map(entry => entry.date),
+                           datasets: [
+                               {
+                                   label: 'Total Submitted Materials',
+                                   fill: true,
+                                   data: submittedData.map(entry => entry.count),
+                                   borderColor: 'rgb(14, 159, 110)',
+                                   backgroundColor: 'rgb(14, 159, 110, 0.3)',
+                                   borderWidth: 1
+                               },
+                               {
+                                   label: 'Total Approved Materials',
+                                   fill: true,
+                                   data: approvedData.map(entry => entry.count),
+                                   borderColor: 'rgb(255, 99, 132)',
+                                   backgroundColor: 'rgb(255, 99, 132, 0.3)',
+                                   borderWidth: 1
+                               }
+                           ]
+                       },
+                       options: {
+                           scales: {
+                               y: {
+                                   beginAtZero: true,
+                                   precision: 0
+                               }
+                           }
+                        }
+                   });
+               }
+       
+               updateChart(@json($submittedMaterials), @json($approvedMaterials));
+       
+               window.downloadChart = function () {
+                   var canvas = document.getElementById('myChart');
+                   var image = canvas.toDataURL('image/png');
+                   var link = document.createElement('a');
+                   link.href = image;
+                   link.download = 'chart.png';
+                   link.click();
+                };
+            });
+        </script>
     @endsection
 </x-app-layout>
