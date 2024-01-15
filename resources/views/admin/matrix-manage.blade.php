@@ -76,19 +76,19 @@
                 <div class="flex flex-wrap sm:flex-nowrap gap-6">
                     <div class="w-full">
                         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Item Name') }}</label>
-                        <input type="text" name="matrix_item_name" id="matrix_item_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the item name for the matrix item') }}" required>
+                        <input type="text" name="matrix_item_name" id="matrix_item_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Enter the item name for the matrix item') }}" required value="{{ old('matrix_item_name') }}">
                         <x-input-error :messages="$errors->get('matrix_item_name')" class="mt-1" />
                     </div>
                     <div class="w-full">
                         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Score') }}</label>
-                        <input type="number" min="0" max="100" name="matrix_item_score" id="matrix_item_score" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="0" required>
+                        <input type="number" min="0" max="100" name="matrix_item_score" id="matrix_item_score" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Percentage" required value="{{ old('matrix_item_score') }}">
                         <x-input-error :messages="$errors->get('matrix_item_score')" class="mt-1" />
                     </div>
                 </div>
                 
                 <div class="w-full">
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('Description') }}</label>
-                    <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description for the matrix item" required></textarea>
+                    <textarea rows="4" name="description" class="mt-1 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter the description for the matrix item" required>{{ old('description') }}</textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-1" />
                 </div>
                         
@@ -301,7 +301,7 @@
                                 @forelse( $subMatrix->matrixItems->sortBy('item') as $matrixItem )
                                     <li class="flex justify-between items-center w-full pt-1">
                                         <div class="flex w-full justify-between items-center text-sm mb-1">
-                                            <span class="cursor-auto text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="right" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" >{{ $matrixItem->item . ' (' . $matrixItem->score . ' points)' }}</span>
+                                            <span class="cursor-auto text-gray-600 font-normal dark:text-gray-500" data-tooltip-placement="right" data-tooltip-target="tooltip-text-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" aria-hidden="true" >{{ $matrixItem->item . ' (' . $matrixItem->score . '%)' }}</span>
                                         </div>
 
                                         <a data-tooltip-target="tooltip-remove-item-{{ $matrix->id . '-' . $subMatrix->id . '-' . $matrixItem->id }}" href="{{ route('admin.matrix_management.item.remove', ['matrixItemId' => $matrixItem->id, 'matrixId' => $matrix->id]) }}" data-tooltip-placement="right" class="text-sm cursor-pointer text-red-600 hover:text-red-500">

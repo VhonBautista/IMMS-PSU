@@ -112,10 +112,10 @@
                 
                 <div class="w-full">
                     <label class="block text-sm font-medium text-gray-900 dark:text-white">{{ __('Update Instructional Material PDF') }}</label>
-                    <span class="block text-xs font-medium text-gray-600">{{ __('Take note that uploading a new file will replace the existing version with the updated one.') }} <a href="{{ asset($instructionalMaterial->pdf_path) }}" target="_blank" class="text-blue-600">Click here to view current PDF</a></span>
+                    <span class="block text-xs font-medium text-gray-600">{{ __('Take note that uploading a new file will replace the existing version with the updated one.') }} <a href="{{ asset($instructionalMaterial->pdf_path) }}" target="_blank" class="text-blue-600">{{ __('Click here to download your latest file') }}</a></span>
                     
                     <input class="block w-full mt-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" name="pdf_path" type="file" accept=".pdf, .docx, .png, .jpg, .jpeg" required>
-                    <span class="text-xs font-medium text-gray-600">{{ __('Kindly submit your instructional material in PDF format, ensuring that the file size does not exceed 50 megabytes (MB).') }}</span>
+                    <span class="text-xs font-medium text-gray-600">{{ __('Please submit your instructional material in one of the following formats: PDF, DOCX, PNG, or JPEG. Ensure that the file size does not exceed 50 megabytes (MB).') }}</span>
                     <x-input-error :messages="$errors->get('pdf_path')" class="mt-1" />
                 </div>
 

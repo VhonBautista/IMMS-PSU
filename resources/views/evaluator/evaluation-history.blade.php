@@ -58,7 +58,7 @@
 
         <div class="bg-white pb-6 pt-0 rounded-lg">        
             <div class="max-w-7xl mt-3 mx-auto space-y-6">
-                <div class="relative overflow-x-auto border sm:rounded-lg">
+                <div class="relative border sm:rounded-lg">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
