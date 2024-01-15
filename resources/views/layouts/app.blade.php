@@ -10,9 +10,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <!-- Add this to your HTML head section -->
         
-
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -71,6 +69,5 @@
         <script src="{{ asset('js/mark-read.js')}}"></script>
         <script src="{{ asset('js/session-storage.js')}}"></script>
         @yield('scripts')
-        @yield('javascripts')
     </body>
 </html>
