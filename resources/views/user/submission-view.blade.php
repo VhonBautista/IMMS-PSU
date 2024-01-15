@@ -1,5 +1,4 @@
-<x-app-layout>
-    
+<x-app-layout>    
     @section('links')
         <li class="me-1">
             <a href="{{ route('home') }}" class="inline-block p-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">{{ __('Instructional Materials') }}</a>
@@ -17,8 +16,6 @@
             {{ __('Submissions') }}
         </x-responsive-nav-link>
     @endsection
-
-  
 
     <div class="bg-white p-6 rounded-lg">
         <nav class="flex mb-3" aria-label="Breadcrumb">
@@ -88,7 +85,7 @@
                 <div id="accordion-viewer" data-accordion="collapse">
                     <h2 id="accordion-viewer-heading">
                         <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border rounded border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-viewer-body-" aria-expanded="false" aria-controls="accordion-viewer-body-">
-                            <span>{{ __('Click to display Instructional Material') }}</span>
+                            <span>{{ __('Click to display File') }}</span>
                             <svg data-accordion-icon class="w-3 h-3 shrink-0" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                             </svg>
@@ -110,10 +107,6 @@
                                 <p>This file format is not supported for direct viewing. Please download the file to view.</p>
                             @endif
                         </div>
-                        
-                        
-                        
-                        
                     </div>
                 </div>
             </section>
