@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
@@ -38,6 +39,10 @@ class RegisteredUserController extends Controller
             'university_role' => ['required'],
             'campus' => ['required'],
         ]);
+
+        if (!Str::endsWith($request->email, '@psu.edu.ph')) {
+            return redirect()->back()->with('error', 'The email must end with @psu.edu.ph')->withInput();
+        }
 
         $user = User::create([
             'firstname' => $request->firstname,

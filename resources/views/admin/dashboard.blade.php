@@ -110,33 +110,63 @@
     </div>
     
     <div class="bg-white p-6 rounded-lg mt-6">
-        <span class="ml-1 mb-2 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Total Instructional Material Submitted.') }}</span>
-        <table class="min-w-full border-collapse" id="imsTable">
-            <thead>
-                <tr>
-                    <th class="border border-gray-300 py-2 px-4 text-center">Title</th>
-                    <th class="border border-gray-300 py-2 px-4 text-center">Submitter</th>
-                    <th class="border border-gray-300 py-2 px-4 text-center">Status</th>
-                    <th class="border border-gray-300 py-2 px-4 text-center">Date Submitted</th>
-                    <th class="border border-gray-300 py-2 px-4 text-center">View</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($instructionalMaterials as $material)
-                    <tr class="border border-gray-300">
-                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->title }}</td>
-                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->user->lastname . ', ' . $material->user->firstname }}</td>
-                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->status }}</td>
-                        <td class="border border-gray-300 py-2 px-4 text-center">{{ $material->created_at->format('M d, Y') }}</td>
-                        <td class="border border-gray-300 py-2 px-4 text-center">
-                            <a href="{{ asset($material->pdf_path) }}" target="_blank" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Download IM
-                            </a>
-                        </td>
+        <span class="ml-1 mb-2 font-semibold text-sm lg:text-lg text-gray-700 dark:text-gray-400">{{ __('Published Instructional Materials') }}</span>
+        
+        <div class="relative overflow-x-auto border sm:rounded-lg mt-3">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            {{ __('Title') }}
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ __('Publisher') }}
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ __('Status') }}
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ __('Date Published') }}
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            <span class="sr-only">{{ __('Actions') }}</span>
+                        </th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse($instructionalMaterials as $material)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="font-medium text-sm text-gray-800 dark:text-gray-200 capitalize">{{ $material->title }}</div>
+                            </th>
+                            <td class="px-6 py-4 text-xs">
+                                {{ $material->user->lastname . ', ' . $material->user->firstname }}
+                            </td>
+                            <td class="px-6 py-4 text-xs capitalize">
+                                {{ $material->status }}
+                            </td>
+                            <td class="px-6 py-4 text-xs capitalize">
+                                {{ $material->updated_at->format('M d, Y h:i A') }}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="{{ asset($material->pdf_path) }}" target="_blank" class="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-800 dark:focus:ring-blue-800">
+                                    {{ __('Download Material') }}
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td colspan="7" class="px-6 py-4 text-center">
+                                <div class="p-4 text-sm">
+                                    {{ __('There are no records') }}
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        {{ $instructionalMaterials->links() }}
     </div>
     
    @section('scripts')
@@ -152,44 +182,47 @@
                var ctx = document.getElementById('myChart').getContext('2d');
                var myChart;
        
-               function updateChart(submittedData, approvedData) {
-                   if (myChart) {
-                       myChart.destroy();
-                   }
-       
-                   myChart = new Chart(ctx, {
-                       type: 'line',
-                       data: {
-                           labels: submittedData.map(entry => entry.date),
-                           datasets: [
-                               {
-                                   label: 'Total Submitted Materials',
-                                   fill: true,
-                                   data: submittedData.map(entry => entry.count),
-                                   borderColor: 'rgb(14, 159, 110)',
-                                   backgroundColor: 'rgb(14, 159, 110, 0.3)',
-                                   borderWidth: 1
-                               },
-                               {
-                                   label: 'Total Approved Materials',
-                                   fill: true,
-                                   data: approvedData.map(entry => entry.count),
-                                   borderColor: 'rgb(255, 99, 132)',
-                                   backgroundColor: 'rgb(255, 99, 132, 0.3)',
-                                   borderWidth: 1
-                               }
-                           ]
-                       },
-                       options: {
-                           scales: {
-                               y: {
-                                   beginAtZero: true,
-                                   precision: 0
-                               }
-                           }
-                        }
-                   });
-               }
+                function updateChart(submittedData, approvedData) {
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+        
+                    myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: submittedData.map(entry => entry.date),
+                            datasets: [
+                                {
+                                    label: 'Submitted Materials',
+                                    fill: true,
+                                    data: submittedData.map(entry => entry.count),
+                                    borderColor: 'rgb(66, 139, 248)',
+                                    backgroundColor: 'rgba(66, 139, 248, 0.3)',
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: 'Approved Materials',
+                                    fill: true,
+                                    data: approvedData.map(entry => entry.count),
+                                    borderColor: 'rgb(14, 159, 110)',
+                                    backgroundColor: 'rgba(14, 159, 110, 0.3)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        max: 10,
+                                        ticks: {
+                                            precision: 0
+                                        }
+                                    }
+                                }
+                            }
+                    });
+                }
        
                updateChart(@json($submittedMaterials), @json($approvedMaterials));
        

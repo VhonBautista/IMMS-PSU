@@ -7,6 +7,8 @@ use App\Models\Role;
 use App\Models\UniversityRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -60,6 +62,10 @@ class UserManagementController extends Controller
             'campus' => ['required'],
         ]);
 
+        if (!Str::endsWith($request->email, '@psu.edu.ph')) {
+            return redirect()->back()->with('error', 'The email must end with @psu.edu.ph')->withInput();
+        }
+
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -83,7 +89,6 @@ class UserManagementController extends Controller
         }
     }
 
-    
     public function manage($id, Request $request)
     {
         $user = User::findOrFail($id);
@@ -136,15 +141,48 @@ class UserManagementController extends Controller
             'user_id' => ['required'],
         ]);
 
-        $user = User::findOrFail($request->user_id);
-
-        // Delete associated data (e.g., posts)
-        // $user->posts()->delete();
-
-        $user->delete();
-
-        return redirect()->route('admin.user_management')->with(
-            'success', 'Account deleted successfully.',
-        );
+        try {
+            DB::beginTransaction();
+    
+            $user = User::findOrFail($request->user_id);
+    
+            // Delete associated records
+            // Delete related Log
+            $user->logs()->delete();
+            
+            $user->instructionalMaterials->each(function ($instructionalMaterial) {
+                // Delete related EvaluationStage
+                if ($instructionalMaterial->evaluationStage) {
+                    $instructionalMaterial->evaluationStage->delete();
+                }
+    
+                // Delete related Evaluations
+                $instructionalMaterial->evaluations()->delete();
+    
+                // Delete the InstructionalMaterial
+                $instructionalMaterial->delete();
+            });
+    
+            if ($user->evaluatorMatrix) {
+                $user->evaluatorMatrix->delete();
+            }
+    
+            $user->evaluations()->delete();
+    
+            // Delete the user
+            $user->delete();
+    
+            DB::commit();
+    
+            return redirect()->route('admin.user_management')->with(
+                'success', 'Account deleted successfully.',
+            );
+        } catch (\Exception $e) {
+            DB::rollBack();
+    
+            return redirect()->route('admin.user_management')->with(
+                'error', 'Error deleting the account. Please try again.' . $e,
+            );
+        }
     }
 }

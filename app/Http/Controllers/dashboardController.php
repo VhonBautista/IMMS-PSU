@@ -28,18 +28,17 @@ class DashboardController extends Controller
         $imsPerDay = $query->groupByRaw('DATE(created_at)')->get();
 
         $submittedMaterialsQuery = InstructionalMaterial::selectRaw('DATE(created_at) as date, COUNT(*) as count');
-         $approvedMaterialsQuery = InstructionalMaterial::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+        $approvedMaterialsQuery = InstructionalMaterial::selectRaw('DATE(created_at) as date, COUNT(*) as count')
         ->where('status', 'approved');
 
         $submittedMaterials = $submittedMaterialsQuery->groupByRaw('DATE(created_at)')->get();
-         $approvedMaterials = $approvedMaterialsQuery->groupByRaw('DATE(created_at)')->get();
-
+        $approvedMaterials = $approvedMaterialsQuery->groupByRaw('DATE(created_at)')->get();
 
         $courseCount = Course::count();
         $departmentCount = Department::count();
         $collegeCount = College::count();
         $campusCount = Campus::count();
-        $instructionalMaterials = InstructionalMaterial::orderByDesc('created_at')->get();
+        $instructionalMaterials = InstructionalMaterial::orderByDesc('updated_at')->where('status', 'approved')->paginate(5);
         
         $existingStage2Matrix = Matrix::where('level', 'university')->where('stage', 2)->exists();
         $existingStage4Matrix = Matrix::where('level', 'university')->where('stage', 4)->exists();

@@ -203,6 +203,21 @@
                     nestedArray.push(subMatrixData);
                 @endforeach
 
+                nestedArray.forEach(function(subMatrixData) {
+                    subMatrixData.matrixItems.forEach(function(matrixItem) {
+                        var inputElement = document.getElementById(matrixItem.inputId);
+
+                        inputElement.addEventListener('input', function() {
+                            var inputValue = parseInt(inputElement.value, 10);
+                            var maxValue = parseInt(inputElement.getAttribute('max'), 10);
+
+                            if (inputValue > maxValue) {
+                                inputElement.value = maxValue;
+                            }
+                        });
+                    });
+                });
+
                 // Function to update values from input fields
                 function updateValues() {
                     nestedArray.forEach(function(subMatrixData) {
