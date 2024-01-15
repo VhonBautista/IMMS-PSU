@@ -15,7 +15,7 @@
         </div>
     
         <div class="w-full md:w-1/2 lg:w-1/4">
-            <a href="{{ route('admin.department_management') }}">
+            <a href="{{ route('admin.college_management') }}">
                 <div class="h-[100px] bg-gradient-to-b from-yellow-300 to-yellow-400 hover:from-yellow-200 hover:to-yellow-300 text-white overflow-hidden shadow rounded flex justify-center items-center flex-col">
                     <h2 class="text-lg font-medium inline-flex items-center gap-2">
                         <svg class="w-4 h-4 text-white-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
