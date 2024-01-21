@@ -185,18 +185,20 @@ class MatrixManagementController extends Controller
         $matrixItemScore = $request->matrix_item_score;
         $description = $request->description;
 
-        $subMatrix = SubMatrix::find($subMatrixId);
+        $matrix = Matrix::find($matrixId);
         
         $totalScore = 0;
-        foreach ($subMatrix->matrixItems as $matrixItem) {
-            $totalScore += $matrixItem->score;
+        foreach ($matrix->subMatrices as $subMatrix) {
+            foreach ($subMatrix->matrixItems as $matrixItem) {
+                $totalScore += $matrixItem->score;
+            }
         }
         $totalScore += $matrixItemScore;
 
         if ($totalScore > 100) {
             return redirect()
                 ->route('admin.matrix_management.manage', $subMatrix->matrix_id)
-                ->with('detail-error', 'The cumulative score for each subtitle should not exceed 100 points.');
+                ->with('detail-error', 'The cumulative score for each subtitle should not exceed 100%.')->withInput();
         }
 
         MatrixItem::create([

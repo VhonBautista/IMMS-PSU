@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2024 at 08:31 PM
+-- Generation Time: Jan 15, 2024 at 05:25 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -191,12 +191,8 @@ CREATE TABLE `evaluations` (
 --
 
 INSERT INTO `evaluations` (`id`, `matrix_id`, `material_id`, `evaluator_id`, `passed_criteria`, `comment`, `status`, `created_at`, `updated_at`) VALUES
-(37, 1, 25, 15, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Content - Total Score: (90/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Assessment Alignment - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Clarity and Coherence - Score: (19/20)</li><li class=\"font-normal text-gray-600\">Content Relevance - Score: (31/40)</li><li class=\"font-normal text-gray-600\">Inclusivity and Diversity - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Multimodal Presentation - Score: (10/10)</li></ul></div><div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Layout - Total Score: (86/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Accessibility and Navigation - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Consistency in Design - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Use of Visual Elements - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Visual Hierarchy - Score: (16/30)</li><li class=\"font-normal text-gray-600\">Whitespace and Margins - Score: (20/20)</li></ul></div>', 'pwede na', 'passed', '2024-01-11 10:46:26', '2024-01-11 10:46:26'),
-(38, 1, 25, 18, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Content - Total Score: (82/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Assessment Alignment - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Clarity and Coherence - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Content Relevance - Score: (22/40)</li><li class=\"font-normal text-gray-600\">Inclusivity and Diversity - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Multimodal Presentation - Score: (10/10)</li></ul></div><div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Layout - Total Score: (98/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Accessibility and Navigation - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Consistency in Design - Score: (18/20)</li><li class=\"font-normal text-gray-600\">Use of Visual Elements - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Visual Hierarchy - Score: (30/30)</li><li class=\"font-normal text-gray-600\">Whitespace and Margins - Score: (20/20)</li></ul></div>', 'goods nadin sakin', 'passed', '2024-01-11 10:49:14', '2024-01-11 10:49:14'),
-(39, 7, 25, 12, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Plagiarism Free - Total Score: (65/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Avoidance of Plagiarism - Score: (14/20)</li><li class=\"font-normal text-gray-600\">Citation and Referencing - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Clarity of Attribution - Score: (15/20)</li><li class=\"font-normal text-gray-600\">Ethical Use of Sources - Score: (19/20)</li><li class=\"font-normal text-gray-600\">Originality - Score: (7/30)</li></ul></div>', 'some are made by AI', 'failed', '2024-01-11 10:50:05', '2024-01-11 10:50:05'),
-(40, 7, 25, 12, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Plagiarism Free - Total Score: (96/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Avoidance of Plagiarism - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Citation and Referencing - Score: (10/10)</li><li class=\"font-normal text-gray-600\">Clarity of Attribution - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Ethical Use of Sources - Score: (20/20)</li><li class=\"font-normal text-gray-600\">Originality - Score: (26/30)</li></ul></div>', 'I Like the changes, may improvement', 'passed', '2024-01-11 10:51:11', '2024-01-11 10:51:11'),
-(42, 4, 25, 13, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Clarity and Organization - Total Score: (90/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Clear Language and Terminology - Score: (59/60)</li><li class=\"font-normal text-gray-600\">Logical Structure - Score: (31/40)</li></ul></div><div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Engagement and Interactivity - Total Score: (82/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Interactive Exercises and Assessments - Score: (52/70)</li><li class=\"font-normal text-gray-600\">Multimedia Integration - Score: (30/30)</li></ul></div>', 'maganda', 'passed', '2024-01-11 11:05:07', '2024-01-11 11:05:07'),
-(43, 10, 25, 17, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Evaluated - Total Score: (81/100)<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">CFL Evaluation - Score: (30/30)</li><li class=\"font-normal text-gray-600\">Campus Level - Score: (20/20)</li><li class=\"font-normal text-gray-600\">University Level - Score: (31/50)</li></ul></div>', 'ok na yan', 'passed', '2024-01-11 11:05:36', '2024-01-11 11:05:36');
+(47, 1, 28, 15, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Content<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Assessment Alignment (10%) : Score 0%</li><li class=\"font-normal text-gray-600\">Clarity and Coherence (20%) : Score 0%</li><li class=\"font-normal text-gray-600\">Content Relevance (40%) : Score 0%</li><li class=\"font-normal text-gray-600\">Inclusivity and Diversity (20%) : Score 0%</li><li class=\"font-normal text-gray-600\">Multimodal Presentation (10%) : Score 0%</li></ul></div><div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Layout<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Accessibility and Navigation (20%) : Score 0%</li><li class=\"font-normal text-gray-600\">Consistency in Design (20%) : Score 0%</li><li class=\"font-normal text-gray-600\">Use of Visual Elements (10%) : Score 0%</li><li class=\"font-normal text-gray-600\">Visual Hierarchy (30%) : Score 0%</li><li class=\"font-normal text-gray-600\">Whitespace and Margins (20%) : Score 0%</li></ul></div><p class=\"font-medium text-md text-gray-800 dark:text-white\">Average Score: 0%</p>', 'cant view should be pdf', 'failed', '2024-01-15 07:36:55', '2024-01-15 07:36:55'),
+(48, 1, 28, 15, '<div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Content<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Assessment Alignment : 10%</li><li class=\"font-normal text-gray-600\">Clarity and Coherence : 11%</li><li class=\"font-normal text-gray-600\">Content Relevance : 10%</li><li class=\"font-normal text-gray-600\">Inclusivity and Diversity : 10%</li></ul></div><div class=\"mb-2 text-md font-medium text-gray-800 dark:text-white\">Layout<ul class=\"max-w-md space-y-1 list-disc list-inside\"><li class=\"font-normal text-gray-600\">Accessibility and Navigation : 2%</li><li class=\"font-normal text-gray-600\">Consistency in Design : 10%</li><li class=\"font-normal text-gray-600\">Use of Visual Elements : 10%</li><li class=\"font-normal text-gray-600\">Visual Hierarchy : 2%</li><li class=\"font-normal text-gray-600\">Whitespace and Margins : 0%</li></ul></div><p class=\"font-medium text-md text-gray-800 dark:text-white\">Total Score: 65%</p>', 'kulang', 'failed', '2024-01-15 08:16:22', '2024-01-15 08:16:22');
 
 -- --------------------------------------------------------
 
@@ -218,7 +214,7 @@ CREATE TABLE `evaluation_stages` (
 --
 
 INSERT INTO `evaluation_stages` (`id`, `matrix_id`, `material_id`, `stage`, `created_at`, `updated_at`) VALUES
-(24, 10, 25, 4, '2024-01-11 10:35:41', '2024-01-11 11:05:07');
+(27, 1, 28, 1, '2024-01-15 07:35:34', '2024-01-15 07:35:34');
 
 -- --------------------------------------------------------
 
@@ -288,7 +284,7 @@ CREATE TABLE `instructional_materials` (
 --
 
 INSERT INTO `instructional_materials` (`id`, `title`, `pdf_path`, `proponents`, `course_id`, `department_id`, `campus_id`, `submitter_id`, `type`, `status`, `created_at`, `updated_at`) VALUES
-(25, 'In similique cupidit', 'storage/pdfs/1704999037_IAS102_BautistaVhon_LearningActivity_2.pdf', 'Numquam est nisi mol', 5, 3, 9, 16, 'textbook', 'approved', '2024-01-11 10:35:41', '2024-01-11 11:05:36');
+(28, 'Test IM', 'storage/pdfs/1705333123_chart.png', 'Vhon Bautista', 7, 6, 9, 20, 'course_book', 'resubmission', '2024-01-15 07:35:34', '2024-01-15 08:16:22');
 
 -- --------------------------------------------------------
 
@@ -312,20 +308,24 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `area`, `title`, `action`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
-(42, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material titled \"In similique cupidit\".', 16, '2024-01-11 10:35:41', '2024-01-11 10:35:41'),
 (43, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 15, '2024-01-11 10:36:56', '2024-01-11 10:36:56'),
-(44, 'evaluator.evaluation_management', 'Instructional Material Resubmitted', 'submitted', 'User Regular resubmitted the Instructional Material titled \"In similique cupidit\".', 16, '2024-01-11 10:44:58', '2024-01-11 10:44:58'),
 (45, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 15, '2024-01-11 10:46:26', '2024-01-11 10:46:26'),
 (46, 'evaluator.evaluation_management', 'New Material for Evaluation', 'added', 'Campus2 Evaluator has given approval for the instructional material titled \",\" advancing it to the next stage of evaluation.', 18, '2024-01-11 10:49:14', '2024-01-11 10:49:14'),
 (47, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus2 Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 18, '2024-01-11 10:49:14', '2024-01-11 10:49:14'),
 (48, 'submission_management', 'Evaluation Submitted', 'submitted', 'CFL Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 12, '2024-01-11 10:50:05', '2024-01-11 10:50:05'),
-(49, 'evaluator.evaluation_management', 'Instructional Material Resubmitted', 'submitted', 'User Regular resubmitted the Instructional Material titled \"In similique cupidit\".', 16, '2024-01-11 10:50:37', '2024-01-11 10:50:37'),
 (50, 'evaluator.evaluation_management', 'New Material for Evaluation', 'added', 'CFL Evaluator has given approval for the instructional material titled \",\" advancing it to the next stage of evaluation.', 12, '2024-01-11 10:51:11', '2024-01-11 10:51:11'),
 (51, 'submission_management', 'Evaluation Submitted', 'submitted', 'CFL Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 12, '2024-01-11 10:51:11', '2024-01-11 10:51:11'),
 (52, 'submission_management', 'Evaluation Submitted', 'submitted', 'University Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 13, '2024-01-11 10:52:16', '2024-01-11 10:52:16'),
 (53, 'evaluator.evaluation_management', 'New Material for Evaluation', 'added', 'University Evaluator has given approval for the instructional material titled \",\" advancing it to the next stage of evaluation.', 13, '2024-01-11 11:05:07', '2024-01-11 11:05:07'),
 (54, 'submission_management', 'Evaluation Submitted', 'submitted', 'University Evaluator submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 13, '2024-01-11 11:05:08', '2024-01-11 11:05:08'),
-(55, 'submission_management', 'Evaluation Submitted', 'submitted', 'Vice President submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 17, '2024-01-11 11:05:36', '2024-01-11 11:05:36');
+(55, 'submission_management', 'Evaluation Submitted', 'submitted', 'Vice President submitted an evaluation regarding your Instructional Material titled \"In similique cupidit\".', 17, '2024-01-11 11:05:36', '2024-01-11 11:05:36'),
+(58, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Mollitia amet quis\".', 15, '2024-01-12 00:18:50', '2024-01-12 00:18:50'),
+(60, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Mollitia amet quis\".', 15, '2024-01-12 00:20:50', '2024-01-12 00:20:50'),
+(61, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus2 Evaluator submitted an evaluation regarding your Instructional Material titled \"Mollitia amet quis\".', 18, '2024-01-12 00:22:01', '2024-01-12 00:22:01'),
+(62, 'evaluator.evaluation_management', 'New Instructional Material Submitted', 'submitted', 'User Regular submitted a new Instructional Material titled \"Test IM\".', 20, '2024-01-15 07:35:34', '2024-01-15 07:35:34'),
+(63, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Test IM\".', 15, '2024-01-15 07:36:55', '2024-01-15 07:36:55'),
+(64, 'evaluator.evaluation_management', 'Instructional Material Resubmitted', 'submitted', 'User Regular resubmitted the Instructional Material titled \"Test IM\".', 20, '2024-01-15 07:38:43', '2024-01-15 07:38:43'),
+(65, 'submission_management', 'Evaluation Submitted', 'submitted', 'Campus Evaluator submitted an evaluation regarding your Instructional Material titled \"Test IM\".', 15, '2024-01-15 08:16:22', '2024-01-15 08:16:22');
 
 -- --------------------------------------------------------
 
@@ -375,28 +375,27 @@ CREATE TABLE `matrix_items` (
 --
 
 INSERT INTO `matrix_items` (`id`, `item`, `text`, `score`, `sub_matrix_id`, `created_at`, `updated_at`) VALUES
-(1, 'Content Relevance', 'Assess the alignment of instructional content with defined learning objectives and curriculum standards. Evaluate whether the material addresses key concepts, skills, and competencies essential for the targeted educational level.', 40, 1, '2024-01-31 06:01:46', '2024-01-31 06:01:46'),
+(1, 'Content Relevance', 'Assess the alignment of instructional content with defined learning objectives and curriculum standards. Evaluate whether the material addresses key concepts, skills, and competencies essential for the targeted educational level.', 10, 1, '2024-01-31 06:01:46', '2024-01-31 06:01:46'),
 (2, 'Clarity and Coherence', 'Examine the clarity and coherence of the instructional content. Evaluate how well the material presents information, ensuring it is easily understandable for the intended audience and follows a logical progression.', 20, 1, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
-(3, 'Multimodal Presentation', 'Gauge the incorporation of multiple modes of presentation, such as text, visuals, audio, and interactive elements. Assess how well the material caters to diverse learning styles, enhancing engagement and understanding.', 10, 1, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
 (4, 'Assessment Alignment', 'Evaluate the alignment of assessment tools within the instructional material with the learning objectives. Ensure that assessments effectively measure student understanding and mastery of the content.', 10, 1, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
-(5, 'Inclusivity and Diversity', 'Consider the inclusivity and diversity of the instructional content, assessing whether it reflects a variety of perspectives, cultures, and experiences. Ensure that the material is accessible and resonates with a diverse student population.', 20, 1, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
-(6, 'Visual Hierarchy', 'Assess the visual hierarchy of the instructional material\'s layout, examining how well it guides the reader\'s attention. Evaluate the use of headings, subheadings, and other design elements to prioritize information and enhance overall readability.', 30, 2, '2023-06-26 07:04:23', '2023-07-16 07:12:19'),
-(7, 'Consistency in Design', 'Evaluate the consistency in design elements throughout the instructional material. Check for uniformity in fonts, colors, and formatting to create a cohesive and visually pleasing layout that contributes to a seamless reading experience.', 20, 2, '2023-07-16 07:12:19', '2023-07-16 07:12:19'),
+(5, 'Inclusivity and Diversity', 'Consider the inclusivity and diversity of the instructional content, assessing whether it reflects a variety of perspectives, cultures, and experiences. Ensure that the material is accessible and resonates with a diverse student population.', 10, 1, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
+(6, 'Visual Hierarchy', 'Assess the visual hierarchy of the instructional material\'s layout, examining how well it guides the reader\'s attention. Evaluate the use of headings, subheadings, and other design elements to prioritize information and enhance overall readability.', 10, 2, '2023-06-26 07:04:23', '2023-07-16 07:12:19'),
+(7, 'Consistency in Design', 'Evaluate the consistency in design elements throughout the instructional material. Check for uniformity in fonts, colors, and formatting to create a cohesive and visually pleasing layout that contributes to a seamless reading experience.', 10, 2, '2023-07-16 07:12:19', '2023-07-16 07:12:19'),
 (8, 'Use of Visual Elements', 'Examine the integration of visual elements, such as images, charts, graphs, and multimedia. Evaluate their relevance, clarity, and effectiveness in enhancing understanding, engagement, and overall aesthetic appeal.', 10, 2, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
-(9, 'Whitespace and Margins', 'Evaluate the utilization of whitespace and margins in the layout. Assess whether the spacing between text, images, and other elements enhances readability and prevents visual clutter, contributing to a clean and organized appearance.', 20, 2, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
-(10, 'Accessibility and Navigation', 'Consider the accessibility and navigation features of the instructional material. Evaluate the use of clear navigation cues, hyperlinks, and a user-friendly interface to facilitate easy access to different sections and resources within the material.', 20, 2, '2024-01-29 06:05:01', '2023-07-16 05:22:48'),
-(20, 'Logical Structure', 'Examine the logical flow and organization of the instructional material, ensuring a coherent and easy-to-follow structure.', 40, 12, '2024-01-07 11:17:44', '2024-01-07 11:17:44'),
-(21, 'Clear Language and Terminology', 'Assess the use of clear language and appropriate terminology to ensure that students can easily comprehend the presented information.', 60, 12, '2024-01-07 11:17:55', '2024-01-07 11:17:55'),
-(22, 'Multimedia Integration', 'Evaluate the use of multimedia elements (videos, images, simulations) to enhance engagement and interactivity within the instructional material.', 30, 13, '2024-01-07 11:18:13', '2024-01-07 11:18:13'),
-(23, 'Interactive Exercises and Assessments', 'Check for the inclusion of interactive exercises, quizzes, or assessments that encourage student participation and reinforce learning.', 70, 13, '2024-01-07 11:18:21', '2024-01-07 11:18:21'),
-(26, 'Originality', 'Assess the extent to which the instructional material demonstrates originality.', 30, 16, '2024-01-11 06:06:16', '2024-01-11 06:06:16'),
-(27, 'Citation and Referencing', 'Evaluate the accuracy and completeness of citation and referencing.', 10, 16, '2024-01-11 06:06:35', '2024-01-11 06:06:35'),
+(9, 'Whitespace and Margins', 'Evaluate the utilization of whitespace and margins in the layout. Assess whether the spacing between text, images, and other elements enhances readability and prevents visual clutter, contributing to a clean and organized appearance.', 10, 2, '2023-07-16 05:22:48', '2023-07-16 05:22:48'),
+(10, 'Accessibility and Navigation', 'Consider the accessibility and navigation features of the instructional material. Evaluate the use of clear navigation cues, hyperlinks, and a user-friendly interface to facilitate easy access to different sections and resources within the material.', 10, 2, '2024-01-29 06:05:01', '2023-07-16 05:22:48'),
+(26, 'Originality', 'Assess the extent to which the instructional material demonstrates originality.', 15, 16, '2024-01-11 06:06:16', '2024-01-11 06:06:16'),
+(27, 'Citation and Referencing', 'Evaluate the accuracy and completeness of citation and referencing.', 15, 16, '2024-01-11 06:06:35', '2024-01-11 06:06:35'),
 (28, 'Avoidance of Plagiarism', 'Check for instances of plagiarism and how effectively they are avoided.', 20, 16, '2024-01-11 06:06:53', '2024-01-11 06:06:53'),
 (29, 'Ethical Use of Sources', 'Assess whether the material adheres to ethical standards in using external sources.', 20, 16, '2024-01-11 06:07:11', '2024-01-11 06:07:11'),
-(30, 'Clarity of Attribution', 'Evaluate how clearly the material attributes ideas to their original sources.', 20, 16, '2024-01-11 06:08:54', '2024-01-11 06:08:54'),
+(30, 'Clarity of Attribution', 'Evaluate how clearly the material attributes ideas to their original sources.', 30, 16, '2024-01-11 06:08:54', '2024-01-11 06:08:54'),
 (32, 'Campus Level', 'Average result of campus evaluation for this Instructional Material.', 20, 18, '2024-01-11 10:57:05', '2024-01-11 10:57:05'),
 (33, 'CFL Evaluation', 'Plagiarism result for this Instructional Material.', 30, 18, '2024-01-11 10:57:33', '2024-01-11 10:57:33'),
-(34, 'University Level', 'Average result of university evaluation for this Instructional Material. The most important Evaluation', 50, 18, '2024-01-11 10:58:08', '2024-01-11 10:58:08');
+(34, 'University Level', 'Average result of university evaluation for this Instructional Material. The most important Evaluation', 50, 18, '2024-01-11 10:58:08', '2024-01-11 10:58:08'),
+(35, 'Clear Language and Terminology', 'Ensuring communication clarity through precise language and well-defined terminology for an enhanced understanding of content.', 20, 19, '2024-01-15 07:29:03', '2024-01-15 07:29:03'),
+(37, 'Logical Structure', 'Organizing information in a coherent and logical manner, facilitating an intuitive flow and ease of comprehension.', 40, 19, '2024-01-15 07:31:16', '2024-01-15 07:31:16'),
+(38, 'Interactive Exercises and Assessments', 'Enhancing engagement and learning through hands-on activities, quizzes, and assessments that encourage active participation.\r\n', 30, 20, '2024-01-15 07:31:38', '2024-01-15 07:31:38'),
+(40, 'Multimedia Integration', 'Incorporating diverse multimedia elements such as images, videos, and audio to enrich content and cater to different learning styles.', 10, 20, '2024-01-15 07:34:33', '2024-01-15 07:34:33');
 
 -- --------------------------------------------------------
 
@@ -459,21 +458,41 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
 ('03b9e8a1-afdd-4aad-8b57-910f0118d284', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:36:23', '2024-01-11 10:35:41', '2024-01-11 10:36:23'),
+('09f5211a-0f9b-4173-a27b-dbf530802af5', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:38:43', '2024-01-15 07:38:43'),
 ('0f9a3b7c-bf5e-4b0a-80b9-9aea58f27b94', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 17, '{\"title\":\"New Material for Evaluation\",\"action\":\"added\",\"description\":\"University Evaluator has given approval for the instructional material titled \\\",\\\" advancing it to the next stage of evaluation.\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 11:05:21', '2024-01-11 11:05:07', '2024-01-11 11:05:21'),
 ('1a060809-c49c-45b3-a846-5d96c9d7500c', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 10:44:02', '2024-01-11 10:36:56', '2024-01-11 10:44:02'),
+('229c9036-430f-4c23-b462-d27ebbb7f467', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:38:43', '2024-01-15 07:38:43'),
 ('27d64544-ab39-4897-8204-2acf83129374', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:45:55', '2024-01-11 10:44:58', '2024-01-11 10:45:55'),
 ('2c55593e-b0bf-410f-aa6c-608b46c143f0', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 12, '{\"title\":\"New Material for Evaluation\",\"action\":\"added\",\"description\":\"Campus2 Evaluator has given approval for the instructional material titled \\\",\\\" advancing it to the next stage of evaluation.\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:49:30', '2024-01-11 10:49:14', '2024-01-11 10:49:30'),
 ('2ec10789-9e0d-4e7d-9f1d-fa785d3014b0', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"University Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 10:52:16', '2024-01-11 11:28:30'),
 ('31f5753a-a3e4-418f-bbf1-4e21fac1bc57', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"CFL Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 10:51:11', '2024-01-11 11:28:30'),
 ('332afedf-092a-4754-b8bc-43cd63dc670e', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 13, '{\"title\":\"New Material for Evaluation\",\"action\":\"added\",\"description\":\"CFL Evaluator has given approval for the instructional material titled \\\",\\\" advancing it to the next stage of evaluation.\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:51:35', '2024-01-11 10:51:11', '2024-01-11 10:51:35'),
+('40910d23-72f6-41cf-9a18-ee97a8a117d6', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus2 Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"submission_management\"}', '2024-01-12 01:06:21', '2024-01-12 00:22:01', '2024-01-12 01:06:21'),
 ('47b4aad3-b93e-41a2-b987-f9873df80726', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"University Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 11:05:08', '2024-01-11 11:28:30'),
 ('47f1cb60-a6fd-4d1b-90f7-95c1f55feb28', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:48:05', '2024-01-11 10:35:41', '2024-01-11 10:48:05'),
 ('49135e54-b169-4e54-bf06-0ecc486b3e24', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus2 Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 10:49:14', '2024-01-11 11:28:30'),
+('492552bf-6925-4bd3-b3e0-f91f55bfc8f3', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 19, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:35:34', '2024-01-15 07:35:34'),
+('4e4c2095-a10a-4193-b0c6-8aa4554a4f07', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:35:34', '2024-01-15 07:35:34'),
+('5382cb32-a1ec-4ba6-802f-8bfed8cf510d', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"submission_management\"}', '2024-01-15 05:57:42', '2024-01-12 00:20:51', '2024-01-15 05:57:42'),
+('6a571b59-87bf-4643-96ef-af405e72db0a', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 19, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:38:43', '2024-01-15 07:38:43'),
 ('73edf317-f5c5-4fb4-8337-9c09f66106bb', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 10:46:26', '2024-01-11 11:28:30'),
 ('88af08b0-0ab5-44c9-bd54-a730751e0588', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Vice President submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 11:28:30', '2024-01-11 11:05:36', '2024-01-11 11:28:30'),
+('98afc6df-d878-4fae-a3bf-ce14c3248c94', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Test IM\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-15 07:35:34', '2024-01-15 07:35:34'),
+('a5ec71a0-bdc0-44f1-8d23-2e39702ed388', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 19, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:16:57', '2024-01-12 00:16:57'),
+('a8c85b63-0f92-493d-bba5-a91761c2743a', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:16:57', '2024-01-12 00:16:57'),
+('ad5780ec-777b-47d7-bd58-8c1c631655b2', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 20, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Test IM\\\".\",\"route\":\"submission_management\"}', NULL, '2024-01-15 08:16:22', '2024-01-15 08:16:22'),
 ('b0fb1d78-38b6-4761-b737-81601021186d', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 12, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:51:15', '2024-01-11 10:50:37', '2024-01-11 10:51:15'),
+('b3384485-6846-435a-ba06-76e54e54b0f6', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Dolor consectetur d\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:17:21', '2024-01-12 00:17:21'),
+('bd0cb353-3e8b-42d9-95f4-d920da1957d9', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 20, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Test IM\\\".\",\"route\":\"submission_management\"}', NULL, '2024-01-15 07:36:55', '2024-01-15 07:36:55'),
+('c668f888-5c75-4fe0-9bad-ef0e50b98c35', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:19:46', '2024-01-12 00:19:46'),
+('cee2170d-0b0c-4fdd-b917-b88701fcfae0', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 19, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Dolor consectetur d\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:17:21', '2024-01-12 00:17:21'),
+('d4328cc7-4a88-419e-abf2-3cd986a18163', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 19, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:19:46', '2024-01-12 00:19:46'),
+('db00fe32-b912-4dae-bb07-1462f3d21b24', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:16:57', '2024-01-12 00:16:57'),
 ('e33bdca1-35b9-4ef9-9a62-66890ceb441b', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"evaluator.evaluation_management\"}', '2024-01-11 10:48:09', '2024-01-11 10:44:58', '2024-01-11 10:48:09'),
-('f09dc39e-7bf6-41eb-b5d6-f71700f306c7', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"CFL Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 10:50:13', '2024-01-11 10:50:05', '2024-01-11 10:50:13');
+('e793b7c4-fc7a-47e3-8524-69df879296b4', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 15, '{\"title\":\"New Instructional Material Submitted\",\"action\":\"submitted\",\"description\":\"User Regular submitted a new Instructional Material titled \\\"Dolor consectetur d\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:17:21', '2024-01-12 00:17:21'),
+('eeb0b7e9-d391-44ee-8a32-34cfba31f7da', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"Campus Evaluator submitted an evaluation regarding your Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"submission_management\"}', '2024-01-15 05:57:42', '2024-01-12 00:18:50', '2024-01-15 05:57:42'),
+('f09dc39e-7bf6-41eb-b5d6-f71700f306c7', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 16, '{\"title\":\"Evaluation Submitted\",\"action\":\"submitted\",\"description\":\"CFL Evaluator submitted an evaluation regarding your Instructional Material titled \\\"In similique cupidit\\\".\",\"route\":\"submission_management\"}', '2024-01-11 10:50:13', '2024-01-11 10:50:05', '2024-01-11 10:50:13'),
+('f758e69c-08da-4508-ba35-5614df339dce', 'App\\Notifications\\SystemNotification', 'App\\Models\\User', 18, '{\"title\":\"Instructional Material Resubmitted\",\"action\":\"submitted\",\"description\":\"User Regular resubmitted the Instructional Material titled \\\"Mollitia amet quis\\\".\",\"route\":\"evaluator.evaluation_management\"}', NULL, '2024-01-12 00:19:46', '2024-01-12 00:19:46');
 
 -- --------------------------------------------------------
 
@@ -486,6 +505,14 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('main@psu.edu.ph', '$2y$10$DibFefrd/WeT4BOQRtJ7SuCRxaGME0hKaE5182VQXoxl3sHlFs16C', '2024-01-15 07:16:32'),
+('reg@psu.edu.ph', '$2y$10$0uJaP7b78J9hjs2/atTPN.u4zM.hLDIpYTIcGls5TP/1H2mwSIZiO', '2024-01-15 07:14:51');
 
 -- --------------------------------------------------------
 
@@ -551,10 +578,10 @@ CREATE TABLE `sub_matrices` (
 INSERT INTO `sub_matrices` (`id`, `title`, `matrix_id`, `created_at`, `updated_at`) VALUES
 (1, 'Content', 1, '2024-01-30 05:58:49', '2024-01-31 05:58:49'),
 (2, 'Layout', 1, '2023-07-16 05:21:48', '2023-07-16 05:22:48'),
-(12, 'Clarity and Organization', 4, '2024-01-07 11:17:36', '2024-01-07 11:17:36'),
-(13, 'Engagement and Interactivity', 4, '2024-01-07 11:18:02', '2024-01-07 11:18:02'),
 (16, 'Plagiarism Free', 7, '2024-01-11 06:05:59', '2024-01-11 06:05:59'),
-(18, 'Evaluated', 10, '2024-01-11 10:56:10', '2024-01-11 10:56:10');
+(18, 'Evaluated', 10, '2024-01-11 10:56:10', '2024-01-11 10:56:10'),
+(19, 'Clarity and Organization', 4, '2024-01-15 07:28:40', '2024-01-15 07:28:40'),
+(20, 'Engagement And Interactivity', 4, '2024-01-15 07:31:25', '2024-01-15 07:31:25');
 
 -- --------------------------------------------------------
 
@@ -618,10 +645,10 @@ INSERT INTO `users` (`id`, `lastname`, `firstname`, `middlename`, `email`, `emai
 (13, 'Evaluator', 'University', NULL, 'uni@psu.edu.ph', NULL, '$2y$10$/64XD0iTYZil1n064Xr3Fuk57azjUNcR58ABYWOIuulXj1xk1HPLm', NULL, 3, 10, 9, '2024-01-03 10:23:47', '2024-01-07 04:10:03'),
 (14, 'Moderator', 'Main', NULL, 'mod@psu.edu.ph', NULL, '$2y$10$Bq6I8ITK5iqwCoIBP95ouOeKQz/5snHRfQnrZOFrIG3VVczfRQSXG', NULL, 2, 1, 1, '2024-01-07 10:58:01', '2024-01-07 11:02:01'),
 (15, 'Evaluator', 'Campus', NULL, 'camp@psu.edu.ph', NULL, '$2y$10$iHnwzNgIq9AKr9UwknA3eehWaszQAS6phmfbu2SDZBnwxF4u.7f9u', NULL, 3, 5, 9, '2024-01-07 10:58:59', '2024-01-08 21:58:23'),
-(16, 'Regular', 'User', NULL, 'reg@psu.edu.ph', NULL, '$2y$10$TsKxqGrLlyvPr.xuZdn9..TDcVoAlvP.iuLVr0ANolE7tT13JOxhy', NULL, 4, 7, 9, '2024-01-07 10:59:44', '2024-01-07 10:59:44'),
 (17, 'President', 'Vice', NULL, 'vice@psu.edu.ph', NULL, '$2y$10$B8kjUOnYcY0.Hf1s6MMVvuU.Su6DfAFwv1KPdSjxVE93hbds37Ud6', NULL, 3, 3, 1, '2024-01-07 11:00:38', '2024-01-07 11:01:16'),
 (18, 'Evaluator', 'Campus2', NULL, 'camp2@psu.edu.ph', NULL, '$2y$10$jkJg7dJ/quieJdYalDjjK.bK79z7.aSRW1wQnFBJWNFxw/wtZKw5W', NULL, 3, 5, 9, '2024-01-08 23:17:21', '2024-01-08 23:17:21'),
-(19, 'Evaluator', 'Chairman', NULL, 'chair@psu.edu.ph', NULL, '$2y$10$SgxNB8H2znWr4EUK0ilBVu8svzY7zxR/57w.CsPGoljq5mO7.K8wi', NULL, 3, 5, 9, '2024-01-08 23:19:35', '2024-01-08 23:19:35');
+(19, 'Evaluator', 'Chairman', NULL, 'chair@psu.edu.ph', NULL, '$2y$10$SgxNB8H2znWr4EUK0ilBVu8svzY7zxR/57w.CsPGoljq5mO7.K8wi', NULL, 3, 5, 9, '2024-01-08 23:19:35', '2024-01-08 23:19:35'),
+(20, 'Regular', 'User', NULL, 'reg@psu.edu.ph', NULL, '$2y$10$dgeRKqGrNc1hiv6eQSc6t.8RGBjROSnJEJB8SPJIC5Pj.RnKrbJgG', NULL, 4, 7, 9, '2024-01-15 06:25:48', '2024-01-15 06:25:48');
 
 --
 -- Indexes for dumped tables
@@ -819,13 +846,13 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `evaluations`
 --
 ALTER TABLE `evaluations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `evaluation_stages`
 --
 ALTER TABLE `evaluation_stages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `evaluator_matrices`
@@ -843,13 +870,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `instructional_materials`
 --
 ALTER TABLE `instructional_materials`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `matrices`
@@ -861,7 +888,7 @@ ALTER TABLE `matrices`
 -- AUTO_INCREMENT for table `matrix_items`
 --
 ALTER TABLE `matrix_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -885,7 +912,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sub_matrices`
 --
 ALTER TABLE `sub_matrices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `university_roles`
@@ -897,7 +924,7 @@ ALTER TABLE `university_roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables

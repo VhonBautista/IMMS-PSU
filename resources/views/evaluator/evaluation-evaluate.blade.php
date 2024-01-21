@@ -255,7 +255,7 @@
                         subMatrixData.matrixItems.forEach(function(matrixItem) {
                             var li = document.createElement("li");
                             li.classList.add("font-normal", "text-gray-600");
-                            li.textContent = matrixItem.item + ' (' + matrixItem.score + '%) : Score ' + matrixItem.value + '%';
+                            li.textContent = matrixItem.item + ' : ' + matrixItem.value + '%';
                             ul.appendChild(li);
                         });
 
@@ -263,31 +263,31 @@
                         displayContainer.appendChild(subMatrixTitleDiv);
                     });
 
-                    // Calculate the average of total scores
-                    var totalScores = nestedArray.map(function(subMatrixData) {
-                        return subMatrixData.matrixItems.reduce(function(acc, matrixItem) {
-                            return acc + parseInt(matrixItem.value, 10);
-                        }, 0);
+                    // Flatten the nested array to get all matrix items
+                    var allMatrixItems = nestedArray.flatMap(function(subMatrixData) {
+                        return subMatrixData.matrixItems;
                     });
 
-                    var averageTotalScore = totalScores.reduce(function(acc, totalScore) {
-                        return acc + totalScore;
-                    }, 0) / totalScores.length;
-
+                    // Calculate the total scores and values for all matrix items
+                    var totalValues = allMatrixItems.reduce(function(acc, matrixItem) {
+                        return acc + parseInt(matrixItem.value, 10);
+                    }, 0);
+                    
                     // Hide or show buttons based on the average total score
                     var failedBtn = document.getElementById("failed-btn");
                     var passedBtn = document.getElementById("passed-btn");
 
-                    if (averageTotalScore > 75) {
+                    if (totalValues > 75) {
                         failedBtn.classList.add("hidden");
                         passedBtn.classList.remove("hidden");
                     } else {
                         failedBtn.classList.remove("hidden");
                         passedBtn.classList.add("hidden");
                     }
+
                     var averageScoreParagraph = document.createElement("p");
                     averageScoreParagraph.classList.add("font-medium", "text-md", "text-gray-800", "dark:text-white");
-                    averageScoreParagraph.textContent = "Average Score: " + averageTotalScore + "%";
+                    averageScoreParagraph.textContent = "Total Score: " + totalValues + "%";
                     displayContainer.appendChild(averageScoreParagraph);
                     
                     hiddenInput.value = displayContainer.innerHTML;
