@@ -5,7 +5,7 @@ use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Department;
-use App\models\Campus;
+use App\Models\Campus;
 use App\Notifications\SystemNotification;
 use Illuminate\Support\Facades\Notification;
 

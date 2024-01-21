@@ -14,6 +14,8 @@ use App\Models\Matrix;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+
 class SubmissionController extends Controller
 {
     public function index(Request $request)
@@ -123,66 +125,70 @@ class SubmissionController extends Controller
             'course_id' => 'required|exists:courses,id',
             'type' => 'required|in:course_book,textbook,modules,laboratory_manual,prototype,others',
         ]);
-        
-        $campusId = $request->input('campus_id');
-        $campus = Campus::find($campusId);
 
-        $matrix = Matrix::where('level', 'campus')
-                 ->where('campus_id', $campusId)
-                 ->where('stage', 1)
-                 ->first();
+        try {
+            $campusId = $request->input('campus_id');
+            $campus = Campus::find($campusId);
 
-        if (!$matrix) {
-            return redirect()->back()->with('error', 'Apologies, but currently, there is no available evaluation matrix for ' . $campus->campus_name );
+            $matrix = Matrix::where('level', 'campus')
+                    ->where('campus_id', $campusId)
+                    ->where('stage', 1)
+                    ->first();
+
+            if (!$matrix) {
+                return redirect()->back()->with('error', 'Apologies, but currently, there is no available evaluation matrix for ' . $campus->campus_name );
+            }
+
+            $matrixId = $matrix->id;
+
+            // Store Material PDF to storage
+            $originalFileName = $request->file('pdf_path')->getClientOriginalName();
+            $uniqueFileName = time() . '_' . $originalFileName;
+            $pdfPath = $request->file('pdf_path')->storeAs('pdfs', $uniqueFileName, 'public');
+            $pdfPath = 'storage/' . $pdfPath;
+
+            $instructionalMaterial = InstructionalMaterial::create([
+                'title' => $request->title,
+                'pdf_path' => $pdfPath,
+                'proponents' => $request->input('proponents'),
+                'course_id' => $request->input('course_id'),
+                'department_id' => $request->input('department_id'),
+                'campus_id' => $request->input('campus_id'),
+                'submitter_id' => $user->id,
+                'type' => $request->input('type'),
+            ]);
+
+            EvaluationStage::create([
+                'matrix_id' => $matrixId,
+                'material_id' => $instructionalMaterial->id,
+            ]);
+
+            $area = 'evaluator.evaluation_management'; 
+            $title = 'New Instructional Material Submitted'; 
+            $action = 'submitted'; 
+            $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material titled "' . $request->input('title') . '".'; 
+            
+            $users = User::where('role_id', 3)
+                ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
+                    $query->where('matrix_id', $matrixId);
+                })
+                ->get();
+
+            Log::create([
+                'area' => $area , 
+                'title' => $title,
+                'action' => $action,
+                'description' => $description,
+                'user_id' => $user->id, // ! Do not change
+            ]);
+            if ($users) {
+                Notification::send($users, new SystemNotification($title, $action, $description, $area));
+            }
+
+            return redirect()->back()->with('success', 'Instructional material submitted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred: ' . $e);
         }
-
-        $matrixId = $matrix->id;
-
-        // Store Material PDF to storage
-        $originalFileName = $request->file('pdf_path')->getClientOriginalName();
-        $uniqueFileName = time() . '_' . $originalFileName;
-        $pdfPath = $request->file('pdf_path')->storeAs('pdfs', $uniqueFileName, 'public');
-        $pdfPath = 'storage/' . $pdfPath;
-
-        $instructionalMaterial = InstructionalMaterial::create([
-            'title' => $request->title,
-            'pdf_path' => $pdfPath,
-            'proponents' => $request->input('proponents'),
-            'course_id' => $request->input('course_id'),
-            'department_id' => $request->input('department_id'),
-            'campus_id' => $request->input('campus_id'),
-            'submitter_id' => $user->id,
-            'type' => $request->input('type'),
-        ]);
-
-        EvaluationStage::create([
-            'matrix_id' => $matrixId,
-            'material_id' => $instructionalMaterial->id,
-        ]);
-
-        $area = 'evaluator.evaluation_management'; 
-        $title = 'New Instructional Material Submitted'; 
-        $action = 'submitted'; 
-        $description = $user->firstname . ' ' . $user->lastname . ' submitted a new Instructional Material titled "' . $request->input('title') . '".'; 
-        
-        $users = User::where('role_id', 3)
-            ->whereHas('evaluatorMatrix', function ($query) use ($matrixId) {
-                $query->where('matrix_id', $matrixId);
-            })
-            ->get();
-
-        Log::create([
-            'area' => $area , 
-            'title' => $title,
-            'action' => $action,
-            'description' => $description,
-            'user_id' => $user->id, // ! Do not change
-        ]);
-        if ($users) {
-            Notification::send($users, new SystemNotification($title, $action, $description, $area));
-        }
-
-        return redirect()->back()->with('success', 'Instructional material submitted successfully!');
     }
 
     public function resubmit(Request $request)

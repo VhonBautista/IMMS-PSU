@@ -107,9 +107,8 @@
     
                 <div class="flex items-start">
                     <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                        <option value="" selected>Select University Role</option>
                         @foreach($universityRoles as $universityRole)
-                            <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
+                            <option value="{{ $universityRole->id }}" @if($universityRole->university_role == 'Faculty') selected @endif>{{ $universityRole->university_role }}</option>
                         @endforeach
                     </select>
                 </div>

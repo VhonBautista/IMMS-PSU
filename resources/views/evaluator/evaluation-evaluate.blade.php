@@ -277,7 +277,7 @@
                     var failedBtn = document.getElementById("failed-btn");
                     var passedBtn = document.getElementById("passed-btn");
 
-                    if (totalValues > 75) {
+                    if (totalValues > 74) {
                         failedBtn.classList.add("hidden");
                         passedBtn.classList.remove("hidden");
                     } else {
