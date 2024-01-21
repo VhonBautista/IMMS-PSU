@@ -80,13 +80,13 @@
                     <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">{{ __('University Role') }}</label>
                     <div class="flex items-start">
                         <select name="university_role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-10 overflow-y-auto" required>
-                            <option value="" selected>{{ __('Select University Role') }}</option>
                             @foreach($universityRoles as $universityRole)
-                                <option value="{{ $universityRole->id }}">{{ $universityRole->university_role }}</option>
+                                <option value="{{ $universityRole->id }}" @if($universityRole->university_role === 'Faculty') selected @endif>{{ $universityRole->university_role }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+                
 
                 <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
 
@@ -109,7 +109,44 @@
                         <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required>
                     </div>
                     <div class="ml-3 text-sm">
-                        <label for="terms" class="font-light text-gray-500 dark:text-gray-300">{{ __('I accept the') }} <a class="font-medium text-blue-600 hover:underline dark:text-blue-500" href="#">{{ __('Terms and Conditions') }}</a></label>
+                        <div x-data="{ showModal: false }">
+                           
+                            <label for="terms" class="font-light text-gray-500 dark:text-gray-300 cursor-pointer">
+                                {{ __('I accept the') }} 
+                                <span @click="showModal = true" class="font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer">{{ __('Terms and Conditions') }}</span>
+                            </label>
+                        
+                          
+                            <div x-show="showModal" @click.away="showModal = false" class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto bg-black bg-opacity-50">
+                               
+                                <div class="bg-white p-8 rounded-lg">
+                                 
+                                    <button @click="showModal = false" class="absolute top-0 right-0 p-4 focus:outline-none">
+                                        <svg class="h-6 w-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                        
+                                    <!-- Modal Content Goes Here -->
+                                    <h1 class="text-2xl font-semibold mb-4">{{ __('Terms and Conditions') }}</h1>
+                                    <p class="text-gray-700 mb-4">
+                                        Welcome to the Pangasinan State University Instructional Management System. By using this system, you agree to comply with the following terms and conditions:
+                                    </p>
+                        
+                                    <ol class="list-decimal pl-6">
+                                        <li class="mb-2">All users must use the system responsibly and ethically.</li>
+                                        <li class="mb-2">Any unauthorized access to the system is strictly prohibited.</li>
+                                        <li class="mb-2">Users are responsible for maintaining the confidentiality of their accounts.</li>
+                                        <li class="mb-2">Respect the privacy and intellectual property rights of others.</li>
+                                        <li class="mb-2">The university reserves the right to monitor and audit system usage.</li>
+                                    </ol>
+                        
+                                    <p class="text-gray-700 mt-4">
+                                        Please contact the system administrators for any questions or concerns regarding these terms and conditions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
     
