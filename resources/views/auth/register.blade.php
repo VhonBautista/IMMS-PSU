@@ -68,7 +68,6 @@
                         <label for="show_password" class="text-gray-500 dark:text-gray-300">{{ __('Show passwords') }}</label>
                     </div>
                 </div>
-                
                 <x-input-error :messages="$errors->get('password')" class="mt-1" />
     
                 <h1 class="text-md font-bold leading-tight tracking-tight text-gray-900 md:text-lg dark:text-white">
@@ -86,8 +85,6 @@
                         </select>
                     </div>
                 </div>
-                
-
                 <x-input-error :messages="$errors->get('university_role')" class="mt-1" />
 
                 <div>
@@ -101,7 +98,6 @@
                         </select>
                     </div>
                 </div>
-
                 <x-input-error :messages="$errors->get('campus')" class="mt-1" />
     
                 <div class="flex items-start pt-3 ms-1" style="margin-top: 12px !important;">
@@ -110,26 +106,20 @@
                     </div>
                     <div class="ml-3 text-sm">
                         <div x-data="{ showModal: false }">
-                           
                             <label for="terms" class="font-light text-gray-500 dark:text-gray-300 cursor-pointer">
                                 {{ __('I accept the') }} 
-                                <span @click="showModal = true" class="font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer">{{ __('Terms and Conditions') }}</span>
+                                <span  x-data="" x-on:click.prevent="$dispatch('open-modal', 'terms-modal')" class="font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer">{{ __('Terms and Conditions') }}</span>
                             </label>
-                        
                           
-                            <div x-show="showModal" @click.away="showModal = false" class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto bg-black bg-opacity-50">
-                               
-                                <div class="bg-white p-8 rounded-lg">
-                                 
-                                    <button @click="showModal = false" class="absolute top-0 right-0 p-4 focus:outline-none">
-                                        <svg class="h-6 w-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                        
+                            {{-- Terms & Conditions Modal --}}
+                            <x-modal name="terms-modal">
+                                <div class="p-6">
                                     <!-- Modal Content Goes Here -->
-                                    <h1 class="text-2xl font-semibold mb-4">{{ __('Terms and Conditions') }}</h1>
-                                    <p class="text-gray-700 mb-4">
+                                    <h3 class="text-xl font-semibold text-center text-gray-900 dark:text-white">
+                                        {{ __('Terms & Conditions') }}
+                                    </h3>
+                                    
+                                    <p class="text-gray-700 mb-4 mt-2">
                                         Welcome to the Pangasinan State University Instructional Management System. By using this system, you agree to comply with the following terms and conditions:
                                     </p>
                         
@@ -144,8 +134,15 @@
                                     <p class="text-gray-700 mt-4">
                                         Please contact the system administrators for any questions or concerns regarding these terms and conditions.
                                     </p>
+
+                                    <div class="mt-5 pt-5 flex justify-center lg:justify-end">
+                                        <x-secondary-button x-on:click="$dispatch('close')" class="sm:w-44">
+                                            {{ __('Close') }}
+                                        </x-secondary-button>
+                                    </div>
                                 </div>
-                            </div>
+                            </x-modal>
+                            {{-- Modal End --}}
                         </div>
                     </div>
                 </div>
